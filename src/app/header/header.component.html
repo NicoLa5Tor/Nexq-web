@@ -1,0 +1,36 @@
+<!-- header.component.html -->
+<header class="header">
+  <div class="nav-container" [class.scrolled]="isScrolled">
+    <nav>
+      <a routerLink="/" class="logo">
+        <img src="assets/nexq-ai-logo.svg" alt="NEXQ-AI Logo" class="logo-img" *ngIf="false">
+        <!-- Fallback texto si no carga la imagen -->
+        <div class="logo-text">NEXQ<span class="logo-accent">-AI</span><span class="logo-dot"></span></div>
+      </a>
+      <div class="nav-links" [class.active]="mobileMenuOpen">
+        <a href="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="navigateTo('/', $event)">Inicio</a>
+        <a href="/servicios" class="nav-link" routerLinkActive="active" (click)="navigateTo('/servicios', $event)">Servicios</a>
+        <a href="/nosotros" class="nav-link" routerLinkActive="active" (click)="navigateTo('/nosotros', $event)">Nosotros</a>
+        <a href="/tecnologia" class="nav-link" routerLinkActive="active" (click)="navigateTo('/tecnologia', $event)">Tecnología</a>
+        <a href="/contacto" class="nav-link" routerLinkActive="active" (click)="navigateTo('/contacto', $event)">Contacto</a>
+      </div>
+      <div class="nav-actions">
+        <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+          <span [class.active]="mobileMenuOpen">☰</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+  
+  <!-- Spinner de carga estilo tech/AI -->
+  <div class="hacker-spinner" *ngIf="isNavigating">
+    <div class="nexq-spinner">
+      <div class="spinner-logo">NEXQ<span class="accent">-AI</span></div>
+      <div class="spinner-circle"></div>
+      <div class="spinner-pulse"></div>
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
+    </div>
+  </div>
+</header>

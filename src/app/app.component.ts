@@ -1,13 +1,24 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, Inject, OnInit, PLATFORM_ID, AfterViewInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [CommonModule, MainLayoutComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'NEXQ';
+export class AppComponent implements OnInit, AfterViewInit {
+  title = 'nexq-ai';
+  
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+  
+  ngOnInit(): void {
+
+  }
+  
+  ngAfterViewInit(): void {
+    
+  }
 }

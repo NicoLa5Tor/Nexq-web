@@ -1,0 +1,334 @@
+/* Añadir a tus estilos existentes */
+
+.header {
+  height: var(--nav-height);
+  position: relative; /* Para el posicionamiento del spinner */
+}
+
+.nav-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  background-color: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  z-index: 100;
+  transition: all 0.3s ease;
+  
+  &.scrolled {
+    background-color: rgba(10, 10, 15, 0.95);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+}
+
+nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 0 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  
+  .logo-img {
+    height: 40px;
+  }
+  
+  .logo-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+}
+
+.logo-accent {
+  background: linear-gradient(90deg, var(--nexq-blue), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-dot {
+  color: var(--accent-tertiary);
+  -webkit-text-fill-color: var(--accent-tertiary);
+  margin-left: 2px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
+  
+  &:hover, &.active {
+    color: var(--text-primary);
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--nexq-blue), var(--accent-secondary));
+    transition: width 0.3s ease;
+  }
+  
+  &:hover::after, &.active::after {
+    width: 100%;
+  }
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cta-button {
+  background: linear-gradient(90deg, var(--nexq-blue), var(--accent-secondary));
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(94, 137, 176, 0.3);
+  }
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  
+  span {
+    display: block;
+    transition: transform 0.3s ease;
+    
+    &.active {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+/* Estilos para el spinner tech/AI */
+.hacker-spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 10, 15, 0.95); /* Mismo color que el header */
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  animation: fadeIn 0.2s ease-in-out; /* Animación de entrada más rápida */
+}
+
+.nexq-spinner {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-logo {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-primary, #fff);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  letter-spacing: 1px;
+  z-index: 2;
+}
+
+.accent {
+  background: linear-gradient(90deg, var(--nexq-blue, #3498db), var(--accent-secondary, #00c2ff));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.spinner-circle {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  border-top: 2px solid var(--nexq-blue, #3498db);
+  border-right: 2px solid transparent;
+  border-bottom: 2px solid var(--accent-secondary, #00c2ff);
+  border-left: 2px solid transparent;
+  animation: spin 1s linear infinite;
+}
+
+.spinner-pulse {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 194, 255, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.loading-bar {
+  position: absolute;
+  bottom: 20px;
+  width: 140px;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.loading-progress {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--nexq-blue, #3498db), var(--accent-secondary, #00c2ff));
+  animation: progress 1s ease-in-out forwards;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.9); opacity: 0.3; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+  100% { transform: scale(0.9); opacity: 0.3; }
+}
+
+@keyframes progress {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Animaciones */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.8; }
+}
+
+@keyframes typewriter {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Media queries (manteniendo los existentes) */
+@media (max-width: 992px) {
+  .nav-links {
+    gap: 1.5rem;
+  }
+  
+  .cta-button {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background-color: rgba(10, 10, 15, 0.95);
+    padding: 1.5rem;
+    gap: 1.2rem;
+    transform: translateY(-100vh);
+    transition: transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 99;
+    
+    &.active {
+      transform: translateY(0);
+    }
+    
+    .nav-link {
+      padding: 0.8rem 0;
+      width: 100%;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+  
+  .cta-button {
+    display: none;
+  }
+  
+  /* Ajustamos el spinner para mobile */
+  .nexq-spinner {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .spinner-logo {
+    font-size: 2rem;
+  }
+  
+  .spinner-circle {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .spinner-pulse {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .loading-bar {
+    width: 100px;
+  }
+}

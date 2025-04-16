@@ -1,0 +1,678 @@
+/* maintenance.component.scss */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Media queries para dispositivos móviles */
+@media (max-width: 768px) {
+  .hacker-animation {
+    height: 250px;
+  }
+  
+  .head {
+    width: 50px;
+    height: 60px;
+  }
+  
+  .eyes {
+    width: 32px;
+    height: 12px;
+    top: 18px;
+    left: 9px;
+  }
+  
+  .mask {
+    width: 32px;
+    height: 16px;
+    bottom: 13px;
+    left: 9px;
+  }
+  
+  .hoodie {
+    width: 66px;
+    height: 32px;
+    top: -16px;
+    left: -8px;
+  }
+  
+  .body {
+    width: 85px;
+    height: 100px;
+  }
+  
+  .laptop {
+    width: 100px;
+    height: 60px;
+    bottom: 18px;
+    left: -7px;
+  }
+  
+  .screen {
+    width: 85px;
+    height: 50px;
+  }
+  
+  .tools .tool {
+    transform: scale(0.8);
+  }
+}
+
+@media (max-width: 480px) {
+  .hacker-animation {
+    height: 200px;
+  }
+  
+  .message-box {
+    padding: 10px;
+  }
+  
+  .typing-text {
+    font-size: 0.85rem;
+  }
+  
+  .tool.screwdriver {
+    display: none;
+  }
+  
+  .binary-rain {
+    opacity: 0.2;
+  }
+  
+  .head {
+    width: 40px;
+    height: 50px;
+  }
+  
+  .eyes {
+    width: 25px;
+    height: 10px;
+    top: 15px;
+    left: 7px;
+  }
+  
+  .mask {
+    width: 25px;
+    height: 14px;
+    bottom: 10px;
+    left: 7px;
+  }
+  
+  .hoodie {
+    width: 55px;
+    height: 26px;
+    top: -13px;
+    left: -7px;
+  }
+  
+  .body {
+    width: 70px;
+    height: 80px;
+  }
+  
+  .laptop {
+    width: 80px;
+    height: 50px;
+    bottom: 15px;
+  }
+  
+  .screen {
+    width: 70px;
+    height: 40px;
+  }
+}
+
+.maintenance-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #0a0a0a;
+  overflow: hidden;
+  font-family: 'Share Tech Mono', monospace;
+  color: #0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Nombre de usuario como fondo */
+.username-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(2rem, 20vw, 30rem); /* Responsive font size */
+  opacity: 0.05;
+  user-select: none;
+  z-index: 0;
+  transform: rotate(-15deg);
+  color: #00ff00;
+  text-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+}
+
+.maintenance-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Título con efecto glitch */
+.glitch-text {
+  color: #00ff00;
+  font-size: clamp(1.5rem, 5vw, 3rem); /* Responsive font size */
+  text-transform: uppercase;
+  letter-spacing: min(5px, 0.5vw); /* Responsive letter spacing */
+  margin-bottom: clamp(20px, 5vh, 50px); /* Responsive margin */
+  position: relative;
+  text-shadow: 
+    0 0 5px rgba(0, 255, 0, 0.7),
+    0 0 10px rgba(0, 255, 0, 0.5),
+    0 0 15px rgba(0, 255, 0, 0.3);
+  animation: glitch 2s infinite alternate-reverse;
+}
+
+@keyframes glitch {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px rgba(0, 255, 0, 0.7),
+      0 0 10px rgba(0, 255, 0, 0.5),
+      0 0 15px rgba(0, 255, 0, 0.3);
+    transform: skewX(0);
+  }
+  20% {
+    text-shadow: 
+      -2px 0 rgba(255, 0, 0, 0.7),
+      2px 1px rgba(0, 255, 255, 0.7);
+    transform: skewX(4deg);
+  }
+  40% {
+    text-shadow: 
+      2px -1px rgba(255, 0, 0, 0.7),
+      -2px -1px rgba(0, 255, 255, 0.7);
+    transform: skewX(-4deg);
+  }
+  60% {
+    text-shadow: 
+      2px 1px rgba(255, 0, 0, 0.7),
+      -2px -1px rgba(0, 255, 255, 0.7);
+    transform: skewX(2deg);
+  }
+  80% {
+    text-shadow: 
+      -2px -1px rgba(255, 0, 0, 0.7),
+      2px 1px rgba(0, 255, 255, 0.7);
+    transform: skewX(-2deg);
+  }
+}
+
+/* Animación del hacker */
+.hacker-animation {
+  position: relative;
+  width: min(300px, 90vw);
+  height: min(300px, 90vw);
+  margin: 0 auto clamp(20px, 5vh, 40px);
+}
+
+.hacker-character {
+  position: absolute;
+  width: min(150px, 50%);
+  height: min(200px, 60%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.head {
+  position: relative;
+  width: 60px;
+  height: 70px;
+  margin: 0 auto;
+  background-color: #222;
+  border-radius: 35px 35px 25px 25px;
+  overflow: hidden;
+}
+
+.face {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.eyes {
+  position: absolute;
+  width: 40px;
+  height: 15px;
+  background-color: #000;
+  border-radius: 10px;
+  top: 20px;
+  left: 10px;
+  overflow: hidden;
+}
+
+.eyes::before, .eyes::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #0f0;
+  border-radius: 50%;
+  top: 2px;
+  animation: typing 1.2s infinite;
+}
+
+.eyes::before {
+  left: 8px;
+}
+
+.eyes::after {
+  right: 8px;
+}
+
+@keyframes typing {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(2px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+}
+
+.mask {
+  position: absolute;
+  width: 40px;
+  height: 20px;
+  background-color: #333;
+  bottom: 15px;
+  left: 10px;
+  border-radius: 5px;
+}
+
+.hoodie {
+  position: absolute;
+  width: 80px;
+  height: 40px;
+  background-color: #222;
+  border-radius: 40px 40px 0 0;
+  top: -20px;
+  left: -10px;
+}
+
+.body {
+  position: relative;
+  width: 100px;
+  height: 120px;
+  background-color: #222;
+  margin: -10px auto 0;
+  border-radius: 30px 30px 0 0;
+  overflow: hidden;
+}
+
+.laptop {
+  position: absolute;
+  width: 120px;
+  height: 70px;
+  background-color: #333;
+  bottom: 20px;
+  left: -10px;
+  border-radius: 10px;
+  transform: perspective(200px) rotateX(45deg);
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.screen {
+  position: absolute;
+  width: 100px;
+  height: 60px;
+  background-color: #0a0a0a;
+  top: 5px;
+  left: 10px;
+  overflow: hidden;
+}
+
+.code-lines {
+  position: absolute;
+  width: 100%;
+  height: 300%;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    transparent 40%,
+    #0f0 40%,
+    #0f0 43%,
+    transparent 43%,
+    transparent 60%,
+    #0f0 60%,
+    #0f0 63%,
+    transparent 63%,
+    transparent 80%,
+    #0f0 80%,
+    #0f0 83%,
+    transparent 83%);
+  background-size: 100% 20px;
+  animation: scrollCode 2s linear infinite;
+}
+
+@keyframes scrollCode {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-20px);
+  }
+}
+
+.keyboard {
+  position: absolute;
+  width: 90%;
+  height: 8px;
+  background-color: #444;
+  bottom: 5px;
+  left: 5%;
+  border-radius: 2px;
+}
+
+.arms {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.arm {
+  position: absolute;
+  width: 15px;
+  height: 60px;
+  background-color: #222;
+  top: 0;
+  border-radius: 7px;
+}
+
+.arm.left {
+  left: -5px;
+  transform-origin: top center;
+  animation: typing-left 1s infinite;
+}
+
+.arm.right {
+  right: -5px;
+  transform-origin: top center;
+  animation: typing-right 1s infinite;
+}
+
+@keyframes typing-left {
+  0%, 100% {
+    transform: rotate(-15deg);
+  }
+  50% {
+    transform: rotate(-25deg);
+  }
+}
+
+@keyframes typing-right {
+  0%, 100% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(25deg);
+  }
+}
+
+/* Herramientas flotantes */
+.tools {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.tool {
+  position: absolute;
+  background-color: #555;
+  border-radius: 2px;
+  box-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+}
+
+.tool.wrench {
+  width: 30px;
+  height: 7px;
+  top: 40%;
+  left: 20%;
+  transform-origin: center;
+  animation: float 4s ease-in-out infinite, rotate 10s linear infinite;
+}
+
+.tool.wrench::before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 3px solid #555;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  top: -8px;
+  left: -5px;
+}
+
+.tool.screwdriver {
+  width: 5px;
+  height: 40px;
+  top: 30%;
+  right: 25%;
+  transform-origin: center;
+  animation: float 5s ease-in-out infinite, rotate 12s linear reverse infinite;
+}
+
+.tool.screwdriver::before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 8px;
+  background-color: #777;
+  top: -8px;
+  left: -3.5px;
+  border-radius: 2px;
+}
+
+.tool.keyboard {
+  width: 40px;
+  height: 15px;
+  bottom: 30%;
+  right: 10%;
+  border-radius: 3px;
+  animation: float 6s ease-in-out infinite;
+}
+
+.tool.keyboard::before {
+  content: '';
+  position: absolute;
+  width: 95%;
+  height: 2px;
+  background-color: #0f0;
+  top: 4px;
+  left: 2.5%;
+  box-shadow: 0 5px 0 #0f0;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Lluvia de código binario */
+.binary-rain {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+.binary-column {
+  position: absolute;
+  top: -20%;
+  display: flex;
+  flex-direction: column;
+  animation: rain 15s linear infinite;
+}
+
+.binary-digit {
+  color: #0f0;
+  font-size: clamp(10px, 1.5vw, 14px);
+  line-height: clamp(10px, 1.5vw, 14px);
+  opacity: 0.8;
+  text-shadow: 0 0 5px #0f0;
+  animation: flicker 3s linear infinite;
+}
+
+@keyframes rain {
+  from {
+    transform: translateY(-100px);
+  }
+  to {
+    transform: translateY(calc(100vh + 200px));
+  }
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Caja de mensajes */
+.message-box {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid #0f0;
+  border-radius: 5px;
+  padding: clamp(10px, 3vw, 20px);
+  margin-top: clamp(10px, 3vh, 20px);
+  text-align: left;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  word-break: break-word;
+}
+
+.message-box::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #0f0, transparent);
+  top: 0;
+  left: -100%;
+  animation: scan 2s linear infinite;
+}
+
+@keyframes scan {
+  from {
+    left: -100%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+.typing-text {
+  margin: 5px 0;
+  position: relative;
+  padding-left: 10px;
+  animation: typing-cursor 1s step-end infinite;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.typing-text:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-text:nth-child(2) {
+  animation-delay: 2s;
+}
+
+.typing-text:nth-child(3) {
+  animation-delay: 4s;
+}
+
+.typing-text:nth-child(4) {
+  animation-delay: 6s;
+}
+
+@keyframes typing-cursor {
+  from, to {
+    border-left: 2px solid transparent;
+  }
+  50% {
+    border-left: 2px solid #0f0;
+  }
+}
+
+/* Fondo estilo Matrix */
+.matrix-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.9) 0px,
+    rgba(0, 0, 0, 0.9) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.matrix-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.8) 70%
+  );
+}

@@ -108,7 +108,6 @@ nav {
   z-index: -1;
   overflow: hidden;
   
-  // Grid background with enhanced blur and opacity
   &::before {
     content: "";
     position: absolute;
@@ -243,14 +242,94 @@ nav {
   background-color: rgba(18, 18, 24, 0.7);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  transform-origin: center;
 }
 
 .neural-network-wrapper {
   position: relative;
-  animation: float 6s ease-in-out infinite;
+  max-width: 100%;
+  animation: none !important; /* Eliminar cualquier animación float */
+  transform: none !important; /* Evitar transformaciones que afecten el tamaño */
 }
 
-// Estilos para los círculos concéntricos del logo
+.neural-network-wrapper svg {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+}
+
+// Eliminar animaciones de la clase animation-active
+.neural-network-container.animation-active .neural-network-wrapper {
+  animation: none !important;
+  transform: none !important;
+}
+
+// Redefinir las animaciones problemáticas sin movimiento vertical
+@keyframes float {
+  0%, 50%, 100% {
+    transform: none; /* Sin movimiento vertical */
+  }
+}
+
+@keyframes networkAppear {
+  0%, 100% {
+    opacity: 1;
+    transform: none; /* Sin movimiento vertical */
+  }
+}
+
+// Solo permitir transiciones de opacidad, no de posición
+.neural-network-container.scroll-reveal {
+  opacity: 0;
+  transform: none !important;
+  transition: opacity 1s ease-out;
+}
+
+.neural-network-container.scroll-reveal.revealed {
+  opacity: 1;
+  transform: none !important;
+}
+
+// Nodos con efecto de aparición
+.node {
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+}
+
+.node.active {
+  opacity: 1;
+  transform: scale(1);
+  animation: pulse 3s infinite;
+}
+
+// Conexiones con efecto de flujo de datos
+.connection {
+  stroke-dasharray: 10;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.connection.active {
+  opacity: 1;
+  animation: dataFlow 3s linear infinite;
+}
+
+// Animaciones escalonadas para las conexiones
+.c1 { animation-delay: 0.1s; }
+.c2 { animation-delay: 0.2s; }
+.c3 { animation-delay: 0.3s; }
+.c4 { animation-delay: 0.4s; }
+.c5 { animation-delay: 0.5s; }
+.c6 { animation-delay: 0.6s; }
+.c7 { animation-delay: 0.7s; }
+.c8 { animation-delay: 0.8s; }
+.c9 { animation-delay: 0.9s; }
+.c10 { animation-delay: 1.0s; }
+.c11 { animation-delay: 1.1s; }
+.c12 { animation-delay: 1.2s; }
+.c13 { animation-delay: 1.3s; }
+
 .logo-outer-circle, .logo-middle-circle, .logo-inner-circle {
   transition: all 0.3s ease;
 }
@@ -258,18 +337,6 @@ nav {
 // Animaciones
 .floating-element {
   animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
 }
 
 .animated-gradient {
@@ -338,17 +405,48 @@ nav {
 
 @keyframes circlePulse {
   0% {
-    opacity: 0.8;
+    opacity: 0.9;
     transform: scale(1);
+    filter: brightness(1);
   }
   50% {
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.04);
+    filter: brightness(1.05);
   }
   100% {
-    opacity: 0.8;
+    opacity: 0.9;
     transform: scale(1);
+    filter: brightness(1);
   }
+}
+
+/* Animación sutil para el punto brillante */
+@keyframes highlightMove {
+  0% {
+    opacity: 0.1;
+    transform: translate(0, 0);
+  }
+  25% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.2;
+    transform: translate(3px, 3px);
+  }
+  75% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.1;
+    transform: translate(0, 0);
+  }
+}
+
+.logo-highlight {
+  animation: highlightMove 6s ease-in-out infinite;
+  animation-delay: 3s;
+  opacity: 0;
 }
 
 @keyframes dataFlow {
@@ -365,16 +463,131 @@ nav {
   }
 }
 
+/* Animación para dibujar círculos */
+@keyframes drawCircle {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* Animación para el relleno después del trazado con transición gradual del color */
+@keyframes fillCircleOuter {
+  0% {
+    opacity: 0;
+    fill: transparent;
+  }
+  60% {
+    opacity: 0.3;
+    fill: url(#outerGradient);
+  }
+  80% {
+    opacity: 0.6;
+    fill: url(#outerGradient);
+  }
+  100% {
+    opacity: 1;
+    fill: url(#outerGradient);
+  }
+}
+
+@keyframes fillCircleMiddle {
+  0% {
+    opacity: 0;
+    fill: transparent;
+  }
+  60% {
+    opacity: 0.3;
+    fill: url(#middleGradient);
+  }
+  80% {
+    opacity: 0.6;
+    fill: url(#middleGradient);
+  }
+  100% {
+    opacity: 1;
+    fill: url(#middleGradient);
+  }
+}
+
+@keyframes fillCircleInner {
+  0% {
+    opacity: 0;
+    fill: transparent;
+  }
+  60% {
+    opacity: 0.3;
+    fill: url(#innerGradient);
+  }
+  80% {
+    opacity: 0.6;
+    fill: url(#innerGradient);
+  }
+  100% {
+    opacity: 1;
+    fill: url(#innerGradient);
+  }
+}
+
+/* Animación para ocultar las líneas después de que se completa el relleno */
+@keyframes fadeOutStroke {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Trazado animado para los círculos del logo */
+.logo-outer-circle-path {
+  stroke-dasharray: 345;
+  stroke-dashoffset: 345;
+  animation: drawCircle 2.5s ease forwards, fadeOutStroke 1s ease forwards 3s;
+}
+
+.logo-middle-circle-path {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  animation: drawCircle 2s ease forwards 0.5s, fadeOutStroke 1s ease forwards 3s;
+}
+
+.logo-inner-circle-path {
+  stroke-dasharray: 95;
+  stroke-dashoffset: 95;
+  animation: drawCircle 1.5s ease forwards 1s, fadeOutStroke 1s ease forwards 3s;
+}
+
+/* Animación para el relleno de los círculos */
 .logo-outer-circle {
-  animation: circlePulse 6s infinite;
+  opacity: 0;
+  fill: transparent;
+  animation: fillCircleOuter 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 1s, circlePulse 4s infinite 3.5s;
+  transform-origin: center;
 }
 
 .logo-middle-circle {
-  animation: circlePulse 6s infinite 1s;
+  opacity: 0;
+  fill: transparent;
+  animation: fillCircleMiddle 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 1.3s, circlePulse 4.5s infinite 3.7s;
+  transform-origin: center;
 }
 
 .logo-inner-circle {
-  animation: circlePulse 6s infinite 2s;
+  opacity: 0;
+  fill: transparent;
+  animation: fillCircleInner 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 1.6s, circlePulse 5s infinite 4s;
+  transform-origin: center;
 }
 
 .node {
@@ -397,28 +610,18 @@ nav {
   animation-delay: 1.5s;
 }
 
-.connection {
-  stroke-dasharray: 10;
-  animation: dataFlow 3s linear infinite;
+.logo-text {
+  /* Quitamos la animación automática de glow */
+  /* animation: glow 3s ease-in-out infinite; */
 }
 
-// Animaciones escalonadas para las conexiones
-.c1 { animation-delay: 0.1s; }
-.c2 { animation-delay: 0.2s; }
-.c3 { animation-delay: 0.3s; }
-.c4 { animation-delay: 0.4s; }
-.c5 { animation-delay: 0.5s; }
-.c6 { animation-delay: 0.6s; }
-.c7 { animation-delay: 0.7s; }
-.c8 { animation-delay: 0.8s; }
-.c9 { animation-delay: 0.9s; }
-.c10 { animation-delay: 1.0s; }
-.c11 { animation-delay: 1.1s; }
-.c12 { animation-delay: 1.2s; }
-.c13 { animation-delay: 1.3s; }
+.logo-text text {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
-.logo-text {
-  animation: glow 3s ease-in-out infinite;
+.logo-text.active text {
+  opacity: 1;
 }
 
 @keyframes glow {
@@ -443,6 +646,22 @@ nav {
   background: linear-gradient(90deg, var(--text-primary), var(--nexq-blue), var(--accent-secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Transición suave para el salto de línea */
+.line-break.fade-in {
+  animation: lineBreakFadeIn 0.3s ease-out forwards;
+}
+
+@keyframes lineBreakFadeIn {
+  0% {
+    opacity: 0;
+    line-height: 0.8;
+  }
+  100% {
+    opacity: 1;
+    line-height: 1.2;
+  }
 }
 
 /* Creamos un pseudo-elemento para el cursor al final del texto */
@@ -492,10 +711,69 @@ nav {
   transition-delay: 0.6s;
 }
 
-/* ELIMINADO: ESTILOS PARA AOS */
+// Estilos mejorados para el efecto de Scroll Reveal
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.5s ease-out, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: opacity, transform;
+}
 
-// Media Queries
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Diferentes estilos de animación para componentes con parallax */
+app-services-overview.scroll-reveal {
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: opacity 1.8s ease-out, transform 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+app-services-overview.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateX(0) translateZ(10px);
+}
+
+app-about-us.scroll-reveal {
+  opacity: 0;
+  transform: scale(0.85) translateY(40px);
+  transition: opacity 1.8s ease-out, transform 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+app-about-us.scroll-reveal.revealed {
+  opacity: 1;
+  transform: scale(1) translateY(0) translateZ(20px);
+}
+
+app-contact.scroll-reveal {
+  opacity: 0;
+  transform: translateX(80px) translateY(20px);
+  transition: opacity 1.8s ease-out, transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+app-contact.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateX(0) translateY(0) translateZ(30px);
+}
+
+/* Tamaños específicos según el dispositivo */
 @media (max-width: 1024px) {
+  .neural-network-wrapper svg {
+    max-height: 220px !important;
+    height: 220px !important;
+  }
+  
   .hero-content {
     padding: 2.5rem 1.5rem;
   }
@@ -511,6 +789,11 @@ nav {
 }
 
 @media (max-width: 900px) {
+  .neural-network-wrapper svg {
+    max-height: 190px !important;
+    height: 190px !important;
+  }
+  
   .hero-title {
     font-size: 2.8rem;
   }
@@ -524,11 +807,6 @@ nav {
     gap: 1rem;
   }
   
-  .neural-network-wrapper svg {
-    height: auto;
-    max-height: 190px;
-  }
-  
   .typewriter-effect::after {
     right: 0;
     position: relative;
@@ -537,6 +815,11 @@ nav {
 }
 
 @media (max-width: 768px) {
+  .neural-network-wrapper svg {
+    max-height: 170px !important;
+    height: 170px !important;
+  }
+  
   .hero-background::before {
     backdrop-filter: blur(40px);
     -webkit-backdrop-filter: blur(40px);
@@ -576,13 +859,14 @@ nav {
     backdrop-filter: blur(60px);
     -webkit-backdrop-filter: blur(60px);
   }
-  
-  .neural-network-wrapper svg {
-    max-height: 170px;
-  }
 }
 
 @media (max-width: 480px) {
+  .neural-network-wrapper svg {
+    max-height: 150px !important;
+    height: 150px !important;
+  }
+  
   .hero-background::before {
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
@@ -610,10 +894,6 @@ nav {
   
   nav {
     padding: 0 1rem;
-  }
-  
-  .neural-network-wrapper svg {
-    max-height: 150px;
   }
 }
 
@@ -657,24 +937,29 @@ nav {
   .node,
   .logo-outer-circle,
   .logo-middle-circle,
-  .logo-inner-circle {
-    animation: none;
-    transition: none;
+  .logo-inner-circle,
+  .neural-network-wrapper {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
   }
   
   .scroll-reveal, 
   .sequential-fade {
-    transition: opacity 0.4s ease;
-    transform: none;
+    transition: opacity 0.4s ease !important;
   }
   
   .scroll-reveal.revealed, 
   .sequential-fade.show {
-    transform: none;
+    transform: none !important;
   }
 
   .hero-background::before {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+  
+  .neural-network-container.animation-active .neural-network-wrapper {
+    animation: none !important;
   }
 }

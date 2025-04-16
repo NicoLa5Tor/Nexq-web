@@ -1,0 +1,117 @@
+<div class="glow-cursor"></div>
+
+<section class="hero-section">
+  <div class="hero-background">
+    <div class="hero-radial-bg"></div>
+    <div class="glow" style="top: 20%; left: 15%;"></div>
+    <div class="glow" style="bottom: 10%; right: 20%; background: var(--accent-secondary);"></div>
+  </div>
+  
+  <div class="hero-content scroll-reveal">
+    <!-- Sección de logo y título con animaciones originales -->
+    <div class="hero-header">
+      <div class="hero-logo-container fade-in">
+        <!-- Logo animado de NEXQ-IA con animaciones originales -->
+        <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="hero-logo">
+          <!-- Definición de gradientes para transiciones más suaves -->
+          <defs>
+            <radialGradient id="outerGradient" cx="50%" cy="50%" r="55%" fx="40%" fy="40%">
+              <stop offset="0%" stop-color="#4a6483" />
+              <stop offset="100%" stop-color="#3a546d" />
+            </radialGradient>
+            
+            <radialGradient id="middleGradient" cx="50%" cy="50%" r="35%" fx="40%" fy="40%">
+              <stop offset="0%" stop-color="#6e99c0" />
+              <stop offset="100%" stop-color="#5e89b0" />
+            </radialGradient>
+            
+            <radialGradient id="innerGradient" cx="50%" cy="50%" r="15%" fx="40%" fy="40%">
+              <stop offset="0%" stop-color="#3c4e60" />
+              <stop offset="100%" stop-color="#2c3e50" />
+            </radialGradient>
+          </defs>
+          
+          <!-- Círculo exterior -->
+          <circle cx="60" cy="60" r="55" fill="none" stroke="#3a546d" stroke-width="2" class="logo-outer-circle-path" />
+          <circle cx="60" cy="60" r="55" fill="url(#outerGradient)" class="logo-outer-circle" />
+          
+          <!-- Círculo medio -->
+          <circle cx="60" cy="60" r="35" fill="none" stroke="#5e89b0" stroke-width="2" class="logo-middle-circle-path" />
+          <circle cx="60" cy="60" r="35" fill="url(#middleGradient)" class="logo-middle-circle" />
+          
+          <!-- Círculo interior -->
+          <circle cx="60" cy="60" r="15" fill="none" stroke="#2c3e50" stroke-width="2" class="logo-inner-circle-path" />
+          <circle cx="60" cy="60" r="15" fill="url(#innerGradient)" class="logo-inner-circle" />
+        </svg>
+      </div>
+      <!-- Título con efecto typewriter que mantendrá el salto de línea -->
+      <h1 class="hero-title">Transforma Tus Datos En
+Decisiones Estratégicas</h1>
+    </div>
+    
+    <!-- Elementos que aparecerán secuencialmente después del typewriter -->
+    <p class="hero-description sequential-fade">Consultoría especializada en inteligencia artificial para optimizar procesos, analizar información y potenciar la innovación en tu empresa.</p>
+    
+    <div class="hero-buttons sequential-fade">
+      <button class="cta-button">Solicitar Consultoría</button>
+      <button class="secondary-button">Conocer Soluciones</button>
+    </div>
+    
+    <!-- Red neuronal animada que aparecerá al final de la secuencia -->
+    <div class="neural-network-container scroll-reveal">
+      <div class="neural-network-wrapper">
+        <svg width="100%" height="190" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
+          <!-- Nodos y conexiones representando una red neuronal -->
+          <!-- Contenedor para el texto que aparecerá durante la animación -->
+          <g class="logo-text">
+            <text x="300" y="35" font-family="'Inter', sans-serif" font-weight="700" font-size="24" fill="#ffffff" opacity="0"></text>
+          </g>
+          
+          <!-- Capa 1 - entrada -->
+          <circle cx="150" cy="60" r="8" class="node node-input" fill="#00ffe5"/>
+          <circle cx="150" cy="100" r="8" class="node node-input" fill="#00ffe5"/>
+          <circle cx="150" cy="140" r="8" class="node node-input" fill="#00ffe5"/>
+          
+          <!-- Capa 2 - oculta -->
+          <circle cx="300" cy="60" r="8" class="node node-hidden" fill="#ff7edb"/>
+          <circle cx="300" cy="100" r="8" class="node node-hidden" fill="#ff7edb"/>
+          <circle cx="300" cy="140" r="8" class="node node-hidden" fill="#ff7edb"/>
+          
+          <!-- Capa 3 - oculta -->
+          <circle cx="450" cy="80" r="8" class="node node-hidden-2" fill="#6e56cf"/>
+          <circle cx="450" cy="120" r="8" class="node node-hidden-2" fill="#6e56cf"/>
+          
+          <!-- Capa 4 - salida -->
+          <circle cx="600" cy="100" r="8" class="node node-output" fill="#00ffe5"/>
+          
+          <!-- Conexiones entre nodos con animación de flujo de datos -->
+          <!-- Conexiones de capa 1 a capa 2 -->
+          <line x1="158" y1="60" x2="292" y2="60" stroke="#00ffe5" stroke-width="1.5" stroke-opacity="0.6" class="connection c1"/>
+          <line x1="158" y1="60" x2="292" y2="100" stroke="#00ffe5" stroke-width="1.5" stroke-opacity="0.6" class="connection c2"/>
+          <line x1="158" y1="100" x2="292" y2="60" stroke="#00ffe5" stroke-width="1.5" stroke-opacity="0.4" class="connection c3"/>
+          <line x1="158" y1="100" x2="292" y2="100" stroke="#00ffe5" stroke-width="1.5" stroke-opacity="0.6" class="connection c4"/>
+          <line x1="158" y1="100" x2="292" y2="140" stroke="#00ffe5" stroke-width="1.5" stroke-opacity="0.6" class="connection c5"/>
+          <line x1="158" y1="140" x2="292" y2="100" stroke="#00ffe5" stroke-width="1.5" stroke-opacity="0.4" class="connection c6"/>
+          <line x1="158" y1="140" x2="292" y2="140" stroke="#00ffe5" stroke-width="1.5" stroke-opacity="0.6" class="connection c7"/>
+          
+          <!-- Conexiones de capa 2 a capa 3 -->
+          <line x1="308" y1="60" x2="442" y2="80" stroke="#ff7edb" stroke-width="1.5" stroke-opacity="0.6" class="connection c8"/>
+          <line x1="308" y1="100" x2="442" y2="80" stroke="#ff7edb" stroke-width="1.5" stroke-opacity="0.6" class="connection c9"/>
+          <line x1="308" y1="100" x2="442" y2="120" stroke="#ff7edb" stroke-width="1.5" stroke-opacity="0.6" class="connection c10"/>
+          <line x1="308" y1="140" x2="442" y2="120" stroke="#ff7edb" stroke-width="1.5" stroke-opacity="0.6" class="connection c11"/>
+          
+          <!-- Conexiones de capa 3 a capa 4 -->
+          <line x1="458" y1="80" x2="592" y2="100" stroke="#6e56cf" stroke-width="1.5" stroke-opacity="0.6" class="connection c12"/>
+          <line x1="458" y1="120" x2="592" y2="100" stroke="#6e56cf" stroke-width="1.5" stroke-opacity="0.6" class="connection c13"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Componentes adicionales sin atributos AOS -->
+<app-services-overview class="scroll-reveal">
+
+</app-services-overview>
+<app-about-us class="scroll-reveal"></app-about-us>
+<app-contact class="scroll-reveal"></app-contact>
+<app-features class="scroll-reveal"></app-features>

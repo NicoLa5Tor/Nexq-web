@@ -1,0 +1,56 @@
+<!-- maintenance.component.html -->
+<div class="maintenance-container">
+    <div class="username-background">NicoL45Tor</div>
+    
+    <div class="maintenance-content">
+      <h1 class="glitch-text">VISTA EN MANTENIMIENTO</h1>
+      
+      <div class="hacker-animation">
+        <div class="hacker-character">
+          <div class="head">
+            <div class="face">
+              <div class="eyes"></div>
+              <div class="mask"></div>
+            </div>
+            <div class="hoodie"></div>
+          </div>
+          <div class="body">
+            <div class="laptop">
+              <div class="screen">
+                <div class="code-lines"></div>
+              </div>
+              <div class="keyboard"></div>
+            </div>
+            <div class="arms">
+              <div class="arm left"></div>
+              <div class="arm right"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="binary-rain">
+          @for (column of binaryColumns; track column.position) {
+            <div class="binary-column" [ngStyle]="{'left': column.position+'%', 'animation-delay': column.delay+'s'}">
+              @for (digit of binaryDigits; track digit) {
+                <span class="binary-digit">{{ digit }}</span>
+              }
+            </div>
+          }
+        </div>
+        
+        <div class="tools">
+          <div class="tool wrench"></div>
+          <div class="tool screwdriver"></div>
+          <div class="tool keyboard"></div>
+        </div>
+      </div>
+      
+      <div class="message-box">
+        @for (message of consoleMessages; track message) {
+          <p class="typing-text">$ {{ message }}</p>
+        }
+      </div>
+    </div>
+    
+    <div class="matrix-background"></div>
+  </div>
