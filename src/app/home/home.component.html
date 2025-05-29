@@ -1,117 +1,334 @@
+<!-- Enhanced home.component.html with parallax and advanced animations -->
 <div class="glow-cursor"></div>
 
 <section class="hero-section">
+  <!-- Enhanced background with multiple parallax layers -->
   <div class="hero-background">
     <div class="hero-radial-bg"></div>
-    <div class="glow" style="top: 20%; left: 15%;"></div>
-    <div class="glow" style="bottom: 10%; right: 20%; background: var(--accent-secondary);"></div>
+    <!-- Multiple glow elements for depth -->
+    <div class="glow"></div>
+    <div class="glow"></div>
+    <div class="glow"></div>
   </div>
   
+  <!-- Enhanced hero content with 3D tilt effects -->
   <div class="hero-content scroll-reveal">
-    <!-- Sección de logo y título con animaciones originales -->
+    <!-- Logo section with particle effects -->
     <div class="hero-header">
       <div class="hero-logo-container fade-in">
-        <!-- Logo animado de NEXQ-IA con animaciones originales -->
+        <!-- Enhanced animated logo with ripple effects -->
         <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="hero-logo">
-          <!-- Definición de gradientes para transiciones más suaves -->
+          <!-- Enhanced gradients with more depth -->
           <defs>
-            <radialGradient id="outerGradient" cx="50%" cy="50%" r="55%" fx="40%" fy="40%">
-              <stop offset="0%" stop-color="#4a6483" />
-              <stop offset="100%" stop-color="#3a546d" />
+            <radialGradient id="outerGradient" cx="50%" cy="50%" r="55%" fx="30%" fy="30%">
+              <stop offset="0%" stop-color="#6e99c0" stop-opacity="0.9" />
+              <stop offset="50%" stop-color="#5e89b0" stop-opacity="0.7" />
+              <stop offset="100%" stop-color="#4a6483" stop-opacity="0.5" />
             </radialGradient>
             
-            <radialGradient id="middleGradient" cx="50%" cy="50%" r="35%" fx="40%" fy="40%">
-              <stop offset="0%" stop-color="#6e99c0" />
-              <stop offset="100%" stop-color="#5e89b0" />
+            <radialGradient id="middleGradient" cx="50%" cy="50%" r="35%" fx="30%" fy="30%">
+              <stop offset="0%" stop-color="#8256f5" stop-opacity="0.8" />
+              <stop offset="50%" stop-color="#6e56cf" stop-opacity="0.6" />
+              <stop offset="100%" stop-color="#5e89b0" stop-opacity="0.4" />
             </radialGradient>
             
-            <radialGradient id="innerGradient" cx="50%" cy="50%" r="15%" fx="40%" fy="40%">
-              <stop offset="0%" stop-color="#3c4e60" />
-              <stop offset="100%" stop-color="#2c3e50" />
+            <radialGradient id="innerGradient" cx="50%" cy="50%" r="15%" fx="30%" fy="30%">
+              <stop offset="0%" stop-color="#9e77e0" stop-opacity="0.9" />
+              <stop offset="50%" stop-color="#6e56cf" stop-opacity="0.7" />
+              <stop offset="100%" stop-color="#4a5568" stop-opacity="0.5" />
+            </radialGradient>
+            
+            <!-- Animated gradient for pulsing effect -->
+            <radialGradient id="pulseGradient" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(94, 137, 176, 0.6)" stop-opacity="0">
+                <animate attributeName="stop-opacity" values="0;0.8;0" dur="3s" repeatCount="indefinite"/>
+              </stop>
+              <stop offset="100%" stop-color="rgba(94, 137, 176, 0)" stop-opacity="0"/>
             </radialGradient>
           </defs>
           
-          <!-- Círculo exterior -->
-          <circle cx="60" cy="60" r="55" fill="none" stroke="#3a546d" stroke-width="2" class="logo-outer-circle-path" />
+          <!-- Enhanced circle elements with animations -->
+          <circle cx="60" cy="60" r="55" fill="none" stroke="url(#outerGradient)" stroke-width="1" class="logo-outer-circle-path" opacity="0.7" />
           <circle cx="60" cy="60" r="55" fill="url(#outerGradient)" class="logo-outer-circle" />
           
-          <!-- Círculo medio -->
-          <circle cx="60" cy="60" r="35" fill="none" stroke="#5e89b0" stroke-width="2" class="logo-middle-circle-path" />
+          <circle cx="60" cy="60" r="35" fill="none" stroke="url(#middleGradient)" stroke-width="1" class="logo-middle-circle-path" opacity="0.8" />
           <circle cx="60" cy="60" r="35" fill="url(#middleGradient)" class="logo-middle-circle" />
           
-          <!-- Círculo interior -->
-          <circle cx="60" cy="60" r="15" fill="none" stroke="#2c3e50" stroke-width="2" class="logo-inner-circle-path" />
+          <circle cx="60" cy="60" r="15" fill="none" stroke="url(#innerGradient)" stroke-width="1" class="logo-inner-circle-path" opacity="0.9" />
           <circle cx="60" cy="60" r="15" fill="url(#innerGradient)" class="logo-inner-circle" />
+          
+          <!-- Pulse effect overlay -->
+          <circle cx="60" cy="60" r="50" fill="url(#pulseGradient)" class="logo-pulse-overlay" />
+          
+          <!-- Decorative elements -->
+          <g class="logo-decorations" opacity="0.6">
+            <circle cx="60" cy="20" r="2" fill="#00ffe5" class="decoration-dot">
+              <animate attributeName="r" values="1;3;1" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="100" cy="60" r="1.5" fill="#ff7edb" class="decoration-dot">
+              <animate attributeName="r" values="0.5;2.5;0.5" dur="2.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="60" cy="100" r="2" fill="#6e56cf" class="decoration-dot">
+              <animate attributeName="r" values="1;3;1" dur="1.8s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="20" cy="60" r="1.5" fill="#9e77e0" class="decoration-dot">
+              <animate attributeName="r" values="0.5;2.5;0.5" dur="2.2s" repeatCount="indefinite"/>
+            </circle>
+          </g>
         </svg>
       </div>
-      <!-- Título con efecto typewriter que mantendrá el salto de línea -->
+      
+      <!-- Enhanced title with typewriter effect -->
       <h1 class="hero-title">Transforma Tus Datos En
 Decisiones Estratégicas</h1>
     </div>
     
-    <!-- Elementos que aparecerán secuencialmente después del typewriter -->
+    <!-- Description original -->
     <p class="hero-description sequential-fade">Consultoría especializada en inteligencia artificial para optimizar procesos, analizar información y potenciar la innovación en tu empresa.</p>
     
+    <!-- Botones originales con efectos mejorados -->
     <div class="hero-buttons sequential-fade">
       <button class="cta-button">Solicitar Consultoría</button>
       <button class="secondary-button">Conocer Soluciones</button>
     </div>
     
-    <!-- Red neuronal animada que aparecerá al final de la secuencia -->
+    <!-- Enhanced neural network with advanced animations -->
     <div class="neural-network-container scroll-reveal">
       <div class="neural-network-wrapper">
-        <svg width="100%" height="190" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
-          <!-- Nodos y conexiones representando una red neuronal -->
-          <!-- Contenedor para el texto que aparecerá durante la animación -->
+        <svg width="100%" height="190" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" class="neural-network-svg">
+          <!-- Enhanced gradients and filters -->
+          <defs>
+            <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="rgba(0, 255, 229, 0.8)" />
+              <stop offset="50%" stop-color="rgba(255, 126, 219, 0.6)" />
+              <stop offset="100%" stop-color="rgba(110, 86, 207, 0.8)" />
+            </linearGradient>
+            
+            <linearGradient id="nodeGradient" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(255, 255, 255, 0.9)" />
+              <stop offset="50%" stop-color="rgba(94, 137, 176, 0.8)" />
+              <stop offset="100%" stop-color="rgba(110, 86, 207, 0.6)" />
+            </linearGradient>
+            
+            <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feMorphology operator="dilate" radius="2"/>
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            
+            <filter id="connectionGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+              <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          
+          <!-- Background pattern -->
+          <pattern id="networkPattern" patternUnits="userSpaceOnUse" width="40" height="40">
+            <circle cx="20" cy="20" r="1" fill="rgba(94, 137, 176, 0.1)" opacity="0.5">
+              <animate attributeName="opacity" values="0.1;0.3;0.1" dur="4s" repeatCount="indefinite"/>
+            </circle>
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#networkPattern)" opacity="0.3"/>
+          
+          <!-- Enhanced logo text container -->
           <g class="logo-text">
-            <text x="300" y="35" font-family="'Inter', sans-serif" font-weight="700" font-size="24" fill="#ffffff" opacity="0"></text>
+            <text x="400" y="35" font-family="'Inter', sans-serif" font-weight="700" font-size="28" 
+                  fill="url(#nodeGradient)" text-anchor="middle" opacity="0" class="network-title">
+              <animate attributeName="opacity" values="0;1;0.8" dur="3s" begin="2s" fill="freeze"/>
+            </text>
           </g>
           
-          <!-- Capa 1 - entrada -->
-          <circle cx="150" cy="60" r="8" class="node node-input" fill="#00ffe5"/>
-          <circle cx="150" cy="100" r="8" class="node node-input" fill="#00ffe5"/>
-          <circle cx="150" cy="140" r="8" class="node node-input" fill="#00ffe5"/>
+          <!-- Input layer with enhanced effects -->
+          <g class="input-layer">
+            <circle cx="150" cy="60" r="8" class="node node-input" fill="url(#nodeGradient)" 
+                    filter="url(#nodeGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.5s" fill="freeze"/>
+              <animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite" begin="1s"/>
+            </circle>
+            <circle cx="150" cy="100" r="8" class="node node-input" fill="url(#nodeGradient)" 
+                    filter="url(#nodeGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.7s" fill="freeze"/>
+              <animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite" begin="1.2s"/>
+            </circle>
+            <circle cx="150" cy="140" r="8" class="node node-input" fill="url(#nodeGradient)" 
+                    filter="url(#nodeGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.9s" fill="freeze"/>
+              <animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite" begin="1.4s"/>
+            </circle>
+          </g>
           
-          <!-- Capa 2 - oculta -->
-          <circle cx="300" cy="60" r="8" class="node node-hidden" fill="#ff7edb"/>
-          <circle cx="300" cy="100" r="8" class="node node-hidden" fill="#ff7edb"/>
-          <circle cx="300" cy="140" r="8" class="node node-hidden" fill="#ff7edb"/>
+          <!-- Hidden layer 1 -->
+          <g class="hidden-layer-1">
+            <circle cx="300" cy="60" r="8" class="node node-hidden" fill="#ff7edb" 
+                    filter="url(#nodeGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.1s" fill="freeze"/>
+              <animate attributeName="r" values="8;12;8" dur="2.2s" repeatCount="indefinite" begin="1.6s"/>
+            </circle>
+            <circle cx="300" cy="100" r="8" class="node node-hidden" fill="#ff7edb" 
+                    filter="url(#nodeGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.3s" fill="freeze"/>
+              <animate attributeName="r" values="8;12;8" dur="2.2s" repeatCount="indefinite" begin="1.8s"/>
+            </circle>
+            <circle cx="300" cy="140" r="8" class="node node-hidden" fill="#ff7edb" 
+                    filter="url(#nodeGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.5s" fill="freeze"/>
+              <animate attributeName="r" values="8;12;8" dur="2.2s" repeatCount="indefinite" begin="2s"/>
+            </circle>
+          </g>
           
-          <!-- Capa 3 - oculta -->
-          <circle cx="450" cy="80" r="8" class="node node-hidden-2" fill="#6e56cf"/>
-          <circle cx="450" cy="120" r="8" class="node node-hidden-2" fill="#6e56cf"/>
+          <!-- Hidden layer 2 -->
+          <g class="hidden-layer-2">
+            <circle cx="450" cy="80" r="8" class="node node-hidden-2" fill="#6e56cf" 
+                    filter="url(#nodeGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.7s" fill="freeze"/>
+              <animate attributeName="r" values="8;12;8" dur="2.5s" repeatCount="indefinite" begin="2.2s"/>
+            </circle>
+            <circle cx="450" cy="120" r="8" class="node node-hidden-2" fill="#6e56cf" 
+                    filter="url(#nodeGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.9s" fill="freeze"/>
+              <animate attributeName="r" values="8;12;8" dur="2.5s" repeatCount="indefinite" begin="2.4s"/>
+            </circle>
+          </g>
           
-          <!-- Capa 4 - salida -->
-          <circle cx="600" cy="100" r="8" class="node node-output" fill="#00ffe5"/>
+          <!-- Output layer -->
+          <g class="output-layer">
+            <circle cx="600" cy="100" r="8" class="node node-output" fill="url(#nodeGradient)" 
+                    filter="url(#nodeGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;1" dur="0.5s" begin="2.1s" fill="freeze"/>
+              <animate attributeName="r" values="8;15;8" dur="3s" repeatCount="indefinite" begin="2.6s"/>
+            </circle>
+          </g>
           
-          <!-- Conexiones entre nodos con animación de flujo de datos -->
-          <!-- Conexiones de capa 1 a capa 2 -->
-          <line x1="158" y1="60" x2="292" y2="60" stroke="#00ffe5" stroke-width="1.5" stroke-opacity="0.6" class="connection c1"/>
-          <line x1="158" y1="60" x2="292" y2="100" stroke="#00ffe5" stroke-width="1.5" stroke-opacity="0.6" class="connection c2"/>
-          <line x1="158" y1="100" x2="292" y2="60" stroke="#00ffe5" stroke-width="1.5" stroke-opacity="0.4" class="connection c3"/>
-          <line x1="158" y1="100" x2="292" y2="100" stroke="#00ffe5" stroke-width="1.5" stroke-opacity="0.6" class="connection c4"/>
-          <line x1="158" y1="100" x2="292" y2="140" stroke="#00ffe5" stroke-width="1.5" stroke-opacity="0.6" class="connection c5"/>
-          <line x1="158" y1="140" x2="292" y2="100" stroke="#00ffe5" stroke-width="1.5" stroke-opacity="0.4" class="connection c6"/>
-          <line x1="158" y1="140" x2="292" y2="140" stroke="#00ffe5" stroke-width="1.5" stroke-opacity="0.6" class="connection c7"/>
+          <!-- Enhanced connections with flow animations -->
+          <g class="connections">
+            <!-- Input to Hidden 1 connections -->
+            <line x1="158" y1="60" x2="292" y2="60" stroke="url(#connectionGradient)" 
+                  stroke-width="2" class="connection c1" filter="url(#connectionGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;0.8" dur="0.3s" begin="2.3s" fill="freeze"/>
+            </line>
+            <line x1="158" y1="60" x2="292" y2="100" stroke="url(#connectionGradient)" 
+                  stroke-width="1.5" class="connection c2" filter="url(#connectionGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;0.6" dur="0.3s" begin="2.4s" fill="freeze"/>
+            </line>
+            <line x1="158" y1="100" x2="292" y2="60" stroke="url(#connectionGradient)" 
+                  stroke-width="1" class="connection c3" filter="url(#connectionGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;0.4" dur="0.3s" begin="2.5s" fill="freeze"/>
+            </line>
+            <line x1="158" y1="100" x2="292" y2="100" stroke="url(#connectionGradient)" 
+                  stroke-width="2" class="connection c4" filter="url(#connectionGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;0.8" dur="0.3s" begin="2.6s" fill="freeze"/>
+            </line>
+            <line x1="158" y1="100" x2="292" y2="140" stroke="url(#connectionGradient)" 
+                  stroke-width="1.5" class="connection c5" filter="url(#connectionGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;0.6" dur="0.3s" begin="2.7s" fill="freeze"/>
+            </line>
+            <line x1="158" y1="140" x2="292" y2="100" stroke="url(#connectionGradient)" 
+                  stroke-width="1" class="connection c6" filter="url(#connectionGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;0.4" dur="0.3s" begin="2.8s" fill="freeze"/>
+            </line>
+            <line x1="158" y1="140" x2="292" y2="140" stroke="url(#connectionGradient)" 
+                  stroke-width="2" class="connection c7" filter="url(#connectionGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;0.8" dur="0.3s" begin="2.9s" fill="freeze"/>
+            </line>
+            
+            <!-- Hidden 1 to Hidden 2 connections -->
+            <line x1="308" y1="60" x2="442" y2="80" stroke="#ff7edb" 
+                  stroke-width="2" class="connection c8" filter="url(#connectionGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;0.8" dur="0.3s" begin="3s" fill="freeze"/>
+            </line>
+            <line x1="308" y1="100" x2="442" y2="80" stroke="#ff7edb" 
+                  stroke-width="1.5" class="connection c9" filter="url(#connectionGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;0.6" dur="0.3s" begin="3.1s" fill="freeze"/>
+            </line>
+            <line x1="308" y1="100" x2="442" y2="120" stroke="#ff7edb" 
+                  stroke-width="2" class="connection c10" filter="url(#connectionGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;0.8" dur="0.3s" begin="3.2s" fill="freeze"/>
+            </line>
+            <line x1="308" y1="140" x2="442" y2="120" stroke="#ff7edb" 
+                  stroke-width="1.5" class="connection c11" filter="url(#connectionGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;0.6" dur="0.3s" begin="3.3s" fill="freeze"/>
+            </line>
+            
+            <!-- Hidden 2 to Output connections -->
+            <line x1="458" y1="80" x2="592" y2="100" stroke="#6e56cf" 
+                  stroke-width="2.5" class="connection c12" filter="url(#connectionGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;1" dur="0.3s" begin="3.4s" fill="freeze"/>
+            </line>
+            <line x1="458" y1="120" x2="592" y2="100" stroke="#6e56cf" 
+                  stroke-width="2.5" class="connection c13" filter="url(#connectionGlow)" opacity="0">
+              <animate attributeName="opacity" values="0;1" dur="0.3s" begin="3.5s" fill="freeze"/>
+            </line>
+          </g>
           
-          <!-- Conexiones de capa 2 a capa 3 -->
-          <line x1="308" y1="60" x2="442" y2="80" stroke="#ff7edb" stroke-width="1.5" stroke-opacity="0.6" class="connection c8"/>
-          <line x1="308" y1="100" x2="442" y2="80" stroke="#ff7edb" stroke-width="1.5" stroke-opacity="0.6" class="connection c9"/>
-          <line x1="308" y1="100" x2="442" y2="120" stroke="#ff7edb" stroke-width="1.5" stroke-opacity="0.6" class="connection c10"/>
-          <line x1="308" y1="140" x2="442" y2="120" stroke="#ff7edb" stroke-width="1.5" stroke-opacity="0.6" class="connection c11"/>
+          <!-- Data flow particles -->
+          <g class="data-particles">
+            <circle r="3" fill="#00ffe5" opacity="0.8" class="data-particle">
+              <animateMotion dur="3s" repeatCount="indefinite" begin="4s">
+                <mpath href="#path1"/>
+              </animateMotion>
+              <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite" begin="4s"/>
+            </circle>
+            <circle r="2" fill="#ff7edb" opacity="0.8" class="data-particle">
+              <animateMotion dur="3.5s" repeatCount="indefinite" begin="4.5s">
+                <mpath href="#path2"/>
+              </animateMotion>
+              <animate attributeName="opacity" values="0;1;0" dur="3.5s" repeatCount="indefinite" begin="4.5s"/>
+            </circle>
+          </g>
           
-          <!-- Conexiones de capa 3 a capa 4 -->
-          <line x1="458" y1="80" x2="592" y2="100" stroke="#6e56cf" stroke-width="1.5" stroke-opacity="0.6" class="connection c12"/>
-          <line x1="458" y1="120" x2="592" y2="100" stroke="#6e56cf" stroke-width="1.5" stroke-opacity="0.6" class="connection c13"/>
+          <!-- Hidden paths for particle animation -->
+          <defs>
+            <path id="path1" d="M 158 60 Q 225 30 292 60 Q 375 40 442 80 Q 525 90 592 100" stroke="none" fill="none"/>
+            <path id="path2" d="M 158 140 Q 225 170 292 140 Q 375 160 442 120 Q 525 110 592 100" stroke="none" fill="none"/>
+          </defs>
+          
+          <!-- Performance metrics overlay -->
+          <g class="metrics-overlay" opacity="0">
+            <animate attributeName="opacity" values="0;0.7" dur="1s" begin="5s" fill="freeze"/>
+            <text x="50" y="30" font-family="monospace" font-size="12" fill="#00ffe5" class="metric-text">
+              Accuracy: 98.7%
+            </text>
+            <text x="50" y="50" font-family="monospace" font-size="12" fill="#ff7edb" class="metric-text">
+              Processing: 2.3ms
+            </text>
+            <text x="650" y="30" font-family="monospace" font-size="12" fill="#6e56cf" class="metric-text">
+              Confidence: 94.2%
+            </text>
+            <text x="650" y="50" font-family="monospace" font-size="12" fill="#9e77e0" class="metric-text">
+              Latency: 0.8ms
+            </text>
+          </g>
         </svg>
       </div>
     </div>
   </div>
 </section>
-<!-- Componentes adicionales sin atributos AOS -->
-<app-services-overview class="scroll-reveal">
 
-</app-services-overview>
-<app-about-us class="scroll-reveal"></app-about-us>
-<app-contact class="scroll-reveal"></app-contact>
-<app-features class="scroll-reveal"></app-features>
+<!-- Enhanced component sections with immersive transitions -->
+<div class="immersive-section">
+  <app-services-overview class="scroll-reveal immersive-element"></app-services-overview>
+</div>
+
+<div class="immersive-section">
+  <app-about-us class="scroll-reveal immersive-element"></app-about-us>
+</div>
+
+<div class="immersive-section">
+  <app-features class="scroll-reveal immersive-element"></app-features>
+</div>
+
+<div class="immersive-section">
+  <app-contact class="scroll-reveal immersive-element"></app-contact>
+</div>
+
+<!-- Floating background elements (reducidos) -->
+<div class="floating-elements">
+  <div class="floating-shape shape-circle" style="--delay: 0s; --duration: 20s;"></div>
+  <div class="floating-shape shape-triangle" style="--delay: 10s; --duration: 25s;"></div>
+</div>

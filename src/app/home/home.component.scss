@@ -1,158 +1,29 @@
+// home.component.scss - Enhanced with parallax and advanced animations
 :host {
   display: block;
   color: var(--text-primary);
   overflow-x: hidden;
-}
-
-nav {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  padding: 0 2rem;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  
-  .logo-img {
-    height: 40px;
-  }
-  
-  .logo-text {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-}
-
-.logo-accent {
-  background: linear-gradient(90deg, var(--nexq-blue), var(--accent-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.logo-dot {
-  color: var(--accent-tertiary);
-  -webkit-text-fill-color: var(--accent-tertiary);
-  margin-left: 2px;
-}
-
-.nav-links {
-  display: flex;
-  gap: 2rem;
-}
-
-.nav-link {
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
   position: relative;
-
-  &:hover {
-    color: var(--text-primary);
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--nexq-blue), var(--accent-secondary));
-    transition: width 0.3s ease;
-  }
-
-  &:hover::after {
-    width: 100%;
-  }
 }
 
-.cta-button {
-  background: linear-gradient(90deg, var(--nexq-blue), var(--accent-secondary));
-  color: white;
-  border: none;
-  padding: 0.7rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+// Enhanced Variables for better consistency
+$primary-gradient: linear-gradient(90deg, var(--text-primary), var(--nexq-blue), var(--accent-secondary));
+$glow-color: var(--nexq-blue);
+$accent-glow: var(--accent-secondary);
+$animation-timing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(94, 137, 176, 0.3);
-  }
+// Performance optimizations
+* {
+  will-change: auto;
 }
 
-.mobile-menu-btn {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--text-primary);
-  font-size: 1.5rem;
-  cursor: pointer;
+.hero-section {
+  will-change: transform;
+  transform: translateZ(0);
 }
 
-// Hero Section Background Styles
-.hero-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  overflow: hidden;
-  
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      linear-gradient(0deg, rgba(10, 10, 15, 0.6) 0%, rgba(10, 10, 15, 0.6) 100%),
-      repeating-linear-gradient(0deg, rgba(94, 137, 176, 0.03) 0px, rgba(94, 137, 176, 0.03) 1px, transparent 1px, transparent 10px),
-      repeating-linear-gradient(90deg, rgba(94, 137, 176, 0.03) 0px, rgba(94, 137, 176, 0.03) 1px, transparent 1px, transparent 10px);
-    backdrop-filter: blur(60px);
-    -webkit-backdrop-filter: blur(60px);
-    opacity: 0.8;
-    z-index: -1;
-  }
-}
-
-.hero-radial-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100vw;
-  height: 100vh;
-  background: radial-gradient(
-    circle, 
-    rgba(94, 137, 176, 0.2) 0%, 
-    rgba(10, 10, 15, 0) 70%
-  );
-  z-index: -2;
-}
-
-.glow {
-  position: absolute;
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  background: var(--nexq-blue);
-  filter: blur(100px);
-  opacity: 0.15;
-  z-index: -3;
-}
-
-// Hero Section
+// Enhanced Hero Section with 3D depth
 .hero-section {
   min-height: 100vh;
   display: flex;
@@ -161,8 +32,112 @@ nav {
   padding: calc(var(--nav-height) + 2rem) 2rem 5rem;
   position: relative;
   overflow: hidden;
+  perspective: 2000px;
+  transform-style: preserve-3d;
 }
 
+// Enhanced background with multiple layers and parallax
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%; // Extended for parallax effect
+  z-index: -1;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background-image: 
+      linear-gradient(0deg, rgba(10, 10, 15, 0.6) 0%, rgba(10, 10, 15, 0.6) 100%),
+      repeating-linear-gradient(0deg, rgba(94, 137, 176, 0.03) 0px, rgba(94, 137, 176, 0.03) 1px, transparent 1px, transparent 12px),
+      repeating-linear-gradient(90deg, rgba(94, 137, 176, 0.03) 0px, rgba(94, 137, 176, 0.03) 1px, transparent 1px, transparent 12px);
+    backdrop-filter: blur(80px);
+    -webkit-backdrop-filter: blur(80px);
+    opacity: 0.9;
+    z-index: -1;
+    animation: gridFlow 20s linear infinite;
+  }
+  
+  // Animated grid pattern
+  &::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background-image: 
+      repeating-linear-gradient(45deg, rgba(110, 86, 207, 0.02) 0px, rgba(110, 86, 207, 0.02) 2px, transparent 2px, transparent 40px),
+      repeating-linear-gradient(-45deg, rgba(158, 119, 224, 0.02) 0px, rgba(158, 119, 224, 0.02) 2px, transparent 2px, transparent 40px);
+    animation: diagonalFlow 30s linear infinite reverse;
+    z-index: -2;
+  }
+}
+
+// Enhanced radial background with depth
+.hero-radial-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120vw;
+  height: 120vh;
+  background: radial-gradient(
+    ellipse at center, 
+    rgba(94, 137, 176, 0.25) 0%, 
+    rgba(110, 86, 207, 0.15) 30%,
+    rgba(158, 119, 224, 0.1) 60%,
+    rgba(10, 10, 15, 0) 80%
+  );
+  z-index: -2;
+  animation: radialPulse 15s ease-in-out infinite;
+}
+
+// Enhanced glow elements with 3D positioning
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.2;
+  z-index: -3;
+  animation: float 8s ease-in-out infinite;
+  
+  &:nth-child(1) {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, $glow-color 0%, transparent 70%);
+    top: 20%;
+    left: 15%;
+    animation-delay: 0s;
+  }
+  
+  &:nth-child(2) {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, $accent-glow 0%, transparent 70%);
+    bottom: 10%;
+    right: 20%;
+    animation-delay: -4s;
+  }
+  
+  &:nth-child(3) {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(158, 119, 224, 0.8) 0%, transparent 70%);
+    top: 60%;
+    left: 70%;
+    animation-delay: -2s;
+  }
+}
+
+// Enhanced hero content with 3D effects
 .hero-content {
   max-width: 1200px;
   width: 100%;
@@ -172,180 +147,969 @@ nav {
   align-items: center;
   text-align: center;
   z-index: 1;
-  background-color: rgba(10, 10, 15, 0.85);
-  backdrop-filter: blur(80px);
-  -webkit-backdrop-filter: blur(80px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(94, 137, 176, 0.1);
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.3),
+    0 8px 25px rgba(94, 137, 176, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(94, 137, 176, 0.2);
   padding: 3rem 2rem;
-  border-radius: 20px;
+  border-radius: 24px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.3s $animation-timing;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    background: linear-gradient(135deg, 
+      rgba(94, 137, 176, 0.1) 0%, 
+      rgba(110, 86, 207, 0.05) 50%, 
+      rgba(158, 119, 224, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
+  
+  &.revealed {
+    animation: heroContentReveal 1.5s $bounce-timing forwards;
+  }
 }
 
-/* Contenedor del logo hero */
+// Enhanced logo container with particle effects
 .hero-logo-container {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 2rem;
+  position: relative;
+  
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(94, 137, 176, 0.3) 0%, transparent 70%);
+    animation: logoRipple 4s ease-out infinite;
+    pointer-events: none;
+  }
+  
+  &::before {
+    width: 200px;
+    height: 200px;
+    animation-delay: 0s;
+  }
+  
+  &::after {
+    width: 300px;
+    height: 300px;
+    animation-delay: 2s;
+  }
 }
 
-/* Logo hero animado */
+// Enhanced logo with advanced animations
 .hero-logo {
   width: 120px;
   height: 120px;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 10px 30px rgba(94, 137, 176, 0.4));
+  transition: all 0.3s $animation-timing;
+  
+  &:hover {
+    transform: scale(1.1) rotateY(15deg);
+    filter: drop-shadow(0 15px 40px rgba(94, 137, 176, 0.6));
+  }
 }
 
+// Enhanced title with advanced typewriter effect
 .hero-title {
   font-size: 3.5rem;
   font-weight: 800;
-  background: linear-gradient(90deg, var(--text-primary), var(--nexq-blue), var(--accent-secondary));
+  background: $primary-gradient;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1.2;
+  margin-bottom: 1.5rem;
+  position: relative;
+  
+  &.typewriter-effect {
+    overflow: visible;
+    position: relative;
+    
+    .cursor {
+      display: inline-block;
+      background: $glow-color;
+      width: 3px;
+      height: 1.2em;
+      margin-left: 2px;
+      animation: cursorBlink 1s infinite;
+      box-shadow: 0 0 10px $glow-color;
+    }
+  }
+  
+  &.typing-complete .cursor {
+    animation: cursorFadeOut 0.5s forwards;
+  }
 }
 
+// Enhanced description with blur-in effect
 .hero-description {
   font-size: 1.2rem;
   color: var(--text-secondary);
   max-width: 650px;
   margin-bottom: 2.5rem;
-  line-height: 1.6;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 4rem;
-}
-
-.secondary-button {
-  background-color: rgba(94, 137, 176, 0.1);
-  color: var(--nexq-blue);
-  border: 1px solid var(--nexq-blue);
-  padding: 0.7rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background-color: rgba(94, 137, 176, 0.2);
-    transform: translateY(-3px);
+  line-height: 1.7;
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  display: block;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(45deg, transparent, rgba(94, 137, 176, 0.05), transparent);
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  
+  &:hover::before {
+    opacity: 1;
   }
 }
 
-// Contenedor de la red neuronal
+// Enhanced buttons with 3D effects
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 2;
+  opacity: 1;
+  visibility: visible;
+}
+
+.cta-button, .secondary-button {
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s $animation-timing;
+  transform-style: preserve-3d;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+    z-index: 1;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+  
+  &:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(-4px) scale(1.02);
+  }
+}
+
+.cta-button {
+  background: linear-gradient(135deg, $glow-color, $accent-glow);
+  border: none;
+  color: white;
+  box-shadow: 
+    0 8px 25px rgba(94, 137, 176, 0.4),
+    0 4px 15px rgba(255, 126, 219, 0.3);
+  
+  &:hover {
+    box-shadow: 
+      0 15px 35px rgba(94, 137, 176, 0.5),
+      0 8px 25px rgba(255, 126, 219, 0.4);
+  }
+}
+
+.secondary-button {
+  background: rgba(94, 137, 176, 0.1);
+  color: $glow-color;
+  border: 2px solid rgba(94, 137, 176, 0.5);
+  backdrop-filter: blur(10px);
+  
+  &:hover {
+    background: rgba(94, 137, 176, 0.2);
+    border-color: rgba(94, 137, 176, 0.8);
+    color: white;
+  }
+}
+
+// Enhanced neural network with 3D depth
 .neural-network-container {
   width: 100%;
   max-width: 900px;
   position: relative;
-  border-radius: 16px;
-  background-color: rgba(18, 18, 24, 0.7);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  background: linear-gradient(135deg, 
+    rgba(18, 18, 24, 0.8) 0%, 
+    rgba(26, 26, 36, 0.9) 100%
+  );
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.3),
+    0 8px 25px rgba(94, 137, 176, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   overflow: hidden;
   transform-origin: center;
+  border: 1px solid rgba(94, 137, 176, 0.2);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $glow-color, transparent);
+    animation: scanLine 3s linear infinite;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, 
+      rgba(94, 137, 176, 0.05) 0%, 
+      transparent 50%, 
+      rgba(110, 86, 207, 0.05) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
 }
 
 .neural-network-wrapper {
   position: relative;
   max-width: 100%;
-  animation: none !important; /* Eliminar cualquier animación float */
-  transform: none !important; /* Evitar transformaciones que afecten el tamaño */
-}
-
-.neural-network-wrapper svg {
-  max-width: 100% !important;
-  height: auto !important;
-  display: block !important;
-}
-
-// Eliminar animaciones de la clase animation-active
-.neural-network-container.animation-active .neural-network-wrapper {
-  animation: none !important;
-  transform: none !important;
-}
-
-// Redefinir las animaciones problemáticas sin movimiento vertical
-@keyframes float {
-  0%, 50%, 100% {
-    transform: none; /* Sin movimiento vertical */
+  padding: 2rem;
+  
+  svg {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.2));
   }
 }
 
-@keyframes networkAppear {
-  0%, 100% {
+// Enhanced cursor with trail effect
+.glow-cursor {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(94, 137, 176, 0.8) 0%, rgba(94, 137, 176, 0.2) 70%, transparent 100%);
+  position: fixed;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(2px);
+  z-index: 9999;
+  opacity: 0.8;
+  transform: translate(-50%, -50%);
+  transition: all 0.1s ease-out;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    border: 1px solid rgba(94, 137, 176, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: cursorRing 2s ease-out infinite;
+  }
+}
+
+// Enhanced animations
+@keyframes heroContentReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) rotateX(20deg) scale(0.9);
+    filter: blur(20px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-10px) rotateX(-5deg) scale(1.02);
+    filter: blur(5px);
+  }
+  100% {
     opacity: 1;
-    transform: none; /* Sin movimiento vertical */
+    transform: translateY(0) rotateX(0deg) scale(1);
+    filter: blur(0px);
   }
 }
 
-// Solo permitir transiciones de opacidad, no de posición
-.neural-network-container.scroll-reveal {
+@keyframes logoRipple {
+  0% {
+    transform: scale(0);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes gridFlow {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(12px, 12px);
+  }
+}
+
+@keyframes diagonalFlow {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(40px, 40px) rotate(1deg);
+  }
+}
+
+@keyframes radialPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.15;
+  }
+}
+
+@keyframes cursorBlink {
+  0%, 50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  51%, 100% {
+    opacity: 0;
+    transform: scaleY(0.8);
+  }
+}
+
+@keyframes cursorFadeOut {
+  to {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+}
+
+@keyframes cursorRing {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes scanLine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+  66% {
+    transform: translateY(10px) rotate(-1deg);
+  }
+}
+
+// Enhanced scroll reveal animations
+.scroll-reveal {
   opacity: 0;
-  transform: none !important;
-  transition: opacity 1s ease-out;
+  transform: translateY(60px) rotateX(10deg);
+  transition: all 1.2s $animation-timing;
+  will-change: opacity, transform;
+  
+  &.revealed {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
 }
 
-.neural-network-container.scroll-reveal.revealed {
-  opacity: 1;
-  transform: none !important;
+// Component-specific reveal animations
+app-services-overview.scroll-reveal {
+  transform: translateX(-100px) rotateY(5deg);
+  &.revealed {
+    transform: translateX(0) rotateY(0deg);
+  }
 }
 
-// Nodos con efecto de aparición
-.node {
-  opacity: 0;
-  transform: scale(0);
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+app-about-us.scroll-reveal {
+  transform: scale(0.8) translateY(80px);
+  &.revealed {
+    transform: scale(1) translateY(0);
+  }
 }
 
-.node.active {
-  opacity: 1;
-  transform: scale(1);
-  animation: pulse 3s infinite;
+app-contact.scroll-reveal {
+  transform: translateX(100px) rotateY(-5deg);
+  &.revealed {
+    transform: translateX(0) rotateY(0deg);
+  }
 }
 
-// Conexiones con efecto de flujo de datos
-.connection {
-  stroke-dasharray: 10;
-  opacity: 0;
-  transition: opacity 0.8s ease;
+app-features.scroll-reveal {
+  transform: translateY(100px) scale(0.9);
+  &.revealed {
+    transform: translateY(0) scale(1);
+  }
 }
 
-.connection.active {
-  opacity: 1;
-  animation: dataFlow 3s linear infinite;
+// Enhanced responsive design
+@media (max-width: 1024px) {
+  .hero-content {
+    padding: 2.5rem 2rem;
+    max-width: 95%;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .glow {
+    filter: blur(80px);
+    
+    &:nth-child(1) {
+      width: 250px;
+      height: 250px;
+    }
+    
+    &:nth-child(2) {
+      width: 180px;
+      height: 180px;
+    }
+  }
 }
 
-// Animaciones escalonadas para las conexiones
-.c1 { animation-delay: 0.1s; }
-.c2 { animation-delay: 0.2s; }
-.c3 { animation-delay: 0.3s; }
-.c4 { animation-delay: 0.4s; }
-.c5 { animation-delay: 0.5s; }
-.c6 { animation-delay: 0.6s; }
-.c7 { animation-delay: 0.7s; }
-.c8 { animation-delay: 0.8s; }
-.c9 { animation-delay: 0.9s; }
-.c10 { animation-delay: 1.0s; }
-.c11 { animation-delay: 1.1s; }
-.c12 { animation-delay: 1.2s; }
-.c13 { animation-delay: 1.3s; }
+@media (max-width: 768px) {
+  .hero-section {
+    padding: calc(var(--nav-height) + 1rem) 1rem 3rem;
+  }
+  
+  .hero-content {
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+  }
+  
+  .hero-title {
+    font-size: 2.2rem;
+    line-height: 1.3;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    gap: 1rem;
+  }
+  
+  .cta-button,
+  .secondary-button {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+  }
+  
+  .hero-logo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .glow-cursor {
+    width: 20px;
+    height: 20px;
+    
+    &::before {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
 
-.logo-outer-circle, .logo-middle-circle, .logo-inner-circle {
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  
+  .hero-content {
+    padding: 1.5rem 1rem;
+  }
+  
+  .hero-logo {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .neural-network-wrapper {
+    padding: 1rem;
+  }
+}
+
+// Accessibility and performance
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .hero-background::before,
+  .hero-background::after {
+    animation: none;
+  }
+  
+  .glow {
+    animation: none;
+  }
+  
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .hero-content {
+    background: rgba(0, 0, 0, 0.95);
+    border: 2px solid white;
+  }
+  
+  .cta-button {
+    background: white;
+    color: black;
+  }
+  
+  .secondary-button {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+}
+// Additional styles for enhanced home component - Add to home.component.scss
+
+// Immersive transitions para componentes
+.immersive-section {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(180deg, 
+      rgba(10, 10, 15, 1) 0%, 
+      rgba(10, 10, 15, 0.8) 30%,
+      rgba(10, 10, 15, 0) 70%,
+      rgba(10, 10, 15, 0.8) 100%
+    );
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(0deg, 
+      rgba(10, 10, 15, 1) 0%, 
+      rgba(10, 10, 15, 0.8) 30%,
+      rgba(10, 10, 15, 0) 70%,
+      rgba(10, 10, 15, 0.8) 100%
+    );
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  
+  &.transitioning {
+    &::before,
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+.immersive-element {
+  transform-style: preserve-3d;
+  transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  &:not(.revealed) {
+    opacity: 0;
+    transform: translateY(100px) scale(0.9) rotateX(10deg);
+    filter: blur(10px);
+  }
+  
+  &.revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+    filter: blur(0px);
+  }
+}
+
+// Efectos específicos para cada componente
+app-services-overview.immersive-element {
+  &:not(.revealed) {
+    transform: translateX(-150px) scale(0.8) rotateY(15deg);
+  }
+  
+  &.revealed {
+    transform: translateX(0) scale(1) rotateY(0deg);
+  }
+}
+
+app-about-us.immersive-element {
+  &:not(.revealed) {
+    transform: scale(0.7) translateY(80px) rotateZ(5deg);
+  }
+  
+  &.revealed {
+    transform: scale(1) translateY(0) rotateZ(0deg);
+  }
+}
+
+app-features.immersive-element {
+  &:not(.revealed) {
+    transform: translateX(150px) scale(0.8) rotateY(-15deg);
+  }
+  
+  &.revealed {
+    transform: translateX(0) scale(1) rotateY(0deg);
+  }
+}
+
+app-contact.immersive-element {
+  &:not(.revealed) {
+    transform: translateY(120px) scale(0.85) rotateX(-10deg);
+    filter: blur(8px);
+  }
+  
+  &.revealed {
+    transform: translateY(0) scale(1) rotateX(0deg);
+    filter: blur(0px);
+  }
+}
+
+// Enhanced button effects
+.cta-button, .secondary-button {
+  .button-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .button-glow {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+      rgba(94, 137, 176, 0.5), 
+      rgba(110, 86, 207, 0.5), 
+      rgba(158, 119, 224, 0.5), 
+      rgba(94, 137, 176, 0.5)
+    );
+    background-size: 400% 400%;
+    border-radius: inherit;
+    opacity: 0;
+    filter: blur(8px);
+    animation: buttonGlowAnimation 3s ease infinite;
+    z-index: -1;
+  }
+  
+  &:hover {
+    .button-particles {
+      opacity: 1;
+    }
+    
+    .button-glow {
+      opacity: 0.6;
+    }
+  }
+}
+
+// Floating elements (solo 2 formas)
+.floating-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.floating-shape {
+  position: absolute;
+  opacity: 0.08;
+  animation: floatComplex var(--duration, 20s) var(--delay, 0s) infinite ease-in-out;
+  
+  &.shape-circle {
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(94, 137, 176, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    top: 30%;
+    left: 5%;
+  }
+  
+  &.shape-triangle {
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 60px solid rgba(110, 86, 207, 0.2);
+    top: 70%;
+    right: 10%;
+  }
+}
+
+// Scroll indicators
+.scroll-indicators {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.scroll-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(94, 137, 176, 0.3);
+  border: 2px solid rgba(94, 137, 176, 0.5);
+  cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(94, 137, 176, 0.8);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+  }
+  
+  &.active {
+    background: rgba(94, 137, 176, 0.8);
+    border-color: rgba(94, 137, 176, 1);
+    box-shadow: 0 0 15px rgba(94, 137, 176, 0.6);
+    
+    &::before {
+      width: 6px;
+      height: 6px;
+    }
+  }
+  
+  &:hover:not(.active) {
+    background: rgba(94, 137, 176, 0.5);
+    transform: scale(1.2);
+  }
 }
 
-// Animaciones
-.floating-element {
-  animation: float 6s ease-in-out infinite;
+// Estilos para elementos de red neuronal con parallax
+.neural-network-svg {
+  .input-layer circle,
+  .hidden-layer-1 circle,
+  .hidden-layer-2 circle,
+  .output-layer circle {
+    transform-origin: center;
+    will-change: transform, opacity;
+  }
+  
+  .connection {
+    will-change: opacity, stroke-dashoffset;
+  }
+  
+  .network-title {
+    transform-origin: center;
+    will-change: transform, opacity;
+  }
+  
+  .metrics-overlay {
+    will-change: transform, opacity;
+  }
 }
 
-.animated-gradient {
-  animation: gradient 15s ease infinite;
-  background: linear-gradient(270deg, var(--nexq-blue), var(--accent-secondary), var(--accent-tertiary));
-  background-size: 400% 400%;
+// Animación mejorada para el flujo de datos
+@keyframes dataFlow {
+  0% {
+    stroke-dashoffset: 20;
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.3;
+  }
 }
 
-@keyframes gradient {
+// Efectos de aparición suave para nodos
+.neural-network-svg circle {
+  &.appearing {
+    animation: nodeAppear 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  }
+}
+
+@keyframes nodeAppear {
+  0% {
+    r: 0;
+    opacity: 0;
+  }
+  50% {
+    r: 12;
+    opacity: 0.8;
+  }
+  100% {
+    r: 8;
+    opacity: 1;
+  }
+}
+
+// Enhanced logo decorations
+.logo-decorations {
+  .decoration-dot {
+    filter: drop-shadow(0 0 3px currentColor);
+  }
+}
+
+// Description line animations
+.description-line {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: lineReveal 0.8s ease forwards;
+  
+  &:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+  
+  &:nth-child(2) {
+    animation-delay: 0.6s;
+  }
+}
+
+// Performance monitor (for development)
+.performance-monitor {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #00ff00;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 12px;
+  z-index: 9999;
+  
+  .fps-counter,
+  .memory-usage {
+    margin-bottom: 5px;
+  }
+}
+
+// Advanced keyframe animations
+@keyframes buttonGlowAnimation {
   0% {
     background-position: 0% 50%;
   }
@@ -357,609 +1121,454 @@ nav {
   }
 }
 
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in {
-  opacity: 0;
-  animation: fadeIn 0.8s forwards;
-}
-
-.delay-1 { animation-delay: 0.2s; }
-.delay-2 { animation-delay: 0.4s; }
-.delay-3 { animation-delay: 0.6s; }
-.delay-4 { animation-delay: 0.8s; }
-
-/* Cursor luminoso */
-.glow-cursor {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: var(--nexq-blue);
-  position: fixed;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  filter: blur(5px);
-  z-index: 9999;
-  opacity: 0.7;
-  transform: translate(-50%, -50%);
-}
-
-/* Animaciones para la red neuronal y los círculos concéntricos */
-@keyframes pulse {
+@keyframes floatComplex {
   0% {
-    r: 8;
-    opacity: 0.7;
-  }
-  50% {
-    r: 10;
-    opacity: 1;
-  }
-  100% {
-    r: 8;
-    opacity: 0.7;
-  }
-}
-
-@keyframes circlePulse {
-  0% {
-    opacity: 0.9;
-    transform: scale(1);
-    filter: brightness(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.04);
-    filter: brightness(1.05);
-  }
-  100% {
-    opacity: 0.9;
-    transform: scale(1);
-    filter: brightness(1);
-  }
-}
-
-/* Animación sutil para el punto brillante */
-@keyframes highlightMove {
-  0% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(1);
     opacity: 0.1;
-    transform: translate(0, 0);
   }
   25% {
-    opacity: 0.3;
+    transform: translateY(-30px) translateX(20px) rotate(90deg) scale(1.1);
+    opacity: 0.2;
   }
   50% {
-    opacity: 0.2;
-    transform: translate(3px, 3px);
+    transform: translateY(-60px) translateX(0) rotate(180deg) scale(0.9);
+    opacity: 0.15;
   }
   75% {
+    transform: translateY(-30px) translateX(-20px) rotate(270deg) scale(1.05);
+    opacity: 0.25;
+  }
+  100% {
+    transform: translateY(0) translateX(0) rotate(360deg) scale(1);
     opacity: 0.1;
   }
-  100% {
-    opacity: 0.1;
-    transform: translate(0, 0);
-  }
 }
 
-.logo-highlight {
-  animation: highlightMove 6s ease-in-out infinite;
-  animation-delay: 3s;
-  opacity: 0;
-}
-
-@keyframes dataFlow {
-  0% {
-    stroke-dashoffset: 30;
-    opacity: 0.2;
-  }
-  50% {
+@keyframes metricPulse {
+  0%, 100% {
     opacity: 0.8;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 0.2;
-  }
-}
-
-/* Animación para dibujar círculos */
-@keyframes drawCircle {
-  0% {
-    stroke-dashoffset: 1000;
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-}
-
-/* Animación para el relleno después del trazado con transición gradual del color */
-@keyframes fillCircleOuter {
-  0% {
-    opacity: 0;
-    fill: transparent;
-  }
-  60% {
-    opacity: 0.3;
-    fill: url(#outerGradient);
-  }
-  80% {
-    opacity: 0.6;
-    fill: url(#outerGradient);
-  }
-  100% {
-    opacity: 1;
-    fill: url(#outerGradient);
-  }
-}
-
-@keyframes fillCircleMiddle {
-  0% {
-    opacity: 0;
-    fill: transparent;
-  }
-  60% {
-    opacity: 0.3;
-    fill: url(#middleGradient);
-  }
-  80% {
-    opacity: 0.6;
-    fill: url(#middleGradient);
-  }
-  100% {
-    opacity: 1;
-    fill: url(#middleGradient);
-  }
-}
-
-@keyframes fillCircleInner {
-  0% {
-    opacity: 0;
-    fill: transparent;
-  }
-  60% {
-    opacity: 0.3;
-    fill: url(#innerGradient);
-  }
-  80% {
-    opacity: 0.6;
-    fill: url(#innerGradient);
-  }
-  100% {
-    opacity: 1;
-    fill: url(#innerGradient);
-  }
-}
-
-/* Animación para ocultar las líneas después de que se completa el relleno */
-@keyframes fadeOutStroke {
-  0% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-/* Trazado animado para los círculos del logo */
-.logo-outer-circle-path {
-  stroke-dasharray: 345;
-  stroke-dashoffset: 345;
-  animation: drawCircle 2.5s ease forwards, fadeOutStroke 1s ease forwards 3s;
-}
-
-.logo-middle-circle-path {
-  stroke-dasharray: 220;
-  stroke-dashoffset: 220;
-  animation: drawCircle 2s ease forwards 0.5s, fadeOutStroke 1s ease forwards 3s;
-}
-
-.logo-inner-circle-path {
-  stroke-dasharray: 95;
-  stroke-dashoffset: 95;
-  animation: drawCircle 1.5s ease forwards 1s, fadeOutStroke 1s ease forwards 3s;
-}
-
-/* Animación para el relleno de los círculos */
-.logo-outer-circle {
-  opacity: 0;
-  fill: transparent;
-  animation: fillCircleOuter 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 1s, circlePulse 4s infinite 3.5s;
-  transform-origin: center;
-}
-
-.logo-middle-circle {
-  opacity: 0;
-  fill: transparent;
-  animation: fillCircleMiddle 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 1.3s, circlePulse 4.5s infinite 3.7s;
-  transform-origin: center;
-}
-
-.logo-inner-circle {
-  opacity: 0;
-  fill: transparent;
-  animation: fillCircleInner 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 1.6s, circlePulse 5s infinite 4s;
-  transform-origin: center;
-}
-
-.node {
-  animation: pulse 3s infinite;
-}
-
-.node-input {
-  animation-delay: 0s;
-}
-
-.node-hidden {
-  animation-delay: 0.5s;
-}
-
-.node-hidden-2 {
-  animation-delay: 1s;
-}
-
-.node-output {
-  animation-delay: 1.5s;
-}
-
-.logo-text {
-  /* Quitamos la animación automática de glow */
-  /* animation: glow 3s ease-in-out infinite; */
-}
-
-.logo-text text {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.logo-text.active text {
-  opacity: 1;
-}
-
-@keyframes glow {
-  0% {
-    opacity: 0.8;
+    transform: scale(1);
   }
   50% {
     opacity: 1;
-  }
-  100% {
-    opacity: 0.8;
+    transform: scale(1.05);
   }
 }
 
-/* Estilos para efecto de escritura tipo hacker */
-.typewriter-effect {
-  overflow: visible;
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  white-space: normal;
-  background: linear-gradient(90deg, var(--text-primary), var(--nexq-blue), var(--accent-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Transición suave para el salto de línea */
-.line-break.fade-in {
-  animation: lineBreakFadeIn 0.3s ease-out forwards;
-}
-
-@keyframes lineBreakFadeIn {
+@keyframes lineReveal {
   0% {
     opacity: 0;
-    line-height: 0.8;
+    transform: translateY(20px) rotateX(20deg);
+    filter: blur(5px);
   }
   100% {
     opacity: 1;
-    line-height: 1.2;
+    transform: translateY(0) rotateX(0deg);
+    filter: blur(0px);
   }
 }
 
-/* Creamos un pseudo-elemento para el cursor al final del texto */
-.typewriter-effect::after {
-  content: '|';
-  position: absolute;
-  right: -8px;
-  top: 0;
-  color: var(--nexq-blue);
-  -webkit-text-fill-color: var(--nexq-blue);
-  animation: blink-caret 0.75s step-end infinite;
-}
-
-/* Ocultar el cursor cuando se completa la escritura */
-.typewriter-effect.typing-complete::after {
-  content: '';
-  display: none;
-}
-
-@keyframes blink-caret {
-  from, to { opacity: 0; }
-  50% { opacity: 1; }
-}
-
-/* Animaciones de entrada para elementos secuenciales */
-.sequential-fade {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.sequential-fade.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Ajustes específicos para diferentes partes */
-.hero-description.sequential-fade {
-  transition-delay: 0.2s;
-}
-
-.hero-buttons.sequential-fade {
-  transition-delay: 0.4s;
-}
-
-.neural-network-container.sequential-fade {
-  transition-delay: 0.6s;
-}
-
-// Estilos mejorados para el efecto de Scroll Reveal
-.scroll-reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1.5s ease-out, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
-  will-change: opacity, transform;
-}
-
-.scroll-reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Diferentes estilos de animación para componentes con parallax */
-app-services-overview.scroll-reveal {
-  opacity: 0;
-  transform: translateX(-80px);
-  transition: opacity 1.8s ease-out, transform 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  will-change: transform, opacity;
-}
-
-app-services-overview.scroll-reveal.revealed {
-  opacity: 1;
-  transform: translateX(0) translateZ(10px);
-}
-
-app-about-us.scroll-reveal {
-  opacity: 0;
-  transform: scale(0.85) translateY(40px);
-  transition: opacity 1.8s ease-out, transform 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  will-change: transform, opacity;
-}
-
-app-about-us.scroll-reveal.revealed {
-  opacity: 1;
-  transform: scale(1) translateY(0) translateZ(20px);
-}
-
-app-contact.scroll-reveal {
-  opacity: 0;
-  transform: translateX(80px) translateY(20px);
-  transition: opacity 1.8s ease-out, transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  will-change: transform, opacity;
-}
-
-app-contact.scroll-reveal.revealed {
-  opacity: 1;
-  transform: translateX(0) translateY(0) translateZ(30px);
-}
-
-/* Tamaños específicos según el dispositivo */
-@media (max-width: 1024px) {
-  .neural-network-wrapper svg {
-    max-height: 220px !important;
-    height: 220px !important;
+// Particle burst animation for buttons
+@keyframes particleBurst {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
   }
-  
-  .hero-content {
-    padding: 2.5rem 1.5rem;
-  }
-  
-  .hero-title {
-    font-size: 3rem;
-  }
-  
-  .hero-background::before {
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
+  100% {
+    transform: translate(var(--particle-x, 0), var(--particle-y, 0)) scale(0);
+    opacity: 0;
   }
 }
 
-@media (max-width: 900px) {
-  .neural-network-wrapper svg {
-    max-height: 190px !important;
-    height: 190px !important;
-  }
-  
-  .hero-title {
-    font-size: 2.8rem;
-  }
-
-  .neural-network-container {
-    max-width: 100%;
-  }
-  
-  .hero-header {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .typewriter-effect::after {
-    right: 0;
-    position: relative;
-    display: inline-block;
-  }
-}
-
+// Enhanced responsive design for new elements
 @media (max-width: 768px) {
-  .neural-network-wrapper svg {
-    max-height: 170px !important;
-    height: 170px !important;
+  .floating-elements {
+    display: none; // Hide floating elements on mobile for performance
   }
   
-  .hero-background::before {
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
+  .scroll-indicators {
+    right: 15px;
+    gap: 10px;
   }
-
-  .nav-links,
-  nav .cta-button {
-    display: none;
+  
+  .scroll-indicator {
+    width: 10px;
+    height: 10px;
   }
-
-  .mobile-menu-btn {
-    display: block;
+  
+  .neural-network-svg {
+    .metric-text {
+      font-size: 10px;
+    }
+    
+    .network-title {
+      font-size: 20px;
+    }
   }
-
-  .hero-title {
-    font-size: 2.2rem;
-  }
-
+  
   .hero-description {
-    font-size: 1rem;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-    width: 100%;
-    max-width: 300px;
-  }
-
-  .cta-button,
-  .secondary-button {
-    width: 100%;
-  }
-  
-  .hero-content {
-    padding: 2rem 1rem;
-    background-color: rgba(10, 10, 15, 0.9);
-    backdrop-filter: blur(60px);
-    -webkit-backdrop-filter: blur(60px);
+    .description-line {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
   }
 }
 
 @media (max-width: 480px) {
-  .neural-network-wrapper svg {
-    max-height: 150px !important;
-    height: 150px !important;
+  .scroll-indicators {
+    display: none; // Hide scroll indicators on very small screens
   }
   
-  .hero-background::before {
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+  .parallax-section::before {
+    display: none; // Remove overlay for better performance
   }
+  
+  .neural-network-svg .metrics-overlay {
+    display: none; // Hide metrics on small screens
+  }
+}
 
+// Touch device optimizations
+@media (hover: none) and (pointer: coarse) {
+  .floating-elements {
+    display: none;
+  }
+  
+  .cta-button:hover,
+  .secondary-button:hover {
+    .button-glow {
+      opacity: 0; // Disable glow effects on touch devices
+    }
+  }
+  
+  .scroll-indicator:hover {
+    transform: none; // Disable hover effects
+  }
+}
+
+// High performance mode for older devices
+@media (max-width: 768px) and (max-height: 1024px) {
+  .hero-background::before,
+  .hero-background::after {
+    animation: none; // Disable background animations
+  }
+  
+  .glow {
+    animation-duration: 15s; // Slower animations
+  }
+  
+  .neural-network-svg {
+    .data-particle {
+      display: none; // Hide data particles
+    }
+  }
+}
+
+// Dark mode enhancements
+@media (prefers-color-scheme: dark) {
+  .hero-content {
+    background: rgba(5, 5, 10, 0.95);
+    border-color: rgba(94, 137, 176, 0.3);
+  }
+  
+  .scroll-indicator {
+    background: rgba(94, 137, 176, 0.2);
+    border-color: rgba(94, 137, 176, 0.4);
+  }
+}
+
+// Print styles
+@media print {
+  .floating-elements,
+  .scroll-indicators,
+  .glow-cursor,
+  .performance-monitor {
+    display: none !important;
+  }
+  
+  .hero-background {
+    background: none !important;
+  }
+  
+  .hero-content {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+}
+
+// Accessibility improvements
+@media (prefers-reduced-motion: reduce) {
+  .floating-shape,
+  .data-particle,
+  .decoration-dot,
+  .button-glow {
+    animation: none !important;
+  }
+  
+  .scroll-indicator {
+    transition: none !important;
+  }
+  
+  .neural-network-svg * {
+    animation: none !important;
+  }
+}
+
+// Focus management for accessibility
+.cta-button:focus,
+.secondary-button:focus,
+.scroll-indicator:focus {
+  outline: 2px solid var(--nexq-blue);
+  outline-offset: 3px;
+}
+
+// Loading states
+.hero-content.loading {
+  opacity: 0.5;
+  pointer-events: none;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(94, 137, 176, 0.3);
+    border-top-color: var(--nexq-blue);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+// Enhanced error states
+.error-state {
+  .hero-content {
+    border-color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+  }
+  
   .hero-title {
-    font-size: 1.8rem;
-  }
-  
-  .hero-logo {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .hero-content {
-    padding: 1.5rem 1rem;
-    background-color: rgba(10, 10, 15, 0.95);
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
-  }
-  
-  .hero-buttons {
-    margin-bottom: 2.5rem;
-  }
-  
-  nav {
-    padding: 0 1rem;
+    color: #ff4444;
   }
 }
 
-/* Mejoras para pantallas muy pequeñas */
-@media (max-height: 700px) {
-  .hero-section {
-    min-height: auto;
-    padding-top: calc(var(--nav-height) + 1rem);
-    padding-bottom: 2rem;
-  }
-  
+// Success states
+.success-state {
   .hero-content {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    border-color: #44ff44;
+    background: rgba(68, 255, 68, 0.1);
   }
   
-  .hero-buttons {
-    margin-bottom: 2rem;
+  .cta-button {
+    background: linear-gradient(135deg, #44ff44, #22aa22);
   }
 }
 
-/* Media queries para landscape en móviles */
-@media (max-height: 500px) and (orientation: landscape) {
-  .hero-section {
-    min-height: auto;
-    height: auto;
+// Intersection observer fallback
+.no-intersection-observer {
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .sequential-fade {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// GPU acceleration optimizations
+.hero-section,
+.hero-content,
+.neural-network-container,
+.floating-shape,
+.parallax-element {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+// Memory optimization for animations
+@supports (animation-timeline: scroll()) {
+  .parallax-element {
+    animation-timeline: scroll();
+    animation-range: entry 0% cover 100%;
+  }
+}
+
+// Container queries for responsive design
+@container (width < 768px) {
+  .hero-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .neural-network-wrapper {
     padding: 1rem;
   }
-  
+}
+
+// CSS custom properties for dynamic theming
+:root {
+  --hero-bg-opacity: 0.85;
+  --animation-speed: 1;
+  --particle-density: 1;
+  --glow-intensity: 1;
+}
+
+.reduced-effects {
+  --hero-bg-opacity: 0.95;
+  --animation-speed: 0.5;
+  --particle-density: 0.3;
+  --glow-intensity: 0.5;
+}
+
+.hero-content {
+  background-color: rgba(10, 10, 15, var(--hero-bg-opacity));
+}
+
+.floating-shape {
+  animation-duration: calc(var(--duration) * var(--animation-speed));
+  opacity: calc(0.1 * var(--particle-density));
+}
+
+.glow {
+  opacity: calc(0.2 * var(--glow-intensity));
+}
+
+// Advanced CSS Grid for complex layouts
+.hero-content {
+  display: grid;
+  grid-template-areas: 
+    "logo"
+    "title" 
+    "description"
+    "buttons"
+    "neural";
+  grid-template-rows: auto auto auto auto 1fr;
+  gap: 1.5rem;
+  place-items: center;
+}
+
+.hero-logo-container {
+  grid-area: logo;
+}
+
+.hero-title {
+  grid-area: title;
+}
+
+.hero-description {
+  grid-area: description;
+}
+
+.hero-buttons {
+  grid-area: buttons;
+}
+
+.neural-network-container {
+  grid-area: neural;
+  justify-self: stretch;
+}
+
+// Advanced backdrop filters
+@supports (backdrop-filter: blur(20px)) {
   .hero-content {
-    padding: 1.5rem 1rem;
+    backdrop-filter: blur(100px) saturate(1.5) brightness(1.1);
+  }
+  
+  .scroll-indicator {
+    backdrop-filter: blur(10px);
   }
 }
 
-/* Mejoras de rendimiento para animaciones */
-@media (prefers-reduced-motion: reduce) {
-  .scroll-reveal, 
-  .sequential-fade,
-  .hero-logo,
-  .connection,
-  .node,
-  .logo-outer-circle,
-  .logo-middle-circle,
-  .logo-inner-circle,
-  .neural-network-wrapper {
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
+// Modern CSS features
+@supports (aspect-ratio: 1) {
+  .hero-logo {
+    aspect-ratio: 1;
+    width: auto;
+    height: 120px;
   }
-  
-  .scroll-reveal, 
-  .sequential-fade {
-    transition: opacity 0.4s ease !important;
-  }
-  
-  .scroll-reveal.revealed, 
-  .sequential-fade.show {
-    transform: none !important;
-  }
+}
 
-  .hero-background::before {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+@supports (gap: 1rem) {
+  .hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+  }
+}
+
+// CSS Houdini support (future-proofing)
+@supports (background: paint(worklet)) {
+  .hero-background {
+    background: paint(animated-grid);
+  }
+}
+
+// View transitions (experimental)
+@supports (view-transition-name: auto) {
+  .hero-content {
+    view-transition-name: hero-content;
   }
   
-  .neural-network-container.animation-active .neural-network-wrapper {
-    animation: none !important;
+  .neural-network-container {
+    view-transition-name: neural-network;
   }
+}
+
+// Enhanced focus indicators for better accessibility
+.cta-button:focus-visible,
+.secondary-button:focus-visible {
+  outline: 3px solid var(--nexq-blue);
+  outline-offset: 2px;
+  box-shadow: 
+    0 0 0 6px rgba(94, 137, 176, 0.2),
+    0 8px 25px rgba(94, 137, 176, 0.4);
+}
+
+// Prefers contrast support
+@media (prefers-contrast: high) {
+  .hero-content {
+    background: black;
+    border: 3px solid white;
+  }
+  
+  .hero-title,
+  .hero-description {
+    color: white;
+  }
+  
+  .floating-shape {
+    display: none;
+  }
+}
+
+// Final performance optimizations
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.contain-layout {
+  contain: layout;
+}
+
+.contain-paint {
+  contain: paint;
+}
+
+.gpu-layer {
+  transform: translateZ(0);
 }
