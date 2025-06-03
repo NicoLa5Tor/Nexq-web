@@ -1572,3 +1572,234 @@ app-contact.immersive-element {
 .gpu-layer {
   transform: translateZ(0);
 }
+// Hero section principal
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--nav-height) + 2rem) 2rem 5rem;
+  position: relative;
+  overflow: hidden;
+  perspective: 2000px;
+  transform-style: preserve-3d;
+  z-index: 1; // Base z-index
+}
+// Enhanced hero content with 3D effects
+.hero-content {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 10; // Mayor z-index para estar por encima
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.3),
+    0 8px 25px rgba(94, 137, 176, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(94, 137, 176, 0.2);
+  padding: 3rem 2rem;
+  border-radius: 24px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.3s $animation-timing;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    background: linear-gradient(135deg, 
+      rgba(94, 137, 176, 0.1) 0%, 
+      rgba(110, 86, 207, 0.05) 50%, 
+      rgba(158, 119, 224, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
+  
+  &.revealed {
+    animation: heroContentReveal 1.5s $bounce-timing forwards;
+  }
+}
+// Enhanced buttons with 3D effects
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 20; // Mayor z-index que la red neuronal
+  opacity: 1;
+  visibility: visible;
+}
+// Enhanced neural network with 3D depth
+.neural-network-container {
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+  border-radius: 20px;
+  background: linear-gradient(135deg, 
+    rgba(18, 18, 24, 0.8) 0%, 
+    rgba(26, 26, 36, 0.9) 100%
+  );
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.3),
+    0 8px 25px rgba(94, 137, 176, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  transform-origin: center;
+  border: 1px solid rgba(94, 137, 176, 0.2);
+  z-index: 1; // Asegurar que esté por debajo de los botones
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $glow-color, transparent);
+    animation: scanLine 3s linear infinite;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, 
+      rgba(94, 137, 176, 0.05) 0%, 
+      transparent 50%, 
+      rgba(110, 86, 207, 0.05) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
+}
+.neural-network-svg circle {
+  opacity: 0; // Inicialmente invisibles
+}
+
+.neural-network-svg .connection {
+  opacity: 0;
+  stroke-dasharray: 5 5;
+  stroke-dashoffset: 10;
+}
+// Enhanced hero content with 3D effects
+.hero-content {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 10; // Mayor z-index para estar por encima
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.3),
+    0 8px 25px rgba(94, 137, 176, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(94, 137, 176, 0.2);
+  padding: 3rem 2rem;
+  border-radius: 24px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.3s $animation-timing;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    background: linear-gradient(135deg, 
+      rgba(94, 137, 176, 0.1) 0%, 
+      rgba(110, 86, 207, 0.05) 50%, 
+      rgba(158, 119, 224, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
+  
+  &.revealed {
+    animation: heroContentReveal 1.5s $bounce-timing forwards;
+  }
+}// Enhanced neural network with 3D depth
+.neural-network-container {
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+  border-radius: 20px;
+  background: linear-gradient(135deg, 
+    rgba(18, 18, 24, 0.8) 0%, 
+    rgba(26, 26, 36, 0.9) 100%
+  );
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.3),
+    0 8px 25px rgba(94, 137, 176, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  transform-origin: center;
+  border: 1px solid rgba(94, 137, 176, 0.2);
+  z-index: 1; // Asegurar que esté por debajo de los botones
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $glow-color, transparent);
+    animation: scanLine 3s linear infinite;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, 
+      rgba(94, 137, 176, 0.05) 0%, 
+      transparent 50%, 
+      rgba(110, 86, 207, 0.05) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
+}
