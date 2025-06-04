@@ -1,12 +1,12 @@
 <!-- features.component.html -->
-<section class="features-section" #featuresSection>
+<section class="features-section" #featuresSection data-aos="fade-up">
   <h2 class="section-title" #sectionTitle>
     <!-- Título por defecto (siempre visible para móviles) -->
     <span *ngIf="showDefaultTitle">{{ titleText }}</span>
     <!-- Las letras animadas se añadirán mediante JavaScript cuando no se muestre el título por defecto -->
   </h2>
   <div class="features-grid">
-    <div class="feature-card"
+    <div class="feature-card" data-aos="fade-up"
          #card0
          [class.selected]="selectedCard === 0"
          (click)="selectCard(0)"
@@ -15,7 +15,7 @@
       <h3 class="feature-title">Machine Learning</h3>
       <p class="feature-description">Implementamos soluciones de aprendizaje automático para automatizar procesos, realizar predicciones y descubrir patrones en tus datos.</p>
     </div>
-    <div class="feature-card"
+    <div class="feature-card" data-aos="fade-up"
          #card1
          [class.selected]="selectedCard === 1"
          (click)="selectCard(1)"
@@ -24,7 +24,7 @@
       <h3 class="feature-title">Procesamiento de Lenguaje</h3>
       <p class="feature-description">Desarrollamos chatbots, análisis de sentimiento y sistemas de resumen automático para optimizar la interacción con tus clientes.</p>
     </div>
-    <div class="feature-card"
+    <div class="feature-card" data-aos="fade-up"
          #card2
          [class.selected]="selectedCard === 2"
          (click)="selectCard(2)"
@@ -33,7 +33,7 @@
       <h3 class="feature-title">Analítica Predictiva</h3>
       <p class="feature-description">Anticipamos tendencias, comportamientos y resultados de negocio con modelos estadísticos avanzados y análisis prescriptivo.</p>
     </div>
-    <div class="feature-card"
+    <div class="feature-card" data-aos="fade-up"
          #card3
          [class.selected]="selectedCard === 3"
          (click)="selectCard(3)"
@@ -42,7 +42,7 @@
       <h3 class="feature-title">Visión Artificial</h3>
       <p class="feature-description">Procesamos imágenes y video para reconocimiento de objetos, control de calidad y mejora de experiencias visuales interactivas.</p>
     </div>
-    <div class="feature-card"
+    <div class="feature-card" data-aos="fade-up"
          #card4
          [class.selected]="selectedCard === 4"
          (click)="selectCard(4)"
@@ -51,7 +51,7 @@
       <h3 class="feature-title">Automatización Inteligente</h3>
       <p class="feature-description">Optimizamos procesos de negocio con RPA e IA para reducir costos operativos y eliminar tareas repetitivas.</p>
     </div>
-    <div class="feature-card"
+    <div class="feature-card" data-aos="fade-up"
          #card5
          [class.selected]="selectedCard === 5"
          (click)="selectCard(5)"
