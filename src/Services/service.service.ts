@@ -4,12 +4,12 @@ import { Injectable,signal } from '@angular/core';
   providedIn: 'root'
 })
 export class ServiceService {
-  boleanActivate: boolean = false;
+  booleanActivate: boolean = false;
     constructor() { }
   setActivate(){
-    this.boleanActivate = !this.boleanActivate;
+    this.booleanActivate = !this.booleanActivate;
   }
   getActivate(){
-    return this.boleanActivate;
+    return this.booleanActivate;
   }
 }

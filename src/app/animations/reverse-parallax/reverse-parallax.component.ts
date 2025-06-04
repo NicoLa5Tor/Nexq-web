@@ -1,5 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { animate, onScroll } from 'animejs';
+import { animate } from 'animejs';
 
 @Component({
   selector: 'app-reverse-parallax',

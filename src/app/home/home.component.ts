@@ -6,9 +6,9 @@ import { ServicesOverviewComponent } from '../services-overview/services-overvie
 import { AboutUsComponent } from '../about-us/about-us.component';
 import { ContactComponent } from '../contact/contact.component';
 import { FeaturesComponent } from '../features/features.component';
-import { ScrollService } from '../../Services/scroll.service';
 import { ViewportScroller } from '@angular/common';
 import { ReverseParallaxComponent } from '../animations/reverse-parallax/reverse-parallax.component';
+import { gsap } from 'gsap';
 
 interface ParallaxElement {
   element: HTMLElement;
@@ -34,7 +34,6 @@ interface ParallaxElement {
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private animationStarted = false;
-  private elementsToAnimate: Array<Element> = [];
   private observer: IntersectionObserver | null = null;
   private parallaxElements: ParallaxElement[] = [];
   private rafId: number = 0;
@@ -48,7 +47,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private scroll: ViewportScroller,
-    private scrollService: ScrollService,
     private elementRef: ElementRef,
     private renderer: Renderer2
   ) {}
@@ -168,6 +166,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private startEnhancedHeroSequence(): void {
+    this.animateHeroWithGsap();
     // Enhanced logo animation with particle burst
     this.animateLogoWithParticles();
     
@@ -185,6 +184,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.startAdvancedNeuralNetwork();
     }, 3500);
+  }
+
+  private animateHeroWithGsap(): void {
+    const header = this.elementRef.nativeElement.querySelector('.hero-header');
+    if (header) {
+      gsap.from(header, { opacity: 0, y: -50, duration: 1, ease: 'power2.out' });
+    }
   }
 
   private animateLogoWithParticles(): void {
