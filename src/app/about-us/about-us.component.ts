@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AosService } from '../../Services/aos.service';
 
 @Component({
   selector: 'app-about-us',
@@ -9,12 +10,16 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
   styleUrls: ['./about-us.component.scss']
 })
 export class AboutUsComponent implements OnInit {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private aos: AosService
+  ) { }
   
   ngOnInit(): void {
     // Inicializar animaciones solo cuando estamos en el navegador
     if (isPlatformBrowser(this.platformId)) {
       this.initFadeInAnimations();
+      this.aos.refresh();
     }
   }
   
