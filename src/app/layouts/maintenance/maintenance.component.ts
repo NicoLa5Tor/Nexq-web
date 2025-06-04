@@ -8,7 +8,7 @@ import { ScrollService } from '../../../Services/scroll.service';
   standalone: true,
   imports: [NgFor, NgStyle],
   templateUrl: './maintenance.component.html',
-  styleUrl: './maintenance.component.scss'
+  styleUrls: ['./maintenance.component.scss']
 })
 export class MaintenanceComponent implements OnInit{
   constructor(private scrollService: ScrollService){}

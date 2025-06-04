@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet, Router, NavigationEnd, Event } from '@angular/router';
 import { HeaderComponent } from '../../header/header.component';
@@ -19,7 +19,6 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
   
   constructor(
     private router: Router,
-    private elementRef: ElementRef,
     @Inject(PLATFORM_ID) private platformId: Object,
     private scrollTop: ViewportScroller
   ) { }
@@ -29,7 +28,6 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
       this.router.events.pipe(
         filter((event: Event): event is NavigationEnd => event instanceof NavigationEnd)
       ).subscribe((event: NavigationEnd) => {
-        console.log('Cambio de ruta detectado:', event.urlAfterRedirects);
         this.onRouteChange(event.urlAfterRedirects);
       })
     );
@@ -42,9 +40,8 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
 
   private onRouteChange(url: string) {
     if (isPlatformBrowser(this.platformId)) {
-      console.log(`La ruta ha cambiado a: ${url}`);
       this.scrollTop.scrollToPosition([0,0])
-     
+
     }
   }
 }

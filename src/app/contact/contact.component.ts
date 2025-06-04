@@ -43,7 +43,6 @@ export class ContactComponent implements OnInit {
     this.submitted = true;
     if (this.contactForm.valid) {
       // Aquí iría la lógica para enviar el formulario a un backend
-      console.log('Formulario enviado:', this.contactForm.value);
       // Simulamos éxito (en producción, esto dependería de la respuesta del backend)
       setTimeout(() => {
         this.success = true;
