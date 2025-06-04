@@ -66,6 +66,7 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
   private isBrowser: boolean;
   
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object
     @Inject(PLATFORM_ID) private platformId: Object,
     private aos: AosService
   ) {
@@ -120,7 +121,6 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
         this.setupCursorTrail();
       }
 
-      // Refrescar AOS tras inicializar el componente
       this.aos.refresh();
     }
   }
