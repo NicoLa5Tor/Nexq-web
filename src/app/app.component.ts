@@ -11,7 +11,7 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 })
 export class AppComponent implements OnInit, AfterViewInit {
   title = 'nexq-ai';
-  
+
   constructor(@Inject(PLATFORM_ID) private platformId: any) {}
   
   ngOnInit(): void {
@@ -19,6 +19,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
   
   ngAfterViewInit(): void {
-    
+
   }
 }

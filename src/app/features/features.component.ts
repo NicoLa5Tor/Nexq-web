@@ -64,7 +64,9 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
   // Para verificar si estamos en el navegador
   private isBrowser: boolean;
   
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
@@ -115,6 +117,8 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!this.isTouchDevice && !this.isReducedMotionPreferred) {
         this.setupCursorTrail();
       }
+
+      // Sección lista para animaciones de AOS
     }
   }
   

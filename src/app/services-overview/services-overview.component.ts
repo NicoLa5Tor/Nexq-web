@@ -23,8 +23,8 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
   ];
   
   constructor(
-    private el: ElementRef, 
-    private renderer: Renderer2, 
+    private el: ElementRef,
+    private renderer: Renderer2,
     private serviceEstatus: ServiceService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
