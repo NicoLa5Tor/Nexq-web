@@ -14,8 +14,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   title = 'nexq-ai';
 
 
-  constructor(@Inject(PLATFORM_ID) private platformId: any) {}
-
   constructor(
     @Inject(PLATFORM_ID) private platformId: any,
     private aos: AosService
