@@ -1,5 +1,5 @@
 // home.component.ts - Enhanced version with improved animations and parallax
-import { Component, OnInit, PLATFORM_ID, Inject, HostListener, AfterViewInit, OnDestroy, ViewEncapsulation, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject, HostListener, AfterViewInit, OnDestroy, ViewEncapsulation, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ServicesOverviewComponent } from '../services-overview/services-overview.component';
@@ -10,7 +10,8 @@ import { ViewportScroller } from '@angular/common';
 import { ReverseParallaxComponent } from '../animations/reverse-parallax/reverse-parallax.component';
 import { gsap } from 'gsap';
 import { AosService } from '../../Services/aos.service';
-
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 interface ParallaxElement {
   element: HTMLElement;
   speed: number;
@@ -34,6 +35,7 @@ interface ParallaxElement {
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('svgContainer', { static: true }) svgContainer!: ElementRef;
   private animationStarted = false;
   private parallaxElements: ParallaxElement[] = [];
   private rafId: number = 0;
@@ -66,6 +68,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   
   ngAfterViewInit(): void {
+  
+  
     if (isPlatformBrowser(this.platformId)) {
       // Initialize all animations with proper timing
       setTimeout(() => {
@@ -76,6 +80,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.aos.refresh();
       }, 100);
     }
+    
   }
   
   ngOnDestroy(): void {
