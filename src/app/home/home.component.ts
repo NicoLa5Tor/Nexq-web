@@ -1,5 +1,5 @@
 // home.component.ts - Enhanced version with improved animations and parallax
-import { Component, OnInit, PLATFORM_ID, Inject, HostListener, AfterViewInit, OnDestroy, ViewEncapsulation, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject, HostListener, AfterViewInit, OnDestroy, ViewEncapsulation, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ServicesOverviewComponent } from '../services-overview/services-overview.component';
@@ -10,7 +10,8 @@ import { ViewportScroller } from '@angular/common';
 import { ReverseParallaxComponent } from '../animations/reverse-parallax/reverse-parallax.component';
 import { gsap } from 'gsap';
 import { AosService } from '../../Services/aos.service';
-
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 interface ParallaxElement {
   element: HTMLElement;
   speed: number;
@@ -34,6 +35,7 @@ interface ParallaxElement {
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('svgContainer', { static: true }) svgContainer!: ElementRef;
   private animationStarted = false;
   private parallaxElements: ParallaxElement[] = [];
   private rafId: number = 0;
@@ -66,16 +68,18 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   
   ngAfterViewInit(): void {
+  
+  
     if (isPlatformBrowser(this.platformId)) {
       // Initialize all animations with proper timing
       setTimeout(() => {
         this.initializeHeroAnimations();
-        this.setupParallaxEffects();
         this.setupAdvancedCursor();
         this.setupFloatingElements();
         this.aos.refresh();
       }, 100);
     }
+    
   }
   
   ngOnDestroy(): void {
@@ -94,7 +98,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       
       // Remove event listeners
-      window.removeEventListener('resize', this.handleResize);
       document.removeEventListener('mousemove', this.handleMouseMove);
     }
   }
@@ -107,7 +110,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     
     if (!this.ticking) {
       requestAnimationFrame(() => {
-        this.updateParallax();
         this.updateFloatingElements();
         this.ticking = false;
       });
@@ -115,12 +117,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  @HostListener('window:resize')
-  onResize(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.setupParallaxEffects();
-    }
-  }
 
   @HostListener('window:mousemove', ['$event'])
   onMouseMove(event: MouseEvent): void {
@@ -577,41 +573,19 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private updateNeuralAssembly(leftNodes: NodeListOf<Element>, centerNodes: NodeListOf<Element>, rightNodes: NodeListOf<Element>, connections: NodeListOf<Element>, centerText: Element | null, metrics: Element | null, progress: number): void {
-    const easeProgress = this.easeInOutCubic(progress);
   
     // Animar nodos izquierdos hacia sus posiciones finales
     leftNodes.forEach((node, index) => {
       const htmlNode = node as HTMLElement;
-      const nodeProgress = Math.max(0, Math.min(1, (progress - index * 0.1) / 0.8));
-      const easedNodeProgress = this.easeInOutCubic(nodeProgress);
-      
-      const finalX = 0;
-      const finalY = 0;
-      const currentX = -400 * (1 - easedNodeProgress);
-      const currentY = (-100 + index * 50) * (1 - easedNodeProgress);
-      const currentRotation = 360 * (1 - easedNodeProgress);
-      const currentScale = 0.3 + (0.7 * easedNodeProgress);
-      const currentOpacity = 0.2 + (0.8 * easedNodeProgress);
-  
-      htmlNode.style.transform = `translateX(${currentX}px) translateY(${currentY}px) rotate(${currentRotation}deg) scale(${currentScale})`;
-      htmlNode.style.opacity = currentOpacity.toString();
-      
-      // Detener animaciones cuando esté completo
-      if (progress >= 1) {
         htmlNode.style.transform = 'translateX(0) translateY(0) rotate(0deg) scale(1)';
         htmlNode.style.opacity = '1';
-      }
+      
     });
   
     // Similar para los demás nodos... (el resto del código con los mismos cambios)
   }
 
-  // Función de easing para transiciones más suaves
-  private easeInOutCubic(t: number): number {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  }
 
-  // Array para almacenar listeners de scroll para limpieza
   private scrollListeners: (() => void)[] = [];
 
   private ensureElementsVisible(): void {
@@ -634,112 +608,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  private animateNeuralElements(): void {
-    const nodes = this.elementRef.nativeElement.querySelectorAll('.node');
-    const connections = this.elementRef.nativeElement.querySelectorAll('.connection');
-
-    // Animate nodes with ripple effect
-    nodes.forEach((node: HTMLElement, index: number) => {
-      setTimeout(() => {
-        node.style.transform = 'scale(0)';
-        node.style.opacity = '0';
-        node.style.transition = 'all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-        
-        setTimeout(() => {
-          node.style.transform = 'scale(1)';
-          node.style.opacity = '1';
-          
-          // Add ripple effect
-          this.createRippleEffect(node);
-        }, 50);
-      }, index * 150);
-    });
-
-    // Animate connections with flow effect
-    connections.forEach((connection: HTMLElement, index: number) => {
-      setTimeout(() => {
-        connection.style.strokeDasharray = '5 5';
-        connection.style.strokeDashoffset = '10';
-        connection.style.opacity = '1';
-        connection.style.animation = 'dataFlow 2s linear infinite';
-      }, 500 + index * 100);
-    });
-  }
-
-  private createRippleEffect(element: HTMLElement): void {
-    const ripple = this.renderer.createElement('div');
-    const rect = element.getBoundingClientRect();
-    
-    this.renderer.setStyle(ripple, 'position', 'absolute');
-    this.renderer.setStyle(ripple, 'border-radius', '50%');
-    this.renderer.setStyle(ripple, 'background', 'rgba(94, 137, 176, 0.3)');
-    this.renderer.setStyle(ripple, 'transform', 'scale(0)');
-    this.renderer.setStyle(ripple, 'pointer-events', 'none');
-    this.renderer.setStyle(ripple, 'left', '50%');
-    this.renderer.setStyle(ripple, 'top', '50%');
-    this.renderer.setStyle(ripple, 'width', '20px');
-    this.renderer.setStyle(ripple, 'height', '20px');
-    this.renderer.setStyle(ripple, 'margin-left', '-10px');
-    this.renderer.setStyle(ripple, 'margin-top', '-10px');
-    
-    element.style.position = 'relative';
-    element.appendChild(ripple);
-
-    ripple.animate([
-      { transform: 'scale(0)', opacity: '0.6' },
-      { transform: 'scale(3)', opacity: '0' }
-    ], {
-      duration: 800,
-      easing: 'ease-out'
-    }).onfinish = () => ripple.remove();
-  }
-  private setupParallaxEffects(): void {
-    if (!isPlatformBrowser(this.platformId) || this.isReducedMotion) return;
-  
-    this.parallaxElements = [];
-  
-    // Hero background elements
-    const glowElements = this.elementRef.nativeElement.querySelectorAll('.glow');
-    glowElements.forEach((element: HTMLElement, index: number) => {
-      this.parallaxElements.push({
-        element,
-        speed: 0.3 + (index * 0.1),
-        initialPosition: 0
-      });
-    });
-  
-    // Hero radial background
-    const radialBg = this.elementRef.nativeElement.querySelector('.hero-radial-bg');
-    if (radialBg) {
-      this.parallaxElements.push({
-        element: radialBg,
-        speed: 0.5,
-        initialPosition: 0
-      });
-    }
-  
-    // IMPORTANTE: No agregar la red neuronal al parallax
-    // La red neuronal tiene su propia animación de ensamblaje basada en scroll
-  
-    // Component sections con diferentes profundidades
-    const sections = this.elementRef.nativeElement.querySelectorAll('app-services-overview, app-about-us, app-contact, app-features');
-    sections.forEach((section: HTMLElement, index: number) => {
-      this.parallaxElements.push({
-        element: section,
-        speed: 0.95 + (index * 0.01), // Velocidad muy cercana a 1 para movimiento mínimo
-        initialPosition: 0
-      });
-    });
-  }
-
-  private updateParallax(): void {
-    if (!this.parallaxElements.length) return;
-
-    this.parallaxElements.forEach(({ element, speed }) => {
-      const yPos = -(this.scrollY * speed);
-      element.style.transform = `translate3d(0, ${yPos}px, 0)`;
-    });
-  }
+ 
 
   private setupAdvancedCursor(): void {
     if (!isPlatformBrowser(this.platformId) || this.isReducedMotion) return;
@@ -881,11 +750,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  private handleResize = (): void => {
-    if (isPlatformBrowser(this.platformId)) {
-      this.setupParallaxEffects();
-    }
-  }
 
   private handleMouseMove = (event: MouseEvent): void => {
     this.onMouseMove(event);
