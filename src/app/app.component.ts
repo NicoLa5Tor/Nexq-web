@@ -18,7 +18,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     AOS.init({
       duration: 800,
-      once: true,
+      delay:200,
       easing: 'ease-in-out'
     });
   }

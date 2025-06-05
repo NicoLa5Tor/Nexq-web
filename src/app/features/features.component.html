@@ -1,12 +1,12 @@
 <!-- features.component.html -->
-<section class="features-section" #featuresSection data-aos="fade-up">
+<section class="features-section" #featuresSection>
   <h2 class="section-title" #sectionTitle>
     <!-- Título por defecto (siempre visible para móviles) -->
     <span *ngIf="showDefaultTitle">{{ titleText }}</span>
     <!-- Las letras animadas se añadirán mediante JavaScript cuando no se muestre el título por defecto -->
   </h2>
   <div class="features-grid">
-    <div class="feature-card" data-aos="fade-up-right"
+    <div class="feature-card" 
          #card0
          [class.selected]="selectedCard === 0"
          (click)="selectCard(0)"
