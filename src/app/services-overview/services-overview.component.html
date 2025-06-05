@@ -31,7 +31,7 @@
 
     <div class="services-grid" [ngClass]="{'expanded-grid': mostrarServicio()}">
       <!-- Servicio 1: Análisis Avanzado de Datos -->
-      <div class="service-card fade-in delay-2" [ngClass]="{'detail-card': mostrarServicio()}" data-aos="zoom-in">
+      <div class="service-card fade-in delay-2" [ngClass]="{'detail-card': mostrarServicio()}" data-aos="fade-right">
         <div class="service-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
@@ -51,7 +51,7 @@
       </div>
       
       <!-- Servicio 2: Soluciones basadas en IA -->
-      <div class="service-card fade-in delay-2" [ngClass]="{'detail-card': mostrarServicio()}" data-aos="zoom-in">
+      <div class="service-card fade-in delay-2" [ngClass]="{'detail-card': mostrarServicio()}" data-aos="fade-up">
         <div class="service-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
@@ -73,7 +73,7 @@
       </div>
       
       <!-- Servicio 3: Big Data y Visualización -->
-      <div class="service-card fade-in delay-3" [ngClass]="{'detail-card': mostrarServicio()}" data-aos="zoom-in">
+      <div class="service-card fade-in delay-3" [ngClass]="{'detail-card': mostrarServicio()}" data-aos="fade-left">
         <div class="service-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -94,7 +94,7 @@
       </div>
       
       <!-- Servicio 4: Desarrollo de Software - Solo visible cuando mostrarServicio es true -->
-      <div class="service-card fade-in delay-3 detail-card" *ngIf="mostrarServicio()" data-aos="zoom-in">
+      <div class="service-card fade-in delay-3 detail-card" *ngIf="mostrarServicio()" data-aos="flip-left">
         <div class="service-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="16 18 22 12 16 6"></polyline>
@@ -111,7 +111,7 @@
       </div>
       
       <!-- Servicio 5: Investigación y Desarrollo - Solo visible cuando mostrarServicio es true -->
-      <div class="service-card fade-in delay-4 detail-card" *ngIf="mostrarServicio()" data-aos="zoom-in">
+      <div class="service-card fade-in delay-4 detail-card" *ngIf="mostrarServicio()" data-aos="flip-right">
         <div class="service-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
@@ -127,7 +127,7 @@
       </div>
       
       <!-- Servicio 6: Finanzas y Economía - Solo visible cuando mostrarServicio es true -->
-      <div class="service-card fade-in delay-4 detail-card" *ngIf="mostrarServicio()" data-aos="zoom-in">
+      <div class="service-card fade-in delay-4 detail-card" *ngIf="mostrarServicio()" data-aos="zoom-in-up">
         <div class="service-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="1" x2="12" y2="23"></line>
@@ -145,7 +145,7 @@
     </div>
     
     <!-- CTA Container - Versión diferente según el estado -->
-    <div class="cta-container fade-in delay-4" *ngIf="!mostrarServicio()">
+    <div class="cta-container fade-in delay-4" *ngIf="!mostrarServicio()" data-aos="fade-up">
       <h3 class="cta-title">¿Necesitas una solución personalizada?</h3>
       <p class="cta-text">Contáctanos para recibir asesoría especializada para tu empresa</p>
       <button class="cta-button" routerLink="/servicios" (click)="returnToView()">Ver todos los servicios</button>
@@ -155,7 +155,7 @@
     <!-- Modificaciones para el CTA en la vista de servicios detallada -->
 
 <!-- Reemplazar el CTA expandido con esta versión corregida -->
-  <div class="cta-container expanded-cta" *ngIf="mostrarServicio()">
+  <div class="cta-container expanded-cta" *ngIf="mostrarServicio()" data-aos="fade-up">
     <div class="cta-background-element"></div>
     <h3 class="cta-title">Tecnología de punta al servicio de tu negocio</h3>
     <p class="cta-text">Nuestro equipo de expertos está listo para asesorarte y encontrar la mejor solución a tus necesidades</p>
