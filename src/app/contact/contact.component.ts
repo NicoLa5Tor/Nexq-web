@@ -1,7 +1,9 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AosService } from '../../Services/aos.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 @Component({
   selector: 'app-contact',
@@ -10,7 +12,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnInit, AfterViewInit {
   contactForm!: FormGroup;
   submitted = false;
   success = false;
@@ -29,6 +31,30 @@ export class ContactComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       this.initFadeInAnimations();
       this.aos.refresh();
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.from('.contact-section form', {
+        opacity: 0,
+        y: 80,
+        duration: 1,
+        scrollTrigger: {
+          trigger: '.contact-section',
+          start: 'top 80%'
+        }
+      });
+      gsap.from('.contact-section .contact-info', {
+        opacity: 0,
+        x: 80,
+        duration: 1,
+        scrollTrigger: {
+          trigger: '.contact-section',
+          start: 'top 80%'
+        }
+      });
     }
   }
   

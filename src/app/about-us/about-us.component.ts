@@ -1,6 +1,8 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AosService } from '../../Services/aos.service';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 @Component({
   selector: 'app-about-us',
@@ -9,7 +11,7 @@ import { AosService } from '../../Services/aos.service';
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.scss']
 })
-export class AboutUsComponent implements OnInit {
+export class AboutUsComponent implements OnInit, AfterViewInit {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private aos: AosService
@@ -20,6 +22,30 @@ export class AboutUsComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       this.initFadeInAnimations();
       this.aos.refresh();
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.from('.about-section .about-content', {
+        opacity: 0,
+        x: -80,
+        duration: 1,
+        scrollTrigger: {
+          trigger: '.about-section',
+          start: 'top 80%'
+        }
+      });
+      gsap.from('.about-section .team-section', {
+        opacity: 0,
+        x: 80,
+        duration: 1,
+        scrollTrigger: {
+          trigger: '.about-section',
+          start: 'top 80%'
+        }
+      });
     }
   }
   

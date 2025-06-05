@@ -128,8 +128,14 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
         ScrollTrigger.create({
           trigger: this.featuresSection.nativeElement,
           start: 'top center',
-          onEnter: () => gsap.to('body', { backgroundColor: '#ffffff', color: '#000', duration: 0.5 }),
-          onLeaveBack: () => gsap.to('body', { backgroundColor: '', color: '', duration: 0.5 })
+          onEnter: () => {
+            gsap.to('body', { backgroundColor: '#ffffff', color: '#000', duration: 0.5 });
+            document.body.classList.add('light-theme');
+          },
+          onLeaveBack: () => {
+            gsap.to('body', { backgroundColor: '', color: '', duration: 0.5 });
+            document.body.classList.remove('light-theme');
+          }
         });
       }
 

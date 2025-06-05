@@ -15,6 +15,14 @@
   --nav-height: 70px;
 }
 
+/* Tema claro activado desde GSAP */
+body.light-theme {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --text-primary: #000000;
+  --text-secondary: #333333;
+}
+
 /* Reseteo general */
 * {
   margin: 0;

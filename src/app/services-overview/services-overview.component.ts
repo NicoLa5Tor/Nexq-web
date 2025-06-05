@@ -4,6 +4,8 @@ import { AosService } from '../../Services/aos.service';
 import { RouterLink } from '@angular/router';
 import { ServiceService } from '../../Services/service.service';
 import { ParticlesBackgroundComponent } from '../animations/particles-background/particles-background.component';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 @Component({
   selector: 'app-services-overview',
   standalone: true,
@@ -43,6 +45,7 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     // Iniciar la animación del título después de que la vista se haya inicializado
     if (isPlatformBrowser(this.platformId)) {
+      gsap.registerPlugin(ScrollTrigger);
       setTimeout(() => this.setupTitleAnimation(), 100);
       
       // Configurar los nodos neurales si estamos en vista detallada
@@ -50,6 +53,7 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
         this.setupNeuralNodes();
       }
 
+      this.setupGsapParallax();
       this.aos.refresh();
     }
   }
@@ -245,6 +249,31 @@ private handleCTAVisibility(): void {
       });
     }
   }, 100);
+}
+
+private setupGsapParallax(): void {
+  if (!isPlatformBrowser(this.platformId)) return;
+
+  const section = this.el.nativeElement.querySelector('.services-section');
+  if (!section) return;
+
+  const cards = section.querySelectorAll('.service-card');
+
+  gsap.fromTo(cards,
+    { y: 80, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      stagger: 0.1,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top center',
+        end: 'bottom+=200 center',
+        scrub: true,
+        pin: true
+      }
+    });
 }
 private setupNeuralNodes(): void {
   if (!isPlatformBrowser(this.platformId)) return;
