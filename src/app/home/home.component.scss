@@ -589,34 +589,6 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 
-// Component-specific reveal animations
-app-services-overview.scroll-reveal {
-  transform: translateX(-100px) rotateY(5deg);
-  &.revealed {
-    transform: translateX(0) rotateY(0deg);
-  }
-}
-
-app-about-us.scroll-reveal {
-  transform: scale(0.8) translateY(80px);
-  &.revealed {
-    transform: scale(1) translateY(0);
-  }
-}
-
-app-contact.scroll-reveal {
-  transform: translateX(100px) rotateY(-5deg);
-  &.revealed {
-    transform: translateX(0) rotateY(0deg);
-  }
-}
-
-app-features.scroll-reveal {
-  transform: translateY(100px) scale(0.9);
-  &.revealed {
-    transform: translateY(0) scale(1);
-  }
-}
 
 // Enhanced responsive design
 @media (max-width: 1024px) {
@@ -810,65 +782,6 @@ app-features.scroll-reveal {
   }
 }
 
-.immersive-element {
-  transform-style: preserve-3d;
-  transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  
-  &:not(.revealed) {
-    opacity: 0;
-    transform: translateY(100px) scale(0.9) rotateX(10deg);
-    filter: blur(10px);
-  }
-  
-  &.revealed {
-    opacity: 1;
-    transform: translateY(0) scale(1) rotateX(0deg);
-    filter: blur(0px);
-  }
-}
-
-// Efectos específicos para cada componente
-app-services-overview.immersive-element {
-  &:not(.revealed) {
-    transform: translateX(-150px) scale(0.8) rotateY(15deg);
-  }
-  
-  &.revealed {
-    transform: translateX(0) scale(1) rotateY(0deg);
-  }
-}
-
-app-about-us.immersive-element {
-  &:not(.revealed) {
-    transform: scale(0.7) translateY(80px) rotateZ(5deg);
-  }
-  
-  &.revealed {
-    transform: scale(1) translateY(0) rotateZ(0deg);
-  }
-}
-
-app-features.immersive-element {
-  &:not(.revealed) {
-    transform: translateX(150px) scale(0.8) rotateY(-15deg);
-  }
-  
-  &.revealed {
-    transform: translateX(0) scale(1) rotateY(0deg);
-  }
-}
-
-app-contact.immersive-element {
-  &:not(.revealed) {
-    transform: translateY(120px) scale(0.85) rotateX(-10deg);
-    filter: blur(8px);
-  }
-  
-  &.revealed {
-    transform: translateY(0) scale(1) rotateX(0deg);
-    filter: blur(0px);
-  }
-}
 
 // Enhanced button effects
 .cta-button, .secondary-button {

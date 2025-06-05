@@ -16,7 +16,6 @@ export class AppComponent {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: any,
-    private aos: AosService
   ) {}
 
   
@@ -26,7 +25,6 @@ export class AppComponent {
   
   ngAfterViewInit(): void {
 
-    this.aos.init();
 
   }
 
