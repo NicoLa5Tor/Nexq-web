@@ -1,6 +1,5 @@
 // features.component.ts
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, ViewEncapsulation, HostListener, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
-import { AosService } from '../../Services/aos.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -66,9 +65,7 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
   private isBrowser: boolean;
   
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object
     @Inject(PLATFORM_ID) private platformId: Object,
-    private aos: AosService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -121,7 +118,6 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
         this.setupCursorTrail();
       }
 
-      this.aos.refresh();
     }
   }
   

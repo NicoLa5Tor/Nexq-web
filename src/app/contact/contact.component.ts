@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AosService } from '../../Services/aos.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -17,8 +16,7 @@ export class ContactComponent implements OnInit {
   
   constructor(
     private fb: FormBuilder,
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private aos: AosService
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
   
   ngOnInit(): void {
@@ -28,7 +26,6 @@ export class ContactComponent implements OnInit {
     // Inicializar animaciones solo en el navegador
     if (isPlatformBrowser(this.platformId)) {
       this.initFadeInAnimations();
-      this.aos.refresh();
     }
   }
   
