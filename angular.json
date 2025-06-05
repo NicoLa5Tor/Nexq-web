@@ -20,9 +20,7 @@
             "outputPath": "dist/nexq",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -51,25 +49,35 @@
               "outputHashing": "all",
               "baseHref": "/",
               "aot": true,
+              "buildOptimizer": true,
               "extractLicenses": true,
-              "optimization": true
+              "optimization": true,
+              "sourceMap": false
             },
             "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
+              "aot": true,
+              "buildOptimizer": false,
+              "optimization": {
+                "scripts": false,
+                "styles": {
+                  "minify": false,
+                  "inlineCritical": false
+                }
+              },
+              "sourceMap": true,
+              "extractLicenses": false
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "NEXQ:build:production"
+              "buildTarget": "NEXQ:build:production"
             },
             "development": {
-              "browserTarget": "NEXQ:build:development"
+              "buildTarget": "NEXQ:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -77,16 +85,13 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "NEXQ:build"
+            "buildTarget": "NEXQ:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -103,6 +108,6 @@
     }
   },
   "cli": {
-    "analytics": "48693ba8-a862-4a35-b9b3-a1b878b986e8"
+    "analytics": false
   }
 }
