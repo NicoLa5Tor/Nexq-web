@@ -3,6 +3,8 @@ import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, ViewEncapsulat
 import { AosService } from '../../Services/aos.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 interface CursorPoint {
   x: number;
@@ -103,6 +105,7 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     // Solo ejecutar código relacionado con el DOM en el navegador
     if (this.isBrowser) {
+      gsap.registerPlugin(ScrollTrigger);
       // Inicializar el observer para la sección de características
       this.setupIntersectionObserver();
       
@@ -118,6 +121,16 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
       // y no se prefiere el movimiento reducido
       if (!this.isTouchDevice && !this.isReducedMotionPreferred) {
         this.setupCursorTrail();
+      }
+
+      // Cambiar el color del fondo cuando la sección de características está en vista
+      if (this.featuresSection && this.featuresSection.nativeElement) {
+        ScrollTrigger.create({
+          trigger: this.featuresSection.nativeElement,
+          start: 'top center',
+          onEnter: () => gsap.to('body', { backgroundColor: '#ffffff', color: '#000', duration: 0.5 }),
+          onLeaveBack: () => gsap.to('body', { backgroundColor: '', color: '', duration: 0.5 })
+        });
       }
 
       this.aos.refresh();
@@ -442,20 +455,18 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
   // Anima las letras del título
   private animateTitle(): void {
     if (!this.isBrowser || !this.sectionTitleElement) return;
-    
+
     const titleElement = this.sectionTitleElement.nativeElement;
     const letters = titleElement.querySelectorAll('.title-letter, .title-space');
-    
-    // Ajustar velocidad de animación según tamaño de pantalla
-    const baseDelay = this.windowWidth < 768 ? 0.06 : 0.08;
-    
-    // En lugar de usar clases CSS, aplicamos la animación directamente con JavaScript
-    letters.forEach((letter: HTMLElement, index: number) => {
-      setTimeout(() => {
-        letter.style.opacity = '1';
-        letter.style.transform = 'translateY(0)';
-        letter.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      }, index * baseDelay * 1000);
+
+    const baseDelay = this.windowWidth < 768 ? 0.05 : 0.07;
+
+    gsap.to(letters, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      ease: 'power2.out',
+      stagger: baseDelay
     });
   }
   
