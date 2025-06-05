@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AosService } from '../Services/aos.service';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 
 @Component({
@@ -9,9 +10,8 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewInit {
   title = 'nexq-ai';
-
 
 
   constructor(
@@ -27,5 +27,4 @@ export class AppComponent {
 
 
   }
-
 }

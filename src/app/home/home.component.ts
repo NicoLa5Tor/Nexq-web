@@ -9,6 +9,7 @@ import { FeaturesComponent } from '../features/features.component';
 import { ViewportScroller } from '@angular/common';
 import { ReverseParallaxComponent } from '../animations/reverse-parallax/reverse-parallax.component';
 import { gsap } from 'gsap';
+import { AosService } from '../../Services/aos.service';
 
 interface ParallaxElement {
   element: HTMLElement;
@@ -47,7 +48,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(PLATFORM_ID) private platformId: Object,
     private scroll: ViewportScroller,
     private elementRef: ElementRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private aos: AosService
   ) {}
   
   ngOnInit(): void {
@@ -71,6 +73,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.setupParallaxEffects();
         this.setupAdvancedCursor();
         this.setupFloatingElements();
+        this.aos.refresh();
       }, 100);
     }
   }
