@@ -9,7 +9,6 @@ import { FeaturesComponent } from '../features/features.component';
 import { ViewportScroller } from '@angular/common';
 import { ReverseParallaxComponent } from '../animations/reverse-parallax/reverse-parallax.component';
 import { gsap } from 'gsap';
-import { AosService } from '../../Services/aos.service';
 
 interface ParallaxElement {
   element: HTMLElement;
@@ -35,7 +34,6 @@ interface ParallaxElement {
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private animationStarted = false;
-  private observer: IntersectionObserver | null = null;
   private parallaxElements: ParallaxElement[] = [];
   private rafId: number = 0;
   private scrollY = 0;
@@ -49,8 +47,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(PLATFORM_ID) private platformId: Object,
     private scroll: ViewportScroller,
     private elementRef: ElementRef,
-    private renderer: Renderer2,
-    private aos: AosService
+    private renderer: Renderer2
   ) {}
   
   ngOnInit(): void {
@@ -74,17 +71,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.setupParallaxEffects();
         this.setupAdvancedCursor();
         this.setupFloatingElements();
-        this.aos.refresh();
       }, 100);
     }
   }
   
   ngOnDestroy(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Clean up observers and animations
-      if (this.observer) {
-        this.observer.disconnect();
-      }
+      // Clean up animations
       if (this.rafId) {
         cancelAnimationFrame(this.rafId);
       }
@@ -884,129 +877,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     // Currently handled by CSS animations
   }
 
-  private setupScrollObserver(): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-
-    const options = {
-      root: null,
-      rootMargin: '0px 0px -20% 0px',
-      threshold: 0.1
-    };
-
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Agregar transición inmersiva
-          this.addImmersiveTransition(entry.target as HTMLElement);
-          
-          entry.target.classList.add('revealed');
-          
-          // Efectos especiales para componentes específicos
-          this.enhanceComponentReveal(entry.target as HTMLElement);
-          
-          this.observer?.unobserve(entry.target);
-        }
-      });
-    }, options);
-
-    // Observar elementos immersivos
-    const elements = this.elementRef.nativeElement.querySelectorAll('.scroll-reveal, .immersive-element');
-    elements.forEach((element: HTMLElement) => {
-      this.observer?.observe(element);
-    });
-  }
-
-  private addImmersiveTransition(element: HTMLElement): void {
-    const section = element.closest('.immersive-section') as HTMLElement;
-    if (section) {
-      section.classList.add('transitioning');
-      
-      // Crear efecto de partículas durante la transición
-      this.createTransitionParticles(element);
-      
-      // Remover la clase después de la transición
-      setTimeout(() => {
-        section.classList.remove('transitioning');
-      }, 1500);
-    }
-  }
-
-  private createTransitionParticles(element: HTMLElement): void {
-    const rect = element.getBoundingClientRect();
-    const particleCount = 15;
-    
-    for (let i = 0; i < particleCount; i++) {
-      setTimeout(() => {
-        const particle = this.renderer.createElement('div');
-        this.renderer.setStyle(particle, 'position', 'fixed');
-        this.renderer.setStyle(particle, 'width', '4px');
-        this.renderer.setStyle(particle, 'height', '4px');
-        this.renderer.setStyle(particle, 'background', `hsl(${220 + Math.random() * 60}, 80%, 70%)`);
-        this.renderer.setStyle(particle, 'border-radius', '50%');
-        this.renderer.setStyle(particle, 'pointer-events', 'none');
-        this.renderer.setStyle(particle, 'z-index', '1000');
-        this.renderer.setStyle(particle, 'opacity', '0.8');
-        
-        const startX = rect.left + Math.random() * rect.width;
-        const startY = rect.top + rect.height;
-        const endX = startX + (Math.random() - 0.5) * 200;
-        const endY = startY - 100 - Math.random() * 100;
-        
-        this.renderer.setStyle(particle, 'left', `${startX}px`);
-        this.renderer.setStyle(particle, 'top', `${startY}px`);
-        
-        document.body.appendChild(particle);
-
-        particle.animate([
-          { 
-            transform: 'translate(0, 0) scale(1)', 
-            opacity: '0.8' 
-          },
-          { 
-            transform: `translate(${endX - startX}px, ${endY - startY}px) scale(0)`, 
-            opacity: '0' 
-          }
-        ], {
-          duration: 1000 + Math.random() * 500,
-          easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-        }).onfinish = () => particle.remove();
-      }, i * 50);
-    }
-  }
-
-  private enhanceComponentReveal(element: HTMLElement): void {
-    // Add particle effects when components are revealed
-    const rect = element.getBoundingClientRect();
-    
-    for (let i = 0; i < 10; i++) {
-      setTimeout(() => {
-        this.createRevealParticle(rect);
-      }, i * 100);
-    }
-  }
-
-  private createRevealParticle(rect: DOMRect): void {
-    const particle = this.renderer.createElement('div');
-    this.renderer.setStyle(particle, 'position', 'fixed');
-    this.renderer.setStyle(particle, 'width', '6px');
-    this.renderer.setStyle(particle, 'height', '6px');
-    this.renderer.setStyle(particle, 'background', `hsl(${220 + Math.random() * 60}, 70%, 60%)`);
-    this.renderer.setStyle(particle, 'border-radius', '50%');
-    this.renderer.setStyle(particle, 'pointer-events', 'none');
-    this.renderer.setStyle(particle, 'z-index', '1000');
-    this.renderer.setStyle(particle, 'left', `${rect.left + Math.random() * rect.width}px`);
-    this.renderer.setStyle(particle, 'top', `${rect.top + rect.height}px`);
-    
-    document.body.appendChild(particle);
-
-    particle.animate([
-      { transform: 'translateY(0) scale(1)', opacity: '1' },
-      { transform: `translateY(-${50 + Math.random() * 100}px) scale(0)`, opacity: '0' }
-    ], {
-      duration: 1000 + Math.random() * 1000,
-      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-    }).onfinish = () => particle.remove();
-  }
 
   private handleResize = (): void => {
     if (isPlatformBrowser(this.platformId)) {
