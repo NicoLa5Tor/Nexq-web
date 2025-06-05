@@ -11,4 +11,23 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 })
 export class AppComponent {
   title = 'nexq-ai';
+
+
+
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: any,
+    private aos: AosService
+  ) {}
+
+  
+  ngOnInit(): void {
+
+  }
+  
+  ngAfterViewInit(): void {
+
+    this.aos.init();
+
+  }
+
 }
