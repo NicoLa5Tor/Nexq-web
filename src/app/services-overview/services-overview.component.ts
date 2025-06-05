@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef, Renderer2, ViewChild, AfterViewInit, signal, Inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AosService } from '../../Services/aos.service';
 import { RouterLink } from '@angular/router';
 import { ServiceService } from '../../Services/service.service';
 import { ParticlesBackgroundComponent } from '../animations/particles-background/particles-background.component';
@@ -27,8 +26,7 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
     private el: ElementRef,
     private renderer: Renderer2,
     private serviceEstatus: ServiceService,
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private aos: AosService
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit(): void {
@@ -49,8 +47,6 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
       if (this.mostrarServicio()) {
         this.setupNeuralNodes();
       }
-
-      this.aos.refresh();
     }
   }
   
