@@ -1,6 +1,7 @@
 // header.component.ts
 import { Component, OnInit, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 
 @Component({
@@ -8,7 +9,14 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  animations: [
+    trigger('menuAnimation', [
+      state('closed', style({ transform: 'translateY(-100vh)' })),
+      state('open', style({ transform: 'translateY(0)' })),
+      transition('closed <=> open', animate('300ms ease'))
+    ])
+  ]
 })
 export class HeaderComponent implements OnInit {
   isScrolled = false;

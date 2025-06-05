@@ -1,5 +1,6 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { AosService } from '../../Services/aos.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -8,12 +9,21 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  styleUrls: ['./contact.component.scss'],
+  animations: [
+    trigger('fadeIn', [
+      state('hidden', style({ opacity: 0, transform: 'translateY(20px)' })),
+      state('visible', style({ opacity: 1, transform: 'translateY(0)' })),
+      transition('hidden => visible', animate('600ms ease-out'))
+    ])
+  ]
 })
 export class ContactComponent implements OnInit {
   contactForm!: FormGroup;
   submitted = false;
   success = false;
+  @ViewChild('contactSection', { static: true }) contactSection!: ElementRef;
+  fadeState = 'hidden';
   
   constructor(
     private fb: FormBuilder,
@@ -27,7 +37,7 @@ export class ContactComponent implements OnInit {
     
     // Inicializar animaciones solo en el navegador
     if (isPlatformBrowser(this.platformId)) {
-      this.initFadeInAnimations();
+      this.initIntersectionAnimation();
       this.aos.refresh();
     }
   }
@@ -59,25 +69,23 @@ export class ContactComponent implements OnInit {
     }
   }
   
-  private initFadeInAnimations(): void {
-    // Verificar que estamos en el navegador
+  private initIntersectionAnimation(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    
-    // Animación de entrada para elementos cuando son visibles
-    const fadeElements = document.querySelectorAll('.contact-section .fade-in');
-    if (fadeElements.length > 0 && typeof IntersectionObserver !== 'undefined') {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            (entry.target as HTMLElement).style.opacity = '1';
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      
-      fadeElements.forEach(element => {
-        observer.observe(element);
-      });
+
+    if (typeof IntersectionObserver === 'undefined') {
+      this.fadeState = 'visible';
+      return;
     }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.fadeState = 'visible';
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(this.contactSection.nativeElement);
   }
 }

@@ -7,7 +7,7 @@
         <!-- Fallback texto si no carga la imagen -->
         <div class="logo-text">NEXQ<span class="logo-accent">-AI</span><span class="logo-dot"></span></div>
       </a>
-      <div class="nav-links" [class.active]="mobileMenuOpen">
+      <div class="nav-links" [class.active]="mobileMenuOpen" [@menuAnimation]="mobileMenuOpen ? 'open' : 'closed'">
         <a href="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="navigateTo('/', $event)">Inicio</a>
         <a href="/servicios" class="nav-link" routerLinkActive="active" (click)="navigateTo('/servicios', $event)">Servicios</a>
         <a href="/nosotros" class="nav-link" routerLinkActive="active" (click)="navigateTo('/nosotros', $event)">Nosotros</a>

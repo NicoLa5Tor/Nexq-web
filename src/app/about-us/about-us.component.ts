@@ -1,5 +1,6 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { trigger, style, animate, transition, state } from '@angular/animations';
 import { AosService } from '../../Services/aos.service';
 
 @Component({
@@ -7,9 +8,18 @@ import { AosService } from '../../Services/aos.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './about-us.component.html',
-  styleUrls: ['./about-us.component.scss']
+  styleUrls: ['./about-us.component.scss'],
+  animations: [
+    trigger('fadeIn', [
+      state('hidden', style({ opacity: 0, transform: 'translateY(20px)' })),
+      state('visible', style({ opacity: 1, transform: 'translateY(0)' })),
+      transition('hidden => visible', animate('600ms ease-out'))
+    ])
+  ]
 })
 export class AboutUsComponent implements OnInit {
+  @ViewChild('aboutSection', { static: true }) aboutSection!: ElementRef;
+  fadeState = 'hidden';
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private aos: AosService
@@ -18,30 +28,28 @@ export class AboutUsComponent implements OnInit {
   ngOnInit(): void {
     // Inicializar animaciones solo cuando estamos en el navegador
     if (isPlatformBrowser(this.platformId)) {
-      this.initFadeInAnimations();
+      this.initIntersectionAnimation();
       this.aos.refresh();
     }
   }
-  
-  private initFadeInAnimations(): void {
-    // Verificar que estamos en un entorno de navegador
+
+  private initIntersectionAnimation(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    
-    // Animación de entrada para elementos cuando son visibles
-    const fadeElements = document.querySelectorAll('.about-section .fade-in');
-    if (fadeElements.length > 0 && typeof IntersectionObserver !== 'undefined') {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            (entry.target as HTMLElement).style.opacity = '1';
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      
-      fadeElements.forEach(element => {
-        observer.observe(element);
-      });
+
+    if (typeof IntersectionObserver === 'undefined') {
+      this.fadeState = 'visible';
+      return;
     }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.fadeState = 'visible';
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(this.aboutSection.nativeElement);
   }
 }
