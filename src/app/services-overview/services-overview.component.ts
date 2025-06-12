@@ -4,10 +4,15 @@ import { AosService } from '../../Services/aos.service';
 import { RouterLink } from '@angular/router';
 import { ServiceService } from '../../Services/service.service';
 import { ParticlesBackgroundComponent } from '../animations/particles-background/particles-background.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { AppointmentDialogComponent } from '../appointment-dialog/appointment-dialog.component';
+import { SendMethodDialogComponent } from '../send-method-dialog/send-method-dialog.component';
+import { AppointmentService } from '../../Services/appointment.service';
+
 @Component({
   selector: 'app-services-overview',
   standalone: true,
-  imports: [CommonModule, RouterLink,ParticlesBackgroundComponent],
+  imports: [CommonModule, RouterLink, ParticlesBackgroundComponent, MatDialogModule],
   templateUrl: './services-overview.component.html',
   styleUrls: ['./services-overview.component.scss'],
   encapsulation: ViewEncapsulation.Emulated
@@ -28,7 +33,9 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2,
     private serviceEstatus: ServiceService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private aos: AosService
+    private aos: AosService,
+    private dialog: MatDialog,
+    private appointmentService: AppointmentService
   ) { }
 
   ngOnInit(): void {
@@ -188,85 +195,129 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
     }
   }
 
-// Método mejorado para las animaciones fade-in
-private initFadeInAnimations(): void {
-  if (!isPlatformBrowser(this.platformId)) return;
-  
-  // Verificar que estamos en el navegador y que document está disponible
-  if (typeof document !== 'undefined') {
-    // Animación de entrada para elementos cuando son visibles
-    const fadeElements = document.querySelectorAll('.services-section .fade-in');
-    if (fadeElements.length > 0 && typeof IntersectionObserver !== 'undefined') {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            (entry.target as HTMLElement).style.opacity = '1';
-            (entry.target as HTMLElement).style.transform = 'translateY(0)';
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-      
-      fadeElements.forEach(element => {
-        observer.observe(element);
-      });
-    }
-  }
-}
-// Añadir este método al componente TypeScript
-
-/**
- * Método para manejar la visibilidad del CTA
- * Se llama cuando cambia el estado de mostrarServicio
- */
-private handleCTAVisibility(): void {
-  if (!isPlatformBrowser(this.platformId)) return;
-  
-  setTimeout(() => {
-    // Buscar el CTA expandido
-    const expandedCTA = this.el.nativeElement.querySelector('.cta-container.expanded-cta');
-    if (expandedCTA && this.mostrarServicio()) {
-      // Asegurar que sea visible
-      this.renderer.setStyle(expandedCTA, 'display', 'block');
-      this.renderer.setStyle(expandedCTA, 'opacity', '1');
-      
-      // Encontrar los botones y animarlos
-      const buttons = expandedCTA.querySelectorAll('.cta-button');
-      buttons.forEach((button: HTMLElement, index: number) => {
-        this.renderer.setStyle(button, 'opacity', '0');
-        this.renderer.setStyle(button, 'transform', 'translateY(20px)');
+  // Método mejorado para las animaciones fade-in
+  private initFadeInAnimations(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    
+    // Verificar que estamos en el navegador y que document está disponible
+    if (typeof document !== 'undefined') {
+      // Animación de entrada para elementos cuando son visibles
+      const fadeElements = document.querySelectorAll('.services-section .fade-in');
+      if (fadeElements.length > 0 && typeof IntersectionObserver !== 'undefined') {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              (entry.target as HTMLElement).style.opacity = '1';
+              (entry.target as HTMLElement).style.transform = 'translateY(0)';
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
         
-        // Animar con un ligero retraso secuencial
-        setTimeout(() => {
-          this.renderer.setStyle(button, 'opacity', '1');
-          this.renderer.setStyle(button, 'transform', 'translateY(0)');
-          this.renderer.setStyle(button, 'transition', 'all 0.5s ease');
-        }, 300 + (index * 150));
-      });
+        fadeElements.forEach(element => {
+          observer.observe(element);
+        });
+      }
     }
-  }, 100);
-}
-private setupNeuralNodes(): void {
-  if (!isPlatformBrowser(this.platformId)) return;
-  
-  const nodesContainer = this.el.nativeElement.querySelector('.neural-nodes-container');
-  if (!nodesContainer) return;
-  
-  // Asegurarse de que los nodos sean visibles
-  this.renderer.setStyle(nodesContainer, 'opacity', '1');
-  this.renderer.setStyle(nodesContainer, 'visibility', 'visible');
-  
-  // Ajustar z-index si es necesario
-  this.renderer.setStyle(nodesContainer, 'z-index', '1');
-  
-  // Hacer lo mismo con las líneas de conexión
-  const dataFlowSvg = this.el.nativeElement.querySelector('.data-flow-svg');
-  if (dataFlowSvg) {
-    this.renderer.setStyle(dataFlowSvg, 'opacity', '1');
-    this.renderer.setStyle(dataFlowSvg, 'visibility', 'visible');
-    this.renderer.setStyle(dataFlowSvg, 'z-index', '1');
   }
-}
 
+  /**
+   * Método para manejar la visibilidad del CTA
+   * Se llama cuando cambia el estado de mostrarServicio
+   */
+  private handleCTAVisibility(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    
+    setTimeout(() => {
+      // Buscar el CTA expandido
+      const expandedCTA = this.el.nativeElement.querySelector('.cta-container.expanded-cta');
+      if (expandedCTA && this.mostrarServicio()) {
+        // Asegurar que sea visible
+        this.renderer.setStyle(expandedCTA, 'display', 'block');
+        this.renderer.setStyle(expandedCTA, 'opacity', '1');
+        
+        // Encontrar los botones y animarlos
+        const buttons = expandedCTA.querySelectorAll('.cta-button');
+        buttons.forEach((button: HTMLElement, index: number) => {
+          this.renderer.setStyle(button, 'opacity', '0');
+          this.renderer.setStyle(button, 'transform', 'translateY(20px)');
+          
+          // Animar con un ligero retraso secuencial
+          setTimeout(() => {
+            this.renderer.setStyle(button, 'opacity', '1');
+            this.renderer.setStyle(button, 'transform', 'translateY(0)');
+            this.renderer.setStyle(button, 'transition', 'all 0.5s ease');
+          }, 300 + (index * 150));
+        });
+      }
+    }, 100);
+  }
 
+  private setupNeuralNodes(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    
+    const nodesContainer = this.el.nativeElement.querySelector('.neural-nodes-container');
+    if (!nodesContainer) return;
+    
+    // Asegurarse de que los nodos sean visibles
+    this.renderer.setStyle(nodesContainer, 'opacity', '1');
+    this.renderer.setStyle(nodesContainer, 'visibility', 'visible');
+    
+    // Ajustar z-index si es necesario
+    this.renderer.setStyle(nodesContainer, 'z-index', '1');
+    
+    // Hacer lo mismo con las líneas de conexión
+    const dataFlowSvg = this.el.nativeElement.querySelector('.data-flow-svg');
+    if (dataFlowSvg) {
+      this.renderer.setStyle(dataFlowSvg, 'opacity', '1');
+      this.renderer.setStyle(dataFlowSvg, 'visibility', 'visible');
+      this.renderer.setStyle(dataFlowSvg, 'z-index', '1');
+    }
+  }
+
+  // Método para abrir el dialog de agendamiento
+  openAppointmentDialog(serviceId?: string): void {
+    // Si se proporciona un serviceId, lo establecemos en el servicio
+    if (serviceId) {
+      this.appointmentService.setSelectedService(serviceId);
+    }
+    
+    // Abrir el primer dialog
+    const dialogRef = this.dialog.open(AppointmentDialogComponent, {
+      width: '700px',
+      maxWidth: '95vw',
+      maxHeight: '90vh',
+      data: { serviceId: serviceId || '' },
+      panelClass: 'custom-dialog-container',
+      autoFocus: false
+    });
+
+    // Manejar el resultado del primer dialog
+    dialogRef.afterClosed().subscribe(result => {
+      if (result?.success && result?.data) {
+        // Si el primer dialog fue exitoso, abrir el segundo
+        setTimeout(() => {
+          this.openSendMethodDialog(result.data);
+        }, 300);
+      }
+    });
+  }
+
+  // Método para abrir el dialog de método de envío
+  private openSendMethodDialog(appointmentData: any): void {
+    const sendDialogRef = this.dialog.open(SendMethodDialogComponent, {
+      width: '800px',
+      maxWidth: '95vw',
+      data: { appointmentData },
+      panelClass: 'custom-dialog-container',
+      autoFocus: false
+    });
+
+    sendDialogRef.afterClosed().subscribe(result => {
+      if (result?.success) {
+        // Limpiar los datos después de enviar
+        this.appointmentService.clearData();
+      }
+    });
+  }
 }

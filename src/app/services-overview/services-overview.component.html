@@ -47,7 +47,7 @@
         <a class="service-link" routerLink="/servicios" (click)="returnToView()" *ngIf="!mostrarServicio()">
           <span>Ver más</span>
         </a>
-        <button class="service-action-button" *ngIf="mostrarServicio()">Agendar demostración</button>
+        <button class="service-action-button" *ngIf="mostrarServicio()" (click)="openAppointmentDialog('data-analysis')">Agendar demostración</button>
       </div>
       
       <!-- Servicio 2: Soluciones basadas en IA -->
@@ -69,7 +69,7 @@
         <a class="service-link" routerLink="/servicios" (click)="returnToView()" *ngIf="!mostrarServicio()">
           <span>Ver más</span>
         </a>
-        <button class="service-action-button" *ngIf="mostrarServicio()">Agendar demostración</button>
+        <button class="service-action-button" *ngIf="mostrarServicio()" (click)="openAppointmentDialog('ai-solutions')">Agendar demostración</button>
       </div>
       
       <!-- Servicio 3: Big Data y Visualización -->
@@ -90,7 +90,7 @@
         <a class="service-link" routerLink="/servicios" (click)="returnToView()" *ngIf="!mostrarServicio()">
           <span>Ver más</span>
         </a>
-        <button class="service-action-button" *ngIf="mostrarServicio()">Agendar demostración</button>
+        <button class="service-action-button" *ngIf="mostrarServicio()" (click)="openAppointmentDialog('big-data')">Agendar demostración</button>
       </div>
       
       <!-- Servicio 4: Desarrollo de Software - Solo visible cuando mostrarServicio es true -->
@@ -107,7 +107,7 @@
           <p>• Soluciones en computación avanzada</p>
           <p>• Sistemas automatizados para gestión</p>
         </div>
-        <button class="service-action-button">Agendar demostración</button>
+        <button class="service-action-button" (click)="openAppointmentDialog('software-dev')">Agendar demostración</button>
       </div>
       
       <!-- Servicio 5: Investigación y Desarrollo - Solo visible cuando mostrarServicio es true -->
@@ -123,7 +123,7 @@
           <p>• Proyectos experimentales en IA</p>
           <p>• Colaboraciones con academia e industria</p>
         </div>
-        <button class="service-action-button">Agendar demostración</button>
+        <button class="service-action-button" (click)="openAppointmentDialog('research')">Agendar demostración</button>
       </div>
       
       <!-- Servicio 6: Finanzas y Economía - Solo visible cuando mostrarServicio es true -->
@@ -140,7 +140,7 @@
           <p>• Optimización de inversiones</p>
           <p>• Análisis actuarial y valoración de activos</p>
         </div>
-        <button class="service-action-button">Agendar demostración</button>
+        <button class="service-action-button" (click)="openAppointmentDialog('financial')">Agendar demostración</button>
       </div>
     </div>
     
@@ -154,16 +154,16 @@
     <!-- CTA Container alternativo cuando se muestran todos los servicios -->
     <!-- Modificaciones para el CTA en la vista de servicios detallada -->
 
-<!-- Reemplazar el CTA expandido con esta versión corregida -->
-  <div class="cta-container expanded-cta" *ngIf="mostrarServicio()" data-aos="fade-up">
-    <div class="cta-background-element"></div>
-    <h3 class="cta-title">Tecnología de punta al servicio de tu negocio</h3>
-    <p class="cta-text">Nuestro equipo de expertos está listo para asesorarte y encontrar la mejor solución a tus necesidades</p>
-    <!-- Importante: Quitar la clase fade-in de los botones -->
-    <div class="cta-buttons-group">
-      <button class="cta-button primary">Agendar consultoría</button>
-      <button class="cta-button secondary" (click)="returnToView()">Volver a vista principal</button>
+    <!-- Reemplazar el CTA expandido con esta versión corregida -->
+    <div class="cta-container expanded-cta" *ngIf="mostrarServicio()" data-aos="fade-up">
+      <div class="cta-background-element"></div>
+      <h3 class="cta-title">Tecnología de punta al servicio de tu negocio</h3>
+      <p class="cta-text">Nuestro equipo de expertos está listo para asesorarte y encontrar la mejor solución a tus necesidades</p>
+      <!-- Importante: Quitar la clase fade-in de los botones -->
+      <div class="cta-buttons-group">
+        <button class="cta-button primary" (click)="openAppointmentDialog()">Agendar consultoría</button>
+        <button class="cta-button secondary" (click)="returnToView()">Volver a vista principal</button>
+      </div>
     </div>
-  </div>
   </div>
 </section>
