@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,6 +11,11 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { AppointmentService, ServiceOption, AppointmentData } from '../../Services/appointment.service';
+
+function phoneValidator(control: AbstractControl): ValidationErrors | null {
+  const digits = String(control.value || '').replace(/\D/g, '');
+  return digits.length >= 7 && digits.length <= 15 ? null : { phone: true };
+}
 
 @Component({
   selector: 'app-appointment-dialog',
@@ -70,7 +75,7 @@ export class AppointmentDialogComponent {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^\d{7,15}$/)]],
+      phone: ['', [Validators.required, phoneValidator]],
       company: ['', Validators.required]
     });
 
@@ -88,6 +93,12 @@ export class AppointmentDialogComponent {
       const digits = String(val || '').replace(/\D/g, '').slice(0, 15);
       if (digits !== val) {
         this.personalGroup.get('phone')?.setValue(digits, { emitEvent: false });
+      }
+    });
+
+    this.serviceGroup.get('service')?.valueChanges.subscribe(val => {
+      if (val) {
+        this.appointmentService.setSelectedService(val);
       }
     });
   }

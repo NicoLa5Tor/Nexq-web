@@ -78,4 +78,5 @@
 <div class="success" *ngIf="showSuccess">
   <mat-icon color="primary" class="success-icon">check_circle</mat-icon>
   <p>¡Cita agendada!</p>
+  <p>{{ appointmentService.getServiceById(serviceGroup.get('service')?.value)?.name }}</p>
 </div>
