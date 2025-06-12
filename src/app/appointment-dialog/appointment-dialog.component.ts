@@ -62,7 +62,7 @@ export class AppointmentDialogComponent {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AppointmentDialogComponent>,
-    private appointmentService: AppointmentService,
+    public appointmentService: AppointmentService,
     @Inject(MAT_DIALOG_DATA) public data: { serviceId: string }
   ) {
     this.services = this.appointmentService.services;
