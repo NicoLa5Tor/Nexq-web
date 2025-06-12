@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { AppointmentService, ServiceOption, AppointmentData } from '../../Services/appointment.service';
 
 @Component({
@@ -23,6 +24,7 @@ import { AppointmentService, ServiceOption, AppointmentData } from '../../Servic
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
+    MatListModule,
     MatStepperModule,
     MatIconModule
   ],
@@ -65,7 +67,7 @@ export class AppointmentDialogComponent {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{7,10}$/)]],
       company: ['', Validators.required]
     });
 

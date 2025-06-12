@@ -1,5 +1,5 @@
 <h2 class="dialog-title">Agendar Consultoría</h2>
-<mat-vertical-stepper linear *ngIf="!showSuccess" class="appointment-stepper">
+<mat-vertical-stepper #stepper linear *ngIf="!showSuccess" class="appointment-stepper">
   <mat-step [stepControl]="personalGroup">
     <form [formGroup]="personalGroup">
       <ng-template matStepLabel>Datos Personales</ng-template>
@@ -21,7 +21,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Teléfono</mat-label>
-          <input matInput formControlName="phone" required (input)="null">
+          <input matInput formControlName="phone" required>
           <mat-error *ngIf="personalGroup.get('phone')?.invalid">Teléfono inválido</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="full-width">
