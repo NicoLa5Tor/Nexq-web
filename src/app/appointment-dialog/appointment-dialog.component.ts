@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, HostListener, ElementRef } from '@angular/co
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AppointmentService, ServiceOption } from '../../Services/appointment.service';
 
 export interface AppointmentData {
   firstName: string;
@@ -73,13 +75,7 @@ export class AppointmentDialogComponent implements OnInit {
   currentStep = 1;
   totalSteps = 3;
 
-  services = [
-    { id: 'ai-strategy', name: 'Estrategia de IA', icon: '🧠', description: 'Consultoría estratégica en inteligencia artificial' },
-    { id: 'automation', name: 'Automatización', icon: '⚡', description: 'Automatización de procesos empresariales' },
-    { id: 'ml-implementation', name: 'Machine Learning', icon: '🤖', description: 'Implementación de modelos de ML' },
-    { id: 'data-analytics', name: 'Análisis de Datos', icon: '📊', description: 'Análisis avanzado de datos empresariales' },
-    { id: 'ai-training', name: 'Capacitación IA', icon: '🎓', description: 'Formación en tecnologías de IA' }
-  ];
+  services: ServiceOption[] = [];
 
   timeSlots = [
     { value: '09:00-10:00', label: '9:00 AM - 10:00 AM', available: true },
@@ -98,12 +94,21 @@ export class AppointmentDialogComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private elementRef: ElementRef
-  ) {}
+    private elementRef: ElementRef,
+    private dialogRef: MatDialogRef<AppointmentDialogComponent>,
+    private appointmentService: AppointmentService,
+    @Inject(MAT_DIALOG_DATA) public data: { serviceId: string }
+  ) {
+    this.services = this.appointmentService.services;
+    this.selectedServiceId = data?.serviceId || this.appointmentService.getSelectedService();
+  }
 
   ngOnInit(): void {
     this.initializeForm();
     document.body.style.overflow = 'hidden';
+    if (this.selectedServiceId) {
+      this.appointmentService.setSelectedService(this.selectedServiceId);
+    }
   }
 
   ngOnDestroy(): void {
@@ -120,7 +125,7 @@ export class AppointmentDialogComponent implements OnInit {
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^(\+57)?[0-9]{10}$/)]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       company: ['', [Validators.required, Validators.minLength(2)]],
       service: [this.selectedServiceId || '', Validators.required],
       preferredTime: ['', Validators.required],
@@ -169,23 +174,22 @@ export class AppointmentDialogComponent implements OnInit {
     if (this.appointmentForm.valid) {
       this.isSubmitting = true;
       const formData: AppointmentData = this.appointmentForm.value;
-      
+      this.appointmentService.setAppointmentData(formData);
+
       // Simular envío
       setTimeout(() => {
         this.isSubmitting = false;
         this.showSuccess = true;
-        
+
         setTimeout(() => {
-          this.closeDialog();
+          this.dialogRef.close({ success: true, data: formData });
         }, 2000);
-      }, 2000);
+      }, 1000);
     }
   }
 
   closeDialog(): void {
-    // Aquí implementarías la lógica para cerrar el diálogo
-    // Por ejemplo, emitir un evento o usar un servicio
-    console.log('Cerrando diálogo');
+    this.dialogRef.close();
   }
 
   onBackdropClick(event: MouseEvent): void {
@@ -212,28 +216,27 @@ export class AppointmentDialogComponent implements OnInit {
   }
 
   formatPhone(event: any): void {
-    let value = event.target.value.replace(/\D/g, '');
-    
-    if (value.startsWith('57')) {
-      value = value.substring(2);
+    const input = event.target;
+    let digits = input.value.replace(/\D/g, '');
+
+    if (digits.startsWith('57')) {
+      digits = digits.substring(2);
     }
-    
-    if (value.length > 0) {
-      if (value.length <= 3) {
-        value = value;
-      } else if (value.length <= 6) {
-        value = value.slice(0, 3) + ' ' + value.slice(3);
-      } else {
-        value = value.slice(0, 3) + ' ' + value.slice(3, 6) + ' ' + value.slice(6, 10);
-      }
+
+    let display = digits;
+    if (digits.length > 3 && digits.length <= 6) {
+      display = digits.slice(0, 3) + ' ' + digits.slice(3);
+    } else if (digits.length > 6) {
+      display = digits.slice(0, 3) + ' ' + digits.slice(3, 6) + ' ' + digits.slice(6, 10);
     }
-    
-    event.target.value = value;
-    this.appointmentForm.patchValue({ phone: value });
+
+    input.value = display;
+    this.appointmentForm.patchValue({ phone: digits });
   }
 
   selectService(serviceId: string): void {
     this.appointmentForm.patchValue({ service: serviceId });
+    this.appointmentService.setSelectedService(serviceId);
   }
 
   selectTimeSlot(timeValue: string): void {
