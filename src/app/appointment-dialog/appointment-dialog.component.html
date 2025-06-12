@@ -1,254 +1,81 @@
-<div class="dialog-backdrop" (click)="onBackdropClick($event)" @dialogAnimation>
-  <div class="appointment-dialog" (click)="$event.stopPropagation()">
-    
-    <!-- Header -->
-    <div class="dialog-header">
-      <div class="header-pattern"></div>
-      <button class="close-btn" (click)="closeDialog()" type="button">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-      
-      <div class="header-content">
-        <div class="ai-icon">
-          <div class="icon-core"></div>
-          <div class="icon-ring"></div>
-          <div class="icon-particles">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-        
-        <h2 class="dialog-title">{{ getStepTitle() }}</h2>
-        <p class="dialog-subtitle">{{ getStepDescription() }}</p>
-        
-        <!-- Progress Indicator -->
-        <div class="progress-container">
-          <div class="progress-bar">
-            <div class="progress-fill" [style.width.%]="(currentStep / totalSteps) * 100"></div>
-          </div>
-          <div class="progress-steps">
-            <div class="step" [class.active]="currentStep >= 1" [class.completed]="currentStep > 1">1</div>
-            <div class="step" [class.active]="currentStep >= 2" [class.completed]="currentStep > 2">2</div>
-            <div class="step" [class.active]="currentStep >= 3" [class.completed]="currentStep > 3">3</div>
-          </div>
-        </div>
+<h2 class="dialog-title">Agendar Consultoría</h2>
+<mat-vertical-stepper linear *ngIf="!showSuccess" class="appointment-stepper">
+  <mat-step [stepControl]="personalGroup">
+    <form [formGroup]="personalGroup">
+      <ng-template matStepLabel>Datos Personales</ng-template>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="firstName" required>
+          <mat-error *ngIf="personalGroup.get('firstName')?.hasError('required')">Requerido</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Apellido</mat-label>
+          <input matInput formControlName="lastName" required>
+          <mat-error *ngIf="personalGroup.get('lastName')?.hasError('required')">Requerido</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required type="email">
+          <mat-error *ngIf="personalGroup.get('email')?.hasError('email')">Correo inválido</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Teléfono</mat-label>
+          <input matInput formControlName="phone" required (input)="null">
+          <mat-error *ngIf="personalGroup.get('phone')?.invalid">Teléfono inválido</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Empresa</mat-label>
+          <input matInput formControlName="company" required>
+          <mat-error *ngIf="personalGroup.get('company')?.hasError('required')">Requerido</mat-error>
+        </mat-form-field>
       </div>
-    </div>
-
-    <!-- Content -->
-    <div class="dialog-content">
-      <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" *ngIf="!showSuccess">
-        
-        <!-- Step 1: Personal Information -->
-        <div class="step-content" *ngIf="currentStep === 1" @fadeIn>
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="firstName">Nombre *</label>
-              <input 
-                id="firstName"
-                type="text" 
-                formControlName="firstName"
-                [class.error]="hasFieldError('firstName')"
-                placeholder="Tu nombre">
-              <div class="error-message" *ngIf="hasFieldError('firstName')">
-                {{ getErrorMessage('firstName') }}
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="lastName">Apellido *</label>
-              <input 
-                id="lastName"
-                type="text" 
-                formControlName="lastName"
-                [class.error]="hasFieldError('lastName')"
-                placeholder="Tu apellido">
-              <div class="error-message" *ngIf="hasFieldError('lastName')">
-                {{ getErrorMessage('lastName') }}
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="email">Correo Electrónico *</label>
-              <input 
-                id="email"
-                type="email" 
-                formControlName="email"
-                [class.error]="hasFieldError('email')"
-                placeholder="tu@empresa.com">
-              <div class="error-message" *ngIf="hasFieldError('email')">
-                {{ getErrorMessage('email') }}
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="phone">Teléfono *</label>
-              <input 
-                id="phone"
-                type="tel" 
-                formControlName="phone"
-                (input)="formatPhone($event)"
-                [class.error]="hasFieldError('phone')"
-                placeholder="300 123 4567">
-              <div class="error-message" *ngIf="hasFieldError('phone')">
-                {{ getErrorMessage('phone') }}
-              </div>
-            </div>
-
-            <div class="form-group full-width">
-              <label for="company">Empresa *</label>
-              <input 
-                id="company"
-                type="text" 
-                formControlName="company"
-                [class.error]="hasFieldError('company')"
-                placeholder="Nombre de tu empresa">
-              <div class="error-message" *ngIf="hasFieldError('company')">
-                {{ getErrorMessage('company') }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 2: Service Selection -->
-        <div class="step-content" *ngIf="currentStep === 2" @fadeIn>
-          <div class="services-grid">
-            <div 
-              *ngFor="let service of services" 
-              class="service-card" 
-              [class.selected]="appointmentForm.get('service')?.value === service.id"
-              (click)="selectService(service.id)">
-              <div class="service-icon">{{ service.icon }}</div>
-              <h3 class="service-name">{{ service.name }}</h3>
-              <p class="service-description">{{ service.description }}</p>
-              <div class="selection-indicator">
-                <div class="check-mark">✓</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="selected-service" *ngIf="getSelectedService()">
-            <div class="service-summary">
-              <span class="service-badge">{{ getSelectedService()?.icon }}</span>
-              <div>
-                <h4>{{ getSelectedService()?.name }}</h4>
-                <p>{{ getSelectedService()?.description }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 3: Schedule -->
-        <div class="step-content" *ngIf="currentStep === 3" @fadeIn>
-          <div class="schedule-section">
-            <h3>Horarios Disponibles</h3>
-            <div class="time-slots">
-              <button 
-                *ngFor="let slot of timeSlots"
-                type="button"
-                class="time-slot"
-                [class.selected]="appointmentForm.get('preferredTime')?.value === slot.value"
-                [class.unavailable]="!slot.available"
-                [disabled]="!slot.available"
-                (click)="selectTimeSlot(slot.value)">
-                {{ slot.label }}
-                <span class="availability-indicator" *ngIf="!slot.available">Ocupado</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="contact-section">
-            <h3>Método de Contacto Preferido</h3>
-            <div class="contact-methods">
-              <button
-                *ngFor="let method of contactMethods"
-                type="button"
-                class="contact-method"
-                [class.selected]="appointmentForm.get('preferredContact')?.value === method.value"
-                (click)="selectContactMethod(method.value)">
-                <span class="method-icon">{{ method.icon }}</span>
-                <span class="method-label">{{ method.label }}</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="message">Mensaje Adicional (Opcional)</label>
-            <textarea 
-              id="message"
-              formControlName="message"
-              rows="4"
-              placeholder="Cuéntanos más sobre tu proyecto o necesidades específicas..."></textarea>
-          </div>
-        </div>
-      </form>
-
-      <!-- Success State -->
-      <div class="success-content" *ngIf="showSuccess" @successAnimation>
-        <div class="success-icon">
-          <div class="check-animation">
-            <svg viewBox="0 0 52 52">
-              <circle cx="26" cy="26" r="25" fill="none" stroke="#4ade80" stroke-width="2"/>
-              <path fill="none" stroke="#4ade80" stroke-width="3" d="m14,27 l7,7 16,-16"/>
-            </svg>
-          </div>
-        </div>
-        <h2>¡Cita Agendada Exitosamente!</h2>
-        <p>Te contactaremos pronto para confirmar los detalles de tu consulta.</p>
-        <div class="success-details">
-          <div class="detail-item">
-            <span class="detail-icon">📅</span>
-            <span>{{ appointmentForm.get('preferredTime')?.value }}</span>
-          </div>
-          <div class="detail-item">
-            <span class="detail-icon">🎯</span>
-            <span>{{ getSelectedService()?.name }}</span>
-          </div>
-        </div>
+      <div class="step-actions">
+        <button mat-raised-button color="primary" (click)="stepper.next()" [disabled]="personalGroup.invalid">Continuar</button>
       </div>
-    </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="serviceGroup">
+    <form [formGroup]="serviceGroup">
+      <ng-template matStepLabel>Servicio</ng-template>
+      <mat-selection-list formControlName="service" class="service-list">
+        <mat-list-option *ngFor="let s of services" [value]="s.id">
+          {{s.name}}
+        </mat-list-option>
+      </mat-selection-list>
+      <div class="step-actions">
+        <button mat-button matStepperPrevious>Atrás</button>
+        <button mat-raised-button color="primary" matStepperNext [disabled]="serviceGroup.invalid">Continuar</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="scheduleGroup">
+    <form [formGroup]="scheduleGroup">
+      <ng-template matStepLabel>Agenda</ng-template>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Horario Preferido</mat-label>
+        <mat-select formControlName="preferredTime" required>
+          <mat-option *ngFor="let slot of timeSlots" [value]="slot.value" [disabled]="!slot.available">
+            {{slot.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-radio-group formControlName="preferredContact" class="contact-methods">
+        <mat-radio-button *ngFor="let m of contactMethods" [value]="m.value">{{m.label}}</mat-radio-button>
+      </mat-radio-group>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Mensaje</mat-label>
+        <textarea matInput rows="3" formControlName="message"></textarea>
+      </mat-form-field>
+      <div class="step-actions">
+        <button mat-button matStepperPrevious>Atrás</button>
+        <button mat-raised-button color="primary" (click)="submit()" [disabled]="scheduleGroup.invalid">Agendar</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-vertical-stepper>
 
-    <!-- Actions -->
-    <div class="dialog-actions" *ngIf="!showSuccess">
-      <div class="step-info">
-        <span class="step-counter">{{ currentStep }} de {{ totalSteps }}</span>
-      </div>
-      
-      <div class="action-buttons">
-        <button 
-          type="button" 
-          class="btn btn-secondary" 
-          (click)="prevStep()"
-          *ngIf="currentStep > 1">
-          Anterior
-        </button>
-        
-        <button 
-          type="button" 
-          class="btn btn-primary" 
-          (click)="nextStep()"
-          [disabled]="!validateCurrentStep()"
-          *ngIf="currentStep < totalSteps">
-          Continuar
-        </button>
-        
-        <button 
-          type="submit" 
-          class="btn btn-primary"
-          [disabled]="!appointmentForm.valid || isSubmitting"
-          (click)="onSubmit()"
-          *ngIf="currentStep === totalSteps">
-          <span *ngIf="!isSubmitting">Agendar Consulta</span>
-          <span *ngIf="isSubmitting" class="loading">
-            <div class="spinner"></div>
-            Procesando...
-          </span>
-        </button>
-      </div>
-    </div>
-  </div>
+<div class="success" *ngIf="showSuccess">
+  <mat-icon color="primary" class="success-icon">check_circle</mat-icon>
+  <p>¡Cita agendada!</p>
 </div>
