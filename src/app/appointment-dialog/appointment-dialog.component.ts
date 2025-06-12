@@ -3,19 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AppointmentService, ServiceOption } from '../../Services/appointment.service';
+import { AppointmentService, ServiceOption, AppointmentData } from '../../Services/appointment.service';
 
-export interface AppointmentData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  company: string;
-  service: string;
-  preferredTime: string;
-  preferredContact: string;
-  message: string;
-}
 
 @Component({
   selector: 'app-appointment-dialog',

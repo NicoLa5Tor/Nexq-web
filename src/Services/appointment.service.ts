@@ -9,7 +9,7 @@ export interface AppointmentData {
   company: string;
   service: string;
   message?: string;
-  preferredContact?: 'phone' | 'email';
+  preferredContact?: 'phone' | 'email' | 'whatsapp';
   preferredTime?: string;
 }
 
@@ -113,7 +113,7 @@ SERVICIO SOLICITADO:
 ${data.message ? `MENSAJE ADICIONAL:\n${data.message}` : ''}
 
 ${data.preferredTime ? `HORARIO PREFERIDO: ${data.preferredTime}` : ''}
-${data.preferredContact ? `CONTACTO PREFERIDO: ${data.preferredContact === 'phone' ? 'Teléfono' : 'Email'}` : ''}
+${data.preferredContact ? `CONTACTO PREFERIDO: ${data.preferredContact === 'phone' ? 'Teléfono' : data.preferredContact === 'whatsapp' ? 'WhatsApp' : 'Email'}` : ''}
 
 Quedo atento a su respuesta para coordinar la reunión.
 
