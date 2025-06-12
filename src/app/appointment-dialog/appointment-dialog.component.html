@@ -38,8 +38,8 @@
   <mat-step [stepControl]="serviceGroup">
     <form [formGroup]="serviceGroup">
       <ng-template matStepLabel>Servicio</ng-template>
-      <mat-selection-list formControlName="service" class="service-list">
-        <mat-list-option *ngFor="let s of services" [value]="s.id">
+      <mat-selection-list formControlName="service" class="service-list" [multiple]="false">
+        <mat-list-option *ngFor="let s of services" [value]="s.id" class="service-option">
           {{s.name}}
         </mat-list-option>
       </mat-selection-list>

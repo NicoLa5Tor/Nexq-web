@@ -62,12 +62,15 @@ export class AppointmentDialogComponent {
   ) {
     this.services = this.appointmentService.services;
     const selectedService = data?.serviceId || this.appointmentService.getSelectedService();
+    if (selectedService) {
+      this.appointmentService.setSelectedService(selectedService);
+    }
 
     this.personalGroup = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^\d{7,10}$/)]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{7,15}$/)]],
       company: ['', Validators.required]
     });
 
@@ -82,7 +85,7 @@ export class AppointmentDialogComponent {
     });
 
     this.personalGroup.get('phone')?.valueChanges.subscribe(val => {
-      const digits = String(val || '').replace(/\D/g, '').slice(0, 10);
+      const digits = String(val || '').replace(/\D/g, '').slice(0, 15);
       if (digits !== val) {
         this.personalGroup.get('phone')?.setValue(digits, { emitEvent: false });
       }
