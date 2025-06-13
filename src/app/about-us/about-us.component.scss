@@ -1,70 +1,391 @@
+// =================== VARIABLES CSS DINÁMICAS ===================
+:root {
+  --selected-member-color: #19115c;
+}
+
+// =================== VARIABLES Y MIXINS ===================
+$primary-blue: var(--nexq-blue);
+$secondary-accent: var(--accent-secondary);
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$bg-primary: rgba(10, 10, 15, 0.85);
+$bg-secondary: rgba(26, 26, 36, 0.5);
+$bg-tertiary: rgba(18, 18, 24, 0.7);
+
+@mixin glass-effect {
+  background: rgba(26, 26, 36, 0.5);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(94, 137, 176, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+@mixin hover-lift($scale: 1.02, $y: -5px) {
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  
+  &:hover {
+    transform: translateY($y) scale($scale);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@mixin gradient-text {
+  background: linear-gradient(90deg, $text-primary, $primary-blue, $secondary-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// =================== SECCIÓN BASE ===================
 .about-section {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.6s ease;
+  min-height: 400px;
+  
+  // Fondo base con efecto parallax
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $bg-primary;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(26, 42, 108, 0.3) 0%, rgba(0, 0, 0, 0.6) 90%),
+      radial-gradient(circle at 90% 80%, rgba(94, 137, 176, 0.2) 0%, transparent 50%);
+    z-index: -2;
+  }
+  
+  // Partículas animadas
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(94, 137, 176, 0.15) 2px, transparent 0),
+      radial-gradient(circle at 75% 75%, rgba(94, 137, 176, 0.1) 2px, transparent 0),
+      radial-gradient(circle at 50% 50%, rgba(94, 137, 176, 0.12) 2px, transparent 0);
+    background-size: 120px 120px, 100px 100px, 80px 80px;
+    animation: particle-drift 60s linear infinite;
+    z-index: -1;
+    opacity: 0.6;
+  }
+  
+  // =================== MODO INDEX ===================
+  &.index-mode {
+    padding: 4rem 2rem;
+    background-attachment: scroll;
+    
+    .section-container {
+      max-width: 1000px;
+    }
+    
+    .section-title {
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      
+      &::after {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+      }
+    }
+    
+    .index-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+      
+      @media (max-width: 992px) {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+    
+    // Tarjetas de resumen para el index
+    .summary-card {
+      @include glass-effect;
+      @include hover-lift;
+      padding: 2rem;
+      border-radius: 16px;
+      height: fit-content;
+      
+      .summary-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        
+        .summary-icon {
+          font-size: 2rem;
+          color: $primary-blue;
+          margin-right: 1rem;
+          animation: float 3s ease-in-out infinite;
+        }
+        
+        h3 {
+          font-size: 1.4rem;
+          font-weight: 600;
+          color: $text-primary;
+          margin: 0;
+        }
+      }
+      
+      .summary-content {
+        p {
+          color: $text-secondary;
+          line-height: 1.6;
+          margin-bottom: 1rem;
+          font-size: 0.95rem;
+        }
+        
+        .highlight-stats {
+          display: none; // Ocultar estadísticas del index
+        }
+      }
+      
+      .cta-button {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 1.5rem;
+        padding: 0.8rem 1.5rem;
+        background: linear-gradient(135deg, $primary-blue, $secondary-accent);
+        color: white;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(94, 137, 176, 0.3);
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(94, 137, 176, 0.4);
+        }
+        
+        .cta-icon {
+          margin-left: 0.5rem;
+          transition: transform 0.3s ease;
+        }
+        
+        &:hover .cta-icon {
+          transform: translateX(3px);
+        }
+      }
+    }
+    
+    // Ocultar elementos que no son necesarios en el index
+    .company-timeline,
+    .detailed-services,
+    .full-team-grid,
+    .team-section,
+    .team-selector-section,
+    .interactive-elements {
+      display: none;
+    }
+  }
+  
+  // =================== MODO PÁGINA COMPLETA ===================
+  &.full-page-mode {
     padding: 6rem 2rem;
+    background-attachment: fixed;
+    min-height: 100vh;
+    
+    .section-container {
+      max-width: 1200px;
+    }
+    
+    .section-title {
+      font-size: 3rem;
+      margin-bottom: 3rem;
+      
+      &::after {
+        width: 120px;
+        animation: line-expand 1.5s forwards ease-out 0.5s;
+      }
+    }
+    
+    .full-content {
+      display: block;
+      
+      .main-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        margin-bottom: 4rem;
+        
+        @media (max-width: 992px) {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+      }
+    }
+    
+    // Mostrar todos los elementos en página completa
+    .company-timeline,
+    .detailed-services,
+    .team-selector-section,
+    .interactive-elements {
+      display: block;
+    }
+    
+    // Ocultar elementos del index y equipo original
+    .summary-card,
+    .team-section {
+      display: none;
+    }
+  }
+}
+
+@keyframes rotate-border {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 20px var(--selected-member-color, #5E89B0);
+  }
+  50% { 
+    box-shadow: 0 0 40px var(--selected-member-color, #5E89B0);
+  }
+}
+
+@keyframes particle-drift {
+  0% { background-position: 0 0, 0 0, 0 0; }
+  100% { background-position: 120px 120px, -100px 100px, 80px -80px; }
+}
+
+@keyframes line-expand {
+  0% { width: 0; }
+  100% { width: 120px; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes text-glow {
+  0% {
+    color: $primary-blue;
+    text-shadow: 0 0 5px rgba(94, 137, 176, 0.3);
+  }
+  100% {
+    color: $secondary-accent;
+    text-shadow: 0 0 15px rgba(94, 137, 176, 0.7);
+  }
+}
+
+@keyframes icon-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0% { transform: translate(-100%, -100%); }
+  100% { transform: translate(100%, 100%); }
+}
+
+@keyframes border-rotate {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+// =================== ELEMENTOS COMUNES ===================
+.section-container {
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  font-weight: 700;
+  @include gradient-text;
+  position: relative;
+  transition: transform 0.3s ease;
+  white-space: pre;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -0.8rem;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, $primary-blue, $secondary-accent);
+    border-radius: 2px;
+  }
+}
+
+// =================== DESCRIPCIÓN Y CONTENIDO ===================
+.about-description {
+  margin-bottom: 3rem;
+  
+  p {
+    color: $text-secondary;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+  
+  .highlight {
+    color: $primary-blue;
+    font-weight: 600;
     position: relative;
+    transition: all 0.3s ease;
     
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(10, 10, 15, 0.85);
-      z-index: -1;
+    &.text-glow {
+      animation: text-glow 2s infinite alternate;
     }
   }
+}
+
+// =================== DIFERENCIADORES ===================
+.differentiators {
+  @include glass-effect;
+  border-radius: 16px;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   
-  .section-container {
-    max-width: 1200px;
-    margin: 0 auto;
+  // Efecto shimmer en hover
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(94, 137, 176, 0.1) 0%, transparent 60%);
+    opacity: 0;
+    transform: translate(-100%, -100%);
+    transition: all 0.8s ease;
+    pointer-events: none;
   }
   
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-  }
-  
-  .section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-    background: linear-gradient(90deg, var(--text-primary), var(--nexq-blue), var(--accent-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .about-description {
-    margin-bottom: 3rem;
-    
-    p {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-    }
-    
-    .highlight {
-      color: var(--nexq-blue);
-      font-weight: 600;
-    }
-  }
-  
-  .differentiators {
-    background: rgba(26, 26, 36, 0.5);
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(94, 137, 176, 0.2);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+  &:hover::before {
+    opacity: 1;
+    animation: shimmer 3s infinite;
   }
   
   .differentiators-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
-    color: var(--text-primary);
+    margin-bottom: 2rem;
+    color: $text-primary;
     position: relative;
     
     &::after {
@@ -72,52 +393,691 @@
       position: absolute;
       bottom: -0.5rem;
       left: 0;
-      width: 50px;
+      width: 60px;
       height: 2px;
-      background: linear-gradient(90deg, var(--nexq-blue), var(--accent-secondary));
+      background: linear-gradient(90deg, $primary-blue, $secondary-accent);
+      transition: width 0.3s ease;
+    }
+    
+    &:hover::after {
+      width: 90px;
     }
   }
   
   .differentiators-list {
     list-style: none;
+    padding: 0;
     
     li {
       display: flex;
-      margin-bottom: 1.2rem;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      padding: 0.8rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: rgba(94, 137, 176, 0.05);
+        transform: translateX(8px);
+      }
       
       .icon {
-        color: var(--accent-secondary);
-        margin-right: 1rem;
-        font-size: 1.2rem;
+        color: $secondary-accent;
+        margin-right: 1.2rem;
+        font-size: 1.3rem;
+        transition: all 0.3s ease;
+        margin-top: 0.2rem;
+        
+        &.icon-pulse {
+          animation: icon-pulse 0.6s ease-in-out;
+        }
       }
       
       div {
-        color: var(--text-secondary);
+        color: $text-secondary;
         line-height: 1.6;
+        transition: transform 0.3s ease;
         
         strong {
-          color: var(--text-primary);
+          color: $text-primary;
           font-weight: 600;
+          position: relative;
+          
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: $secondary-accent;
+            transition: width 0.3s ease;
+          }
+          
+          &:hover::after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+// =================== SELECTOR DE EQUIPO ESTILO GAMING 3D ===================
+.team-selector-section {
+  @include glass-effect;
+  border-radius: 20px;
+  padding: 2rem;
+  position: relative;
+  background: linear-gradient(135deg, rgba(26, 26, 36, 0.8), rgba(18, 18, 24, 0.9));
+  
+  .team-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+    color: $text-primary;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(45deg, $primary-blue, $secondary-accent, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -0.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, $primary-blue, $secondary-accent, #FFD700);
+      border-radius: 2px;
+    }
+  }
+  
+  .team-selector-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    min-height: 600px;
+    
+    @media (min-width: 1200px) {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      align-items: start;
+    }
+  }
+  
+  // Selector de avatares estilo gaming
+  .team-avatars-selector {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    
+    @media (min-width: 480px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    
+    @media (min-width: 768px) and (max-width: 1199px) {
+      grid-template-columns: repeat(4, 1fr);
+      justify-items: center;
+    }
+    
+    @media (min-width: 1200px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+  }
+  
+  .team-avatar-btn {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    perspective: 1000px;
+    
+    @media (min-width: 768px) {
+      width: 140px;
+      height: 140px;
+    }
+    
+    @media (min-width: 1200px) {
+      width: 160px;
+      height: 160px;
+    }
+    
+    // Círculo base con efecto 3D
+    .avatar-circle {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, 
+        rgba(94, 137, 176, 0.2), 
+        rgba(94, 137, 176, 0.4), 
+        rgba(94, 137, 176, 0.2));
+      padding: 4px;
+      transition: all 0.4s ease;
+      transform-style: preserve-3d;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+        border-radius: 50%;
+        background: conic-gradient(from 0deg, 
+          transparent, 
+          var(--selected-member-color, #{$primary-blue}), 
+          transparent);
+        opacity: 0;
+        transition: all 0.4s ease;
+        animation: rotate-border 3s linear infinite paused;
+      }
+    }
+    
+    // Contenedor de la imagen
+    .avatar-image-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: linear-gradient(135deg, 
+        rgba(94, 137, 176, 0.1), 
+        rgba(94, 137, 176, 0.05));
+      box-shadow: 
+        inset 0 0 20px rgba(0, 0, 0, 0.3),
+        0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s ease;
+      transform-style: preserve-3d;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.4s ease;
+        filter: brightness(0.9) contrast(1.1);
+      }
+      
+      .avatar-placeholder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, 
+          var(--selected-member-color, #{$primary-blue}), 
+          rgba(94, 137, 176, 0.8));
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: white;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        
+        @media (min-width: 768px) {
+          font-size: 3rem;
+        }
+        
+        @media (min-width: 1200px) {
+          font-size: 3.5rem;
+        }
+      }
+    }
+    
+    // Información del miembro
+    .avatar-info {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+      
+      .avatar-name {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: $text-primary;
+        margin-bottom: 0.2rem;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        
+        @media (min-width: 768px) {
+          font-size: 1rem;
+        }
+      }
+      
+      .avatar-role {
+        font-size: 0.7rem;
+        color: $text-secondary;
+        opacity: 0.8;
+        
+        @media (min-width: 768px) {
+          font-size: 0.8rem;
+        }
+      }
+    }
+    
+    // Efecto de selección activa
+    &.active {
+      transform: translateY(-5px) scale(1.05);
+      
+      .avatar-circle {
+        background: conic-gradient(from 0deg, 
+          var(--selected-member-color, #{$primary-blue}), 
+          rgba(255, 215, 0, 0.6), 
+          var(--selected-member-color, #{$primary-blue}));
+        box-shadow: 
+          0 0 30px var(--selected-member-color, #{$primary-blue}),
+          0 15px 40px rgba(0, 0, 0, 0.4);
+        
+        &::before {
+          opacity: 1;
+          animation-play-state: running;
+        }
+      }
+      
+      .avatar-image-container {
+        transform: rotateY(0deg) scale(1.05);
+        box-shadow: 
+          inset 0 0 20px rgba(0, 0, 0, 0.2),
+          0 20px 50px rgba(0, 0, 0, 0.4),
+          0 0 0 3px var(--selected-member-color, #{$primary-blue});
+        
+        img {
+          filter: brightness(1.1) contrast(1.2) saturate(1.1);
+        }
+      }
+      
+      .avatar-info {
+        .avatar-name {
+          color: var(--selected-member-color, #{$primary-blue});
+          transform: scale(1.1);
+        }
+      }
+    }
+    
+    // Efectos de hover
+    &:hover:not(.active) {
+      transform: translateY(-3px) scale(1.02);
+      
+      .avatar-circle {
+        background: conic-gradient(from 0deg, 
+          rgba(94, 137, 176, 0.3), 
+          rgba(94, 137, 176, 0.6), 
+          rgba(94, 137, 176, 0.3));
+        
+        &::before {
+          opacity: 0.5;
+        }
+      }
+      
+      .avatar-image-container {
+        transform: rotateY(-5deg) scale(1.02);
+        box-shadow: 
+          inset 0 0 20px rgba(0, 0, 0, 0.2),
+          0 12px 35px rgba(0, 0, 0, 0.35);
+        
+        img {
+          filter: brightness(1.05) contrast(1.15);
         }
       }
     }
   }
   
-  .team-section {
-    background: rgba(26, 26, 36, 0.5);
+  // Panel de información del miembro seleccionado
+  .member-display {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    
+    @media (min-width: 768px) {
+      grid-template-columns: 250px 1fr;
+      gap: 2.5rem;
+    }
+    
+    @media (min-width: 1200px) {
+      grid-template-columns: 300px 1fr;
+      gap: 3rem;
+    }
+  }
+  
+  .member-photo-display {
+    position: relative;
+    height: 300px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(135deg, 
+      rgba(94, 137, 176, 0.1), 
+      rgba(18, 18, 24, 0.8));
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.3),
+      inset 0 0 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    perspective: 1000px;
+    
+    @media (min-width: 768px) {
+      height: 350px;
+    }
+    
+    @media (min-width: 1200px) {
+      height: 400px;
+    }
+    
+    // Imagen principal
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.5s ease;
+      filter: brightness(0.95) contrast(1.1);
+    }
+    
+    .photo-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, 
+        var(--selected-member-color, #{$primary-blue}), 
+        rgba(94, 137, 176, 0.8));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      font-weight: 900;
+      color: white;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      
+      @media (min-width: 768px) {
+        font-size: 7rem;
+      }
+      
+      @media (min-width: 1200px) {
+        font-size: 8rem;
+      }
+    }
+    
+    // Overlay con información
+    .photo-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, 
+        rgba(0, 0, 0, 0.9) 0%, 
+        rgba(0, 0, 0, 0.6) 50%, 
+        transparent 100%);
+      padding: 1.5rem;
+      
+      .experience-badge {
+        background: linear-gradient(135deg, 
+          var(--selected-member-color, #{$primary-blue}), 
+          rgba(255, 215, 0, 0.8));
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        display: inline-block;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+      }
+    }
+    
+    // Efectos 3D en hover
+    &:hover {
+      transform: rotateY(-2deg) rotateX(2deg) scale(1.02);
+      box-shadow: 
+        0 25px 80px rgba(0, 0, 0, 0.4),
+        0 0 50px var(--selected-member-color, #{$primary-blue});
+      
+      img {
+        filter: brightness(1.05) contrast(1.15) saturate(1.1);
+      }
+    }
+  }
+  
+  .member-info-display {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: all 0.5s ease;
+    
+    .member-name {
+      font-size: 2rem;
+      font-weight: 800;
+      color: $text-primary;
+      margin: 0;
+      background: linear-gradient(135deg, 
+        var(--selected-member-color, #{$primary-blue}), 
+        $secondary-accent, 
+        #FFD700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      line-height: 1.2;
+      
+      @media (min-width: 768px) {
+        font-size: 2.2rem;
+      }
+      
+      @media (min-width: 1200px) {
+        font-size: 2.5rem;
+      }
+    }
+    
+    .member-role-display {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--selected-member-color, #{$primary-blue});
+      margin: 0;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 0.5rem;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, 
+          var(--selected-member-color, #{$primary-blue}), 
+          $secondary-accent, 
+          #FFD700);
+        border-radius: 2px;
+      }
+      
+      @media (min-width: 768px) {
+        font-size: 1.2rem;
+      }
+    }
+    
+    .member-education {
+      font-size: 0.95rem;
+      color: $text-secondary;
+      font-style: italic;
+      margin: 0;
+      opacity: 0.9;
+      padding: 0.8rem 1rem;
+      background: rgba(94, 137, 176, 0.08);
+      border-left: 3px solid var(--selected-member-color, #{$primary-blue});
+      border-radius: 8px;
+    }
+    
+    .member-description-full {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: $text-secondary;
+      text-align: justify;
+      margin: 0;
+      padding: 1rem;
+      background: rgba(18, 18, 24, 0.4);
+      border-radius: 12px;
+      border: 1px solid rgba(94, 137, 176, 0.1);
+    }
+    
+    .member-expertise-display {
+      h5 {
+        font-size: 1.1rem;
+        color: $text-primary;
+        margin: 0 0 1rem 0;
+        font-weight: 700;
+        position: relative;
+        
+        &::before {
+          content: '⚡';
+          margin-right: 0.5rem;
+          color: var(--selected-member-color, #{$primary-blue});
+        }
+      }
+      
+      .expertise-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        
+        .expertise-tag {
+          background: linear-gradient(135deg, 
+            rgba(94, 137, 176, 0.2), 
+            rgba(94, 137, 176, 0.1));
+          color: var(--selected-member-color, #{$primary-blue});
+          padding: 0.6rem 1.2rem;
+          border-radius: 25px;
+          font-size: 0.85rem;
+          font-weight: 600;
+          border: 2px solid rgba(94, 137, 176, 0.3);
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+          
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+              transparent, 
+              rgba(255, 255, 255, 0.2), 
+              transparent);
+            transition: left 0.5s ease;
+          }
+          
+          &:hover {
+            background: linear-gradient(135deg, 
+              rgba(94, 137, 176, 0.3), 
+              rgba(94, 137, 176, 0.2));
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            border-color: var(--selected-member-color, #{$primary-blue});
+            
+            &::before {
+              left: 100%;
+            }
+          }
+        }
+      }
+    }
+    
+    .member-achievements {
+      h5 {
+        font-size: 1.1rem;
+        color: $text-primary;
+        margin: 0 0 1rem 0;
+        font-weight: 700;
+        
+        &::before {
+          content: '🏆';
+          margin-right: 0.5rem;
+        }
+      }
+      
+      .achievements-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        
+        li {
+          position: relative;
+          padding: 0.8rem 0 0.8rem 2rem;
+          color: $text-secondary;
+          font-size: 0.95rem;
+          line-height: 1.5;
+          transition: all 0.3s ease;
+          border-radius: 8px;
+          
+          &::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            top: 0.8rem;
+            font-size: 1rem;
+            color: var(--selected-member-color, #{$primary-blue});
+            font-weight: bold;
+          }
+          
+          &:not(:last-child) {
+            border-bottom: 1px solid rgba(94, 137, 176, 0.1);
+            margin-bottom: 0.5rem;
+            padding-bottom: 1rem;
+          }
+          
+          &:hover {
+            background: rgba(94, 137, 176, 0.05);
+            transform: translateX(5px);
+            color: $text-primary;
+          }
+        }
+      }
+    }
+  }
+}
+
+// =================== EQUIPO ORIGINAL (OCULTO EN PÁGINA COMPLETA) ===================
+.team-section {
+  @include glass-effect;
+  border-radius: 16px;
+  padding: 2.5rem;
+  position: relative;
+  
+  // Partículas flotantes de fondo
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(circle at 15% 85%, rgba(94, 137, 176, 0.1) 3px, transparent 0),
+      radial-gradient(circle at 85% 15%, rgba(94, 137, 176, 0.1) 3px, transparent 0);
+    background-size: 100px 100px;
+    animation: particle-drift 40s linear infinite;
     border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(94, 137, 176, 0.2);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    opacity: 0.5;
   }
   
   .team-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 600;
-    margin-bottom: 2rem;
-    color: var(--text-primary);
+    margin-bottom: 2.5rem;
+    color: $text-primary;
     position: relative;
     
     &::after {
@@ -125,92 +1085,789 @@
       position: absolute;
       bottom: -0.5rem;
       left: 0;
-      width: 50px;
+      width: 60px;
       height: 2px;
-      background: linear-gradient(90deg, var(--nexq-blue), var(--accent-secondary));
+      background: linear-gradient(90deg, $primary-blue, $secondary-accent);
+      transition: width 0.3s ease;
+    }
+    
+    &:hover::after {
+      width: 90px;
     }
   }
   
   .team-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
   }
   
   .team-member {
-    display: flex;
-    flex-direction: column;
-    background: rgba(18, 18, 24, 0.7);
+    background: $bg-tertiary;
     border-radius: 12px;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+    
+    // Borde brillante animado en hover
+    &::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, $primary-blue, $secondary-accent, $primary-blue);
+      background-size: 200% 200%;
+      z-index: -1;
+      border-radius: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
     
     &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+      
+      &::before {
+        opacity: 1;
+        animation: border-rotate 3s linear infinite;
+      }
       
       .member-photo {
         transform: scale(1.05);
       }
     }
-  }
-  
-  .member-photo {
-    height: 200px;
-    background-size: cover;
-    background-position: center;
-    transition: all 0.5s ease;
-  }
-  
-  .member-info {
-    padding: 1.5rem;
     
-    h4 {
-      font-size: 1.2rem;
+    .member-photo {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      background-color: rgba(94, 137, 176, 0.1);
+      transition: transform 0.5s ease;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top, rgba(18, 18, 24, 0.8), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      &:hover::after {
+        opacity: 1;
+      }
+    }
+    
+    .member-info {
+      padding: 1.8rem;
+      position: relative;
+      
+      h4 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: $text-primary;
+        transition: all 0.3s ease;
+        
+        &.text-glow {
+          text-shadow: 0 0 8px rgba(94, 137, 176, 0.7);
+        }
+      }
+      
+      .member-role {
+        color: $primary-blue;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+        display: inline-block;
+        position: relative;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: $secondary-accent;
+          transition: width 0.3s ease;
+        }
+        
+        &:hover::after {
+          width: 100%;
+        }
+      }
+      
+      .member-description {
+        color: $text-secondary;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        transition: all 0.3s ease;
+        opacity: 0.9;
+      }
+    }
+  }
+}
+
+// =================== LÍNEA DE TIEMPO (PÁGINA COMPLETA) ===================
+.company-timeline {
+  margin: 4rem 0;
+  padding: 2rem;
+  @include glass-effect;
+  border-radius: 16px;
+  
+  .timeline-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: $text-primary;
+    text-align: center;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, $primary-blue, $secondary-accent);
+    }
+  }
+  
+  .timeline-container {
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, $primary-blue, $secondary-accent);
+      transform: translateX(-50%);
+    }
+  }
+  
+  .timeline-item {
+    display: flex;
+    margin-bottom: 3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:nth-child(even) {
+      flex-direction: row-reverse;
+      
+      .timeline-content {
+        text-align: right;
+        margin-right: 2rem;
+        margin-left: 0;
+      }
+    }
+    
+    &:nth-child(odd) {
+      .timeline-content {
+        margin-left: 2rem;
+      }
+    }
+    
+    .timeline-marker {
+      width: 20px;
+      height: 20px;
+      background: $primary-blue;
+      border-radius: 50%;
+      border: 4px solid white;
+      box-shadow: 0 0 0 4px $primary-blue;
+      flex-shrink: 0;
+      margin-top: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .timeline-content {
+      flex: 1;
+      background: rgba(18, 18, 24, 0.6);
+      padding: 1.5rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      
+      .timeline-year {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: $primary-blue;
+        margin-bottom: 0.5rem;
+      }
+      
+      .timeline-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: $text-primary;
+        margin-bottom: 0.5rem;
+      }
+      
+      .timeline-description {
+        color: $text-secondary;
+        line-height: 1.5;
+      }
+      
+      .timeline-details {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        margin-top: 1rem;
+        
+        .detail-item {
+          padding: 0.5rem 0;
+          border-bottom: 1px solid rgba(94, 137, 176, 0.1);
+          
+          &:last-child {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+    
+    &:hover {
+      .timeline-marker {
+        transform: scale(1.2);
+        box-shadow: 0 0 0 6px rgba(94, 137, 176, 0.3);
+      }
+      
+      .timeline-content {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+    }
+    
+    &.expanded {
+      .timeline-content {
+        background: rgba(18, 18, 24, 0.8);
+      }
+      
+      .timeline-marker {
+        background: $secondary-accent;
+        box-shadow: 0 0 0 4px $secondary-accent;
+      }
+    }
+  }
+}
+
+// =================== SERVICIOS DETALLADOS (PÁGINA COMPLETA) ===================
+.detailed-services {
+  margin: 4rem 0;
+  
+  .services-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    color: $text-primary;
+    text-align: center;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, $primary-blue, $secondary-accent);
+    }
+  }
+  
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    
+    .service-card {
+      @include glass-effect;
+      @include hover-lift(1.03, -8px);
+      padding: 2rem;
+      border-radius: 16px;
+      text-align: center;
+      
+      .service-icon {
+        font-size: 3rem;
+        color: $primary-blue;
+        margin-bottom: 1rem;
+        animation: float 3s ease-in-out infinite;
+      }
+      
+      .service-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: $text-primary;
+      }
+      
+      .service-description {
+        color: $text-secondary;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+      
+      .service-features {
+        list-style: none;
+        padding: 0;
+        
+        li {
+          padding: 0.3rem 0;
+          color: $text-secondary;
+          font-size: 0.9rem;
+          
+          &::before {
+            content: '✓';
+            color: $secondary-accent;
+            font-weight: bold;
+            margin-right: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// =================== ELEMENTOS INTERACTIVOS ===================
+.interactive-elements {
+  margin: 4rem 0;
+  
+  .skills-section {
+    margin-bottom: 3rem;
+    
+    .skills-title {
+      font-size: 1.5rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: var(--text-primary);
+      margin-bottom: 2rem;
+      color: $text-primary;
     }
     
-    .member-role {
-      color: var(--nexq-blue);
-      font-weight: 600;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-    
-    .member-description {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      line-height: 1.5;
+    .skill-item {
+      margin-bottom: 1.5rem;
+      
+      .skill-name {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+        
+        span {
+          color: $text-primary;
+          font-weight: 500;
+        }
+        
+        .skill-percentage {
+          color: $primary-blue;
+          font-weight: 600;
+        }
+      }
+      
+      .skill-bar {
+        height: 6px;
+        background: rgba(94, 137, 176, 0.2);
+        border-radius: 3px;
+        overflow: hidden;
+        
+        .skill-fill {
+          height: 100%;
+          background: linear-gradient(90deg, $primary-blue, $secondary-accent);
+          border-radius: 3px;
+          transition: width 1.5s ease-in-out;
+        }
+      }
     }
   }
   
-  @media (max-width: 992px) {
-    .about-grid {
-      grid-template-columns: 1fr;
+  .progress-rings {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    
+    .progress-ring {
+      text-align: center;
+      
+      svg {
+        width: 120px;
+        height: 120px;
+        transform: rotate(-90deg);
+        
+        .progress-ring-circle {
+          fill: transparent;
+          stroke: rgba(94, 137, 176, 0.2);
+          stroke-width: 8;
+          transition: stroke-dashoffset 1.5s ease-in-out;
+          
+          &.progress {
+            stroke: url(#gradient);
+            stroke-linecap: round;
+          }
+        }
+      }
+      
+      .progress-label {
+        margin-top: 1rem;
+        color: $text-primary;
+        font-weight: 600;
+      }
+      
+      .progress-value {
+        color: $primary-blue;
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+// =================== CLASES UTILITARIAS ===================
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  
+  &.slide-up {
+    transform: translateY(40px);
+  }
+  
+  &.slide-right {
+    transform: translateX(-40px);
+  }
+  
+  &.scale-in {
+    transform: scale(0.9);
+  }
+  
+  &.delay-1 { transition-delay: 0.2s; }
+  &.delay-2 { transition-delay: 0.4s; }
+  &.delay-3 { transition-delay: 0.6s; }
+  &.delay-4 { transition-delay: 0.8s; }
+}
+
+// =================== RESPONSIVE DESIGN ===================
+@media (max-width: 1200px) {
+  .about-section {
+    &.full-page-mode .main-grid {
       gap: 3rem;
     }
-    
-    .team-grid {
+  }
+}
+
+@media (max-width: 992px) {
+  .about-section {
+    &.index-mode .index-content,
+    &.full-page-mode .main-grid {
       grid-template-columns: 1fr;
+      gap: 2.5rem;
     }
   }
   
-  @media (max-width: 768px) {
-    .about-section {
-      padding: 4rem 1.5rem;
-    }
+  .timeline-item {
+    flex-direction: column !important;
     
-    .section-title {
-      font-size: 2rem;
-    }
-    
-    .about-description p {
-      font-size: 1rem;
-    }
-    
-    .differentiators, .team-section {
-      padding: 1.5rem;
+    .timeline-content {
+      margin: 1rem 0 0 0 !important;
+      text-align: left !important;
     }
   }
+  
+  .timeline-container::before {
+    left: 10px !important;
+  }
+  
+  // Ajustes para el selector de equipo en tablet
+  .team-selector-section {
+    .team-selector-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      min-height: auto;
+      
+      .team-avatars-selector {
+        grid-template-columns: repeat(4, 1fr);
+        justify-items: center;
+        gap: 1.5rem;
+      }
+      
+      .member-display {
+        grid-template-columns: 220px 1fr;
+        gap: 2rem;
+      }
+      
+      .member-photo-display {
+        height: 280px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 3rem 1.5rem !important;
+    
+    .section-title {
+      font-size: 2rem !important;
+    }
+  }
+  
+  .differentiators,
+  .team-section,
+  .summary-card {
+    padding: 1.5rem !important;
+  }
+  
+  .team-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .progress-rings {
+    justify-content: center;
+  }
+  
+  // Ajustes móviles para el selector de equipo
+  .team-selector-section {
+    padding: 1.5rem !important;
+    
+    .team-title {
+      font-size: 1.5rem !important;
+      margin-bottom: 2rem !important;
+    }
+    
+    .team-selector-container {
+      gap: 2rem;
+      
+      .team-avatars-selector {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        justify-items: center;
+      }
+      
+      .team-avatar-btn {
+        width: 100px !important;
+        height: 100px !important;
+        
+        .avatar-info {
+          .avatar-name {
+            font-size: 0.85rem !important;
+          }
+          
+          .avatar-role {
+            font-size: 0.7rem !important;
+          }
+        }
+      }
+      
+      .member-display {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem;
+        
+        .member-photo-display {
+          height: 250px !important;
+          max-width: 180px;
+          margin: 0 auto;
+        }
+        
+        .member-info-display {
+          gap: 1.2rem;
+          
+          .member-name {
+            font-size: 1.6rem !important;
+          }
+          
+          .member-role-display {
+            font-size: 1rem !important;
+          }
+          
+          .expertise-tags {
+            gap: 0.5rem;
+            
+            .expertise-tag {
+              font-size: 0.75rem !important;
+              padding: 0.4rem 0.8rem !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .about-section {
+    padding: 2rem 1rem !important;
+    
+    .section-title {
+      font-size: 1.8rem !important;
+    }
+  }
+  
+  .summary-card .cta-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .highlight-stats {
+    flex-direction: column !important;
+    gap: 1rem;
+    display: none !important;
+  }
+  
+  .timeline-container::before {
+    left: 5px !important;
+  }
+  
+  .timeline-marker {
+    width: 15px !important;
+    height: 15px !important;
+  }
+  
+  // Ajustes ultra móviles para el selector
+  .team-selector-section {
+    .team-avatars-selector {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .team-avatar-btn {
+      width: 90px !important;
+      height: 90px !important;
+      
+      .avatar-image-container .avatar-placeholder {
+        font-size: 2rem !important;
+      }
+      
+      .avatar-info {
+        bottom: -20px !important;
+        
+        .avatar-name {
+          font-size: 0.8rem !important;
+        }
+        
+        .avatar-role {
+          font-size: 0.65rem !important;
+        }
+      }
+    }
+    
+    .member-photo-display {
+      height: 200px !important;
+      max-width: 160px !important;
+      
+      .photo-placeholder {
+        font-size: 4rem !important;
+      }
+    }
+    
+    .member-info-display {
+      .member-name {
+        font-size: 1.4rem !important;
+      }
+      
+      .member-description-full {
+        font-size: 0.9rem !important;
+        text-align: left;
+      }
+      
+      .achievements-list li {
+        font-size: 0.85rem !important;
+        padding-left: 1.2rem !important;
+      }
+    }
+  }
+}
+
+// =================== ESTILOS ADICIONALES DEL TEMPLATE ===================
+.team-highlight-item {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(94, 137, 176, 0.1);
+  color: $text-secondary;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  strong {
+    color: $primary-blue;
+    font-weight: 600;
+  }
+}
+
+.member-expertise {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  
+  .expertise-tag {
+    background: rgba(94, 137, 176, 0.2);
+    color: $primary-blue;
+    padding: 0.3rem 0.7rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: rgba(94, 137, 176, 0.3);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// =================== EFECTOS ADICIONALES ===================
+.summary-card {
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(94, 137, 176, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 16px;
+    pointer-events: none;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+    animation: shimmer 2s infinite;
+  }
+}
+
+.team-highlights {
+  margin: 1rem 0 1.5rem 0;
+}
+
+// =================== GRADIENTES SVG ===================
+.about-section svg defs {
+  linearGradient {
+    stop {
+      &:first-child {
+        stop-color: $primary-blue;
+      }
+      &:last-child {
+        stop-color: $secondary-accent;
+      }
+    }
+  }
+}

@@ -1,85 +1,469 @@
-<section class="about-section" data-aos="fade-up">
-    <div class="section-container">
-      <div class="about-grid">
+<!-- VISTA PARA INDEX -->
+<section class="about-section" [class.index-mode]="isIndexMode" [class.full-page-mode]="!isIndexMode" data-aos="fade-up">
+  <div class="section-container">
+    
+    <!-- CONTENIDO DEL INDEX -->
+    <div *ngIf="isIndexMode" class="about-index-content">
+      <h2 class="section-title fade-in">Quiénes Somos</h2>
+      
+      <div class="index-content">
+        <!-- Tarjeta Resumen de la Empresa -->
+        <div class="summary-card fade-in slide-up" data-aos="zoom-in-right">
+          <div class="summary-header">
+            <div class="summary-icon">🚀</div>
+            <h3>Nuestra Misión</h3>
+          </div>
+          <div class="summary-content">
+            <p>En <span class="highlight">NEXQ-AI</span> transformamos datos en decisiones estratégicas mediante análisis avanzado e inteligencia artificial.</p>
+            <p>Combinamos modelos matemáticos, estadísticos y computacionales para resolver problemas industriales complejos.</p>
+            
+            <a routerLink="/nosotros" class="cta-button">
+              Conocer Más
+              <span class="cta-icon">→</span>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Tarjeta Resumen del Equipo -->
+        <div class="summary-card fade-in slide-up delay-1" data-aos="zoom-in-left">
+          <div class="summary-header">
+            <div class="summary-icon">👥</div>
+            <h3>Nuestro Equipo</h3>
+          </div>
+          <div class="summary-content">
+            <p>Un equipo multidisciplinario de expertos en ingeniería, estadística, economía y tecnología.</p>
+            
+            <div class="team-highlights">
+              <div class="team-highlight-item">
+                <strong>Sebastián</strong> - CEO con MBA y experiencia en modelos sostenibles
+              </div>
+              <div class="team-highlight-item">
+                <strong>Diego</strong> - Ph.D. en Probabilidad y Estadística
+              </div>
+              <div class="team-highlight-item">
+                <strong>Andrés</strong> - Experto en Machine Learning y Análisis
+              </div>
+              <div class="team-highlight-item">
+                <strong>Esteban</strong> - Especialista en Finanzas y Riesgos
+              </div>
+            </div>
+            
+            <a routerLink="/nosotros" class="cta-button">
+              Ver Equipo
+              <span class="cta-icon">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENIDO DE LA PÁGINA COMPLETA -->
+    <div *ngIf="!isIndexMode" class="full-content">
+      <h2 class="section-title fade-in">Quiénes Somos</h2>
+      
+      <!-- Grid Principal -->
+      <div class="main-grid">
+        <!-- Descripción y Diferenciadores -->
         <div class="about-content" data-aos="zoom-in-down">
-          <h2 class="section-title fade-in">Quiénes Somos</h2>
           <div class="about-description fade-in delay-1">
             <p>En <span class="highlight">NEXQ-AI</span> ofrecemos análisis avanzado de datos para transformar la información empresarial en decisiones estratégicas y soluciones prácticas.</p>
             
             <p>Nuestro enfoque combina modelos matemáticos, estadísticos y computacionales para resolver problemas industriales, económicos, sociales y ambientales, ayudando a nuestros clientes a optimizar su eficiencia, promover la sostenibilidad y generar un impacto económico positivo y medible.</p>
+            
+            <p>Con un equipo multidisciplinario de expertos y tecnología de vanguardia, nos posicionamos como líderes en la transformación digital empresarial.</p>
           </div>
           
           <div class="differentiators fade-in delay-2" data-aos="zoom-in-up">
             <h3 class="differentiators-title">Diferenciadores Clave</h3>
             <ul class="differentiators-list">
               <li>
-                <span class="icon">✦</span>
+                <span class="icon">🎯</span>
                 <div>
-                  <strong>Enfoque Multidisciplinario:</strong> Integramos conocimientos de ingeniería, estadística, economía y tecnología.
+                  <strong>Enfoque Multidisciplinario:</strong> Integramos conocimientos de ingeniería, estadística, economía y tecnología para soluciones holísticas.
                 </div>
               </li>
               <li>
-                <span class="icon">✦</span>
+                <span class="icon">🚀</span>
                 <div>
-                  <strong>Tecnología de Vanguardia:</strong> Utilizamos inteligencia artificial, computación cuántica y big data.
+                  <strong>Tecnología de Vanguardia:</strong> Utilizamos inteligencia artificial, computación cuántica y big data para análisis avanzados.
                 </div>
               </li>
               <li>
-                <span class="icon">✦</span>
+                <span class="icon">💡</span>
                 <div>
-                  <strong>Orientación al Cliente:</strong> Ofrecemos soluciones personalizadas que resuelven problemas complejos.
+                  <strong>Orientación al Cliente:</strong> Ofrecemos soluciones personalizadas que resuelven problemas complejos específicos.
                 </div>
               </li>
               <li>
-                <span class="icon">✦</span>
+                <span class="icon">🔬</span>
                 <div>
                   <strong>Innovación Continua:</strong> Mantenemos un compromiso con la investigación y desarrollo en campos emergentes.
+                </div>
+              </li>
+              <li>
+                <span class="icon">🌱</span>
+                <div>
+                  <strong>Sostenibilidad:</strong> Promovemos soluciones que generen impacto positivo económico, social y ambiental.
+                </div>
+              </li>
+              <li>
+                <span class="icon">📊</span>
+                <div>
+                  <strong>Resultados Medibles:</strong> Todas nuestras soluciones están respaldadas por métricas concretas y verificables.
                 </div>
               </li>
             </ul>
           </div>
         </div>
         
-        <div class="team-section fade-in delay-3" data-aos="fade-left">
-          <h3 class="team-title">Nuestro Equipo</h3>
-          <div class="team-grid">
-            <div class="team-member" data-aos="flip-left">
-              <!-- <div class="member-photo" style="background-image: url('assets/team/sebastian.jpg')"></div> -->
-              <div class="member-info">
-                <h4>Sebastián</h4>
-                <p class="member-role">CEO</p>
-                <p class="member-description">Ingeniero con MBA, Magister en Publicidad y doctorando en Administración Gerencial. Experto en modelos de negocio sostenibles e innovación tecnológica.</p>
-              </div>
+        <!-- Selector de Equipo Estilo Gaming 3D -->
+        <div class="team-selector-section fade-in delay-3" data-aos="fade-left">
+          <h3 class="team-title">Conoce Nuestro Equipo</h3>
+          
+          <div class="team-selector-container">
+            <!-- Selector de Avatares Estilo Gaming -->
+            <div class="team-avatars-selector">
+              <button 
+                *ngFor="let member of teamMembers" 
+                class="team-avatar-btn"
+                [class.active]="selectedMember?.id === member.id"
+                (click)="selectMember(member)"
+                [style.--selected-member-color]="member.color">
+                
+                <div class="avatar-circle">
+                  <div class="avatar-image-container">
+                    <img [src]="member.photo" [alt]="member.name" onerror="this.style.display='none'">
+                    <div class="avatar-placeholder">
+                      {{ member.name.charAt(0) }}
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="avatar-info">
+                  <div class="avatar-name">{{ member.name.split(' ')[0] }}</div>
+                  <div class="avatar-role">{{ member.role.split(' ')[0] }}</div>
+                </div>
+              </button>
             </div>
             
-            <div class="team-member" data-aos="flip-right">
-              <!-- <div class="member-photo" style="background-image: url('assets/team/diego.jpg')"></div> -->
-              <div class="member-info">
-                <h4>Diego</h4>
-                <p class="member-role">Director Científico</p>
-                <p class="member-description">Ph.D. en Probabilidad y Estadística, con experiencia en modelado matemático, aprendizaje automático y optimización financiera.</p>
+            <!-- Panel de Display del Miembro Seleccionado -->
+            <div class="member-display" *ngIf="selectedMember">
+              <!-- Foto Principal del Miembro -->
+              <div class="member-photo-display" [style.--selected-member-color]="selectedMember.color">
+                <img [src]="selectedMember.photo" [alt]="selectedMember.name" onerror="this.style.display='none'">
+                <div class="photo-placeholder">
+                  <span>{{ selectedMember.name.charAt(0) }}</span>
+                </div>
+                <div class="photo-overlay">
+                  <div class="experience-badge">{{ selectedMember.experience }}</div>
+                </div>
               </div>
-            </div>
-            
-            <div class="team-member" data-aos="flip-left">
-              <!-- <div class="member-photo" style="background-image: url('assets/team/andres.jpg')"></div> -->
-              <div class="member-info">
-                <h4>Andrés</h4>
-                <p class="member-role">Director de Tecnología</p>
-                <p class="member-description">Estadístico con Maestría en Computación Estadística, experiencia en machine learning, perfilamiento social y análisis financiero.</p>
-              </div>
-            </div>
-            
-            <div class="team-member" data-aos="flip-right">
-              <!-- <div class="member-photo" style="background-image: url('assets/team/esteban.jpg')"></div> -->
-              <div class="member-info">
-                <h4>Esteban</h4>
-                <p class="member-role">Director de Finanzas</p>
-                <p class="member-description">Economista con Maestría en Finanzas y analista de riesgos financieros, experto en valoración de inversiones y derivados.</p>
+              
+              <!-- Información Detallada -->
+              <div class="member-info-display" [style.--selected-member-color]="selectedMember.color">
+                <h4 class="member-name">{{ selectedMember.name }}</h4>
+                <p class="member-role-display">{{ selectedMember.role }}</p>
+                <p class="member-education">🎓 {{ selectedMember.education }}</p>
+                
+                <div class="member-description-full">
+                  {{ selectedMember.fullDescription }}
+                </div>
+                
+                <!-- Especialidades -->
+                <div class="member-expertise-display">
+                  <h5>Especialidades</h5>
+                  <div class="expertise-tags">
+                    <span 
+                      *ngFor="let skill of selectedMember.expertise" 
+                      class="expertise-tag"
+                      [style.--selected-member-color]="selectedMember.color">
+                      {{ skill }}
+                    </span>
+                  </div>
+                </div>
+                
+                <!-- Logros -->
+                <div class="member-achievements">
+                  <h5>Logros Destacados</h5>
+                  <ul class="achievements-list">
+                    <li *ngFor="let achievement of selectedMember.achievements" 
+                        [style.--selected-member-color]="selectedMember.color">
+                      {{ achievement }}
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      
+      <!-- Línea de Tiempo de la Empresa -->
+      <div class="company-timeline fade-in delay-4">
+        <h3 class="timeline-title">Nuestra Historia</h3>
+        <div class="timeline-container">
+          
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-year">2019</div>
+              <div class="timeline-title">Fundación</div>
+              <div class="timeline-description">Nació NEXQ-AI como una startup enfocada en análisis de datos y consultoría estadística.</div>
+              <div class="timeline-details">
+                <div class="detail-item">• Primer equipo de 3 personas</div>
+                <div class="detail-item">• Enfoque inicial en análisis financiero</div>
+                <div class="detail-item">• Primeros 5 clientes en el sector bancario</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-year">2020</div>
+              <div class="timeline-title">Expansión de Servicios</div>
+              <div class="timeline-description">Ampliamos nuestros servicios hacia machine learning y inteligencia artificial aplicada.</div>
+              <div class="timeline-details">
+                <div class="detail-item">• Desarrollo de algoritmos propios</div>
+                <div class="detail-item">• Incorporación de Diego como Director Científico</div>
+                <div class="detail-item">• Primera plataforma de análisis automatizado</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-year">2021</div>
+              <div class="timeline-title">Consolidación del Equipo</div>
+              <div class="timeline-description">Completamos nuestro equipo directivo con expertos en tecnología y finanzas.</div>
+              <div class="timeline-details">
+                <div class="detail-item">• Andrés se une como CTO</div>
+                <div class="detail-item">• Esteban asume dirección financiera</div>
+                <div class="detail-item">• 20+ proyectos exitosos completados</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-year">2022</div>
+              <div class="timeline-title">Innovación Tecnológica</div>
+              <div class="timeline-description">Desarrollo de nuestra plataforma propietaria de análisis avanzado.</div>
+              <div class="timeline-details">
+                <div class="detail-item">• Lanzamiento de NEXQ Platform</div>
+                <div class="detail-item">• Integración de computación cuántica</div>
+                <div class="detail-item">• Certificaciones ISO y SOC2</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-year">2023</div>
+              <div class="timeline-title">Expansión Internacional</div>
+              <div class="timeline-description">Comenzamos operaciones en mercados internacionales y sectores diversificados.</div>
+              <div class="timeline-details">
+                <div class="detail-item">• Clientes en 5 países de Latinoamérica</div>
+                <div class="detail-item">• Diversificación hacia retail y manufactura</div>
+                <div class="detail-item">• 40+ proyectos activos</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-year">2024</div>
+              <div class="timeline-title">Liderazgo en IA</div>
+              <div class="timeline-description">Nos consolidamos como líderes en soluciones de IA aplicada para empresas.</div>
+              <div class="timeline-details">
+                <div class="detail-item">• Reconocimiento como Top 10 AI Companies</div>
+                <div class="detail-item">• Alianzas estratégicas con universidades</div>
+                <div class="detail-item">• 50+ proyectos completados exitosamente</div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      <!-- Servicios Detallados -->
+      <div class="detailed-services fade-in delay-5">
+        <h3 class="services-title">Nuestros Servicios</h3>
+        <div class="services-grid">
+          
+          <div class="service-card">
+            <div class="service-icon">📊</div>
+            <h4 class="service-title">Análisis de Datos Avanzado</h4>
+            <p class="service-description">Transformamos datos complejos en insights accionables mediante técnicas estadísticas avanzadas y machine learning.</p>
+            <ul class="service-features">
+              <li>Modelado predictivo</li>
+              <li>Análisis multivariado</li>
+              <li>Visualización interactiva</li>
+              <li>Reportes automatizados</li>
+            </ul>
+          </div>
+          
+          <div class="service-card">
+            <div class="service-icon">🤖</div>
+            <h4 class="service-title">Inteligencia Artificial</h4>
+            <p class="service-description">Desarrollo e implementación de soluciones de IA personalizadas para optimizar procesos empresariales.</p>
+            <ul class="service-features">
+              <li>Deep Learning</li>
+              <li>Procesamiento de lenguaje natural</li>
+              <li>Visión computacional</li>
+              <li>Automatización inteligente</li>
+            </ul>
+          </div>
+          
+          <div class="service-card">
+            <div class="service-icon">💼</div>
+            <h4 class="service-title">Consultoría Estratégica</h4>
+            <p class="service-description">Asesoramiento experto para la toma de decisiones basada en datos y análisis cuantitativo.</p>
+            <ul class="service-features">
+              <li>Análisis de mercado</li>
+              <li>Optimización de recursos</li>
+              <li>Gestión de riesgos</li>
+              <li>Planificación estratégica</li>
+            </ul>
+          </div>
+          
+          <div class="service-card">
+            <div class="service-icon">🔧</div>
+            <h4 class="service-title">Desarrollo de Plataformas</h4>
+            <p class="service-description">Creación de plataformas tecnológicas robustas y escalables para análisis empresarial.</p>
+            <ul class="service-features">
+              <li>Arquitectura cloud</li>
+              <li>APIs personalizadas</li>
+              <li>Dashboards interactivos</li>
+              <li>Integración de sistemas</li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+      
+      <!-- Elementos Interactivos -->
+      <div class="interactive-elements fade-in delay-6">
+        
+        <!-- Habilidades del Equipo -->
+        <div class="skills-section">
+          <h3 class="skills-title">Competencias del Equipo</h3>
+          
+          <div class="skill-item">
+            <div class="skill-name">
+              <span>Machine Learning & IA</span>
+              <span class="skill-percentage">95%</span>
+            </div>
+            <div class="skill-bar" data-percentage="95">
+              <div class="skill-fill"></div>
+            </div>
+          </div>
+          
+          <div class="skill-item">
+            <div class="skill-name">
+              <span>Análisis Estadístico</span>
+              <span class="skill-percentage">98%</span>
+            </div>
+            <div class="skill-bar" data-percentage="98">
+              <div class="skill-fill"></div>
+            </div>
+          </div>
+          
+          <div class="skill-item">
+            <div class="skill-name">
+              <span>Desarrollo de Software</span>
+              <span class="skill-percentage">90%</span>
+            </div>
+            <div class="skill-bar" data-percentage="90">
+              <div class="skill-fill"></div>
+            </div>
+          </div>
+          
+          <div class="skill-item">
+            <div class="skill-name">
+              <span>Consultoría Empresarial</span>
+              <span class="skill-percentage">92%</span>
+            </div>
+            <div class="skill-bar" data-percentage="92">
+              <div class="skill-fill"></div>
+            </div>
+          </div>
+          
+          <div class="skill-item">
+            <div class="skill-name">
+              <span>Finanzas Cuantitativas</span>
+              <span class="skill-percentage">88%</span>
+            </div>
+            <div class="skill-bar" data-percentage="88">
+              <div class="skill-fill"></div>
+            </div>
+          </div>
+          
+        </div>
+        
+        <!-- Anillos de Progreso -->
+        <div class="progress-rings">
+          
+          <div class="progress-ring" data-percentage="96">
+            <svg>
+              <defs>
+                <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:var(--nexq-blue);stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:var(--accent-secondary);stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <circle class="progress-ring-circle" cx="60" cy="60" r="50"></circle>
+              <circle class="progress-ring-circle progress" cx="60" cy="60" r="50" stroke="url(#gradient1)"></circle>
+            </svg>
+            <div class="progress-label">
+              <div class="progress-value">96%</div>
+              <div>Satisfacción del Cliente</div>
+            </div>
+          </div>
+          
+          <div class="progress-ring" data-percentage="100">
+            <svg>
+              <defs>
+                <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:var(--nexq-blue);stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:var(--accent-secondary);stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <circle class="progress-ring-circle" cx="60" cy="60" r="50"></circle>
+              <circle class="progress-ring-circle progress" cx="60" cy="60" r="50" stroke="url(#gradient2)"></circle>
+            </svg>
+            <div class="progress-label">
+              <div class="progress-value">100%</div>
+              <div>Proyectos Exitosos</div>
+            </div>
+          </div>
+          
+          <div class="progress-ring" data-percentage="85">
+            <svg>
+              <defs>
+                <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:var(--nexq-blue);stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:var(--accent-secondary);stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <circle class="progress-ring-circle" cx="60" cy="60" r="50"></circle>
+              <circle class="progress-ring-circle progress" cx="60" cy="60" r="50" stroke="url(#gradient3)"></circle>
+            </svg>
+            <div class="progress-label">
+              <div class="progress-value">85%</div>
+              <div>Retención de Clientes</div>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+      
     </div>
-  </section>
+    
+  </div>
+</section>
