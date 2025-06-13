@@ -1,0 +1,262 @@
+<div class="min-h-screen  from-slate-900  to-indigo-900 py-12 px-4 sm:px-6 lg:px-8 ">
+    <div class="max-w-2xl mx-auto">
+      <!-- Formulario Principal -->
+      <div class="bg-gray-900 rounded-3xl shadow-2xl border border-gray-800 overflow-hidden"
+           data-aos="fade-up">
+        <div class="bg-gradient-to-r"
+             [ngClass]="getHeaderGradient(techForm.get('servicio')?.value)"
+             [class.transition-all]="true"
+             [class.duration-1000]="true"
+             [class.animate-gradient-shift]="techForm.get('servicio')?.value">
+          <!-- Partículas animadas del fondo -->
+          <div class="particle-container">
+            <div class="particles particles-analisis-datos" *ngIf="techForm.get('servicio')?.value === 'analisis-datos'" style="--tx: 40px; --ty: -30px; --r: 45deg;"></div>
+            <div class="particles particles-analisis-datos" *ngIf="techForm.get('servicio')?.value === 'analisis-datos'" style="--tx: -30px; --ty: 40px; --r: 90deg;"></div>
+            <div class="particles particles-analisis-datos" *ngIf="techForm.get('servicio')?.value === 'analisis-datos'" style="--tx: 20px; --ty: 30px; --r: 180deg;"></div>
+            <div class="particles particles-soluciones-ia" *ngIf="techForm.get('servicio')?.value === 'soluciones-ia'" style="--tx: 50px; --ty: -40px; --r: 60deg;"></div>
+            <div class="particles particles-soluciones-ia" *ngIf="techForm.get('servicio')?.value === 'soluciones-ia'" style="--tx: -20px; --ty: 50px; --r: 120deg;"></div>
+            <div class="particles particles-soluciones-ia" *ngIf="techForm.get('servicio')?.value === 'soluciones-ia'" style="--tx: 30px; --ty: 20px; --r: 210deg;"></div>
+            <div class="particles particles-big-data" *ngIf="techForm.get('servicio')?.value === 'big-data'" style="--tx: 35px; --ty: -25px; --r: 75deg;"></div>
+            <div class="particles particles-big-data" *ngIf="techForm.get('servicio')?.value === 'big-data'" style="--tx: -40px; --ty: 30px; --r: 150deg;"></div>
+            <div class="particles particles-big-data" *ngIf="techForm.get('servicio')?.value === 'big-data'" style="--tx: 25px; --ty: 40px; --r: 225deg;"></div>
+            <div class="particles particles-desarrollo-software" *ngIf="techForm.get('servicio')?.value === 'desarrollo-software'" style="--tx: 45px; --ty: -35px; --r: 30deg;"></div>
+            <div class="particles particles-desarrollo-software" *ngIf="techForm.get('servicio')?.value === 'desarrollo-software'" style="--tx: -25px; --ty: 45px; --r: 270deg;"></div>
+            <div class="particles particles-desarrollo-software" *ngIf="techForm.get('servicio')?.value === 'desarrollo-software'" style="--tx: 35px; --ty: 25px; --r: 315deg;"></div>
+            <div class="particles particles-investigacion-desarrollo" *ngIf="techForm.get('servicio')?.value === 'investigacion-desarrollo'" style="--tx: 30px; --ty: -45px; --r: 15deg;"></div>
+            <div class="particles particles-investigacion-desarrollo" *ngIf="techForm.get('servicio')?.value === 'investigacion-desarrollo'" style="--tx: -35px; --ty: 25px; --r: 135deg;"></div>
+            <div class="particles particles-investigacion-desarrollo" *ngIf="techForm.get('servicio')?.value === 'investigacion-desarrollo'" style="--tx: 40px; --ty: 35px; --r: 240deg;"></div>
+            <div class="particles particles-servicios-financieros" *ngIf="techForm.get('servicio')?.value === 'servicios-financieros'" style="--tx: 50px; --ty: -20px; --r: 90deg;"></div>
+            <div class="particles particles-servicios-financieros" *ngIf="techForm.get('servicio')?.value === 'servicios-financieros'" style="--tx: -30px; --ty: 50px; --r: 180deg;"></div>
+            <div class="particles particles-servicios-financieros" *ngIf="techForm.get('servicio')?.value === 'servicios-financieros'" style="--tx: 20px; --ty: 30px; --r: 270deg;"></div>
+          </div>
+          <!-- Contenido del header -->
+          <div class="relative z-10 py-8 px-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 mx-auto
+                        transform hover:scale-110 transition-all duration-300 animate-float"
+                 [ngClass]="getIconBackground(techForm.get('servicio')?.value)">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                  [ngClass]="{'animate-spin-slow': techForm.get('servicio')?.value === 'analisis-datos',
+                              'animate-pulse': techForm.get('servicio')?.value === 'soluciones-ia',
+                              'animate-bounce-gentle': techForm.get('servicio')?.value === 'big-data'}">
+                <path *ngIf="!techForm.get('servicio')?.value || techForm.get('servicio')?.value === ''"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                </path>
+                <!-- Iconos específicos para cada servicio -->
+                <path *ngIf="techForm.get('servicio')?.value === 'analisis-datos'"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                </path>
+                <path *ngIf="techForm.get('servicio')?.value === 'soluciones-ia'"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                </path>
+                <path *ngIf="techForm.get('servicio')?.value === 'big-data'"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4">
+                </path>
+                <path *ngIf="techForm.get('servicio')?.value === 'desarrollo-software'"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4">
+                </path>
+                <path *ngIf="techForm.get('servicio')?.value === 'investigacion-desarrollo'"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                </path>
+                <path *ngIf="techForm.get('servicio')?.value === 'servicios-financieros'"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                </path>
+              </svg>
+            </div>
+            <h2 class="text-3xl font-bold text-white mb-2 text-center">
+              <span *ngIf="!techForm.get('servicio')?.value || techForm.get('servicio')?.value === ''">Solicitud de Consulta</span>
+              <span *ngIf="techForm.get('servicio')?.value === 'analisis-datos'" class="animate-typing-effect">Análisis Avanzado de Datos</span>
+              <span *ngIf="techForm.get('servicio')?.value === 'soluciones-ia'" class="animate-glow">Soluciones Basadas en IA</span>
+              <span *ngIf="techForm.get('servicio')?.value === 'big-data'" class="animate-pulse">Big Data y Visualización</span>
+              <span *ngIf="techForm.get('servicio')?.value === 'desarrollo-software'" class="animate-gradient-text">Desarrollo de Software</span>
+              <span *ngIf="techForm.get('servicio')?.value === 'investigacion-desarrollo'" class="animate-bounce-gentle">Investigación y Desarrollo</span>
+              <span *ngIf="techForm.get('servicio')?.value === 'servicios-financieros'" class="animate-shimmer">Servicios Financieros</span>
+            </h2>
+            <p class="text-blue-200 text-center transition-all duration-500"
+               [class.animate-fadeIn]="techForm.get('servicio')?.value">
+              <span *ngIf="!techForm.get('servicio')?.value || techForm.get('servicio')?.value === ''">Completa el formulario para contactar con nuestro equipo</span>
+              <span *ngIf="techForm.get('servicio')?.value === 'analisis-datos'">Transformamos datos en decisiones estratégicas</span>
+              <span *ngIf="techForm.get('servicio')?.value === 'soluciones-ia'">Inteligencia artificial adaptada a tu negocio</span>
+              <span *ngIf="techForm.get('servicio')?.value === 'big-data'">Visualización avanzada para grandes volúmenes de datos</span>
+              <span *ngIf="techForm.get('servicio')?.value === 'desarrollo-software'">Soluciones tecnológicas a medida para tu empresa</span>
+              <span *ngIf="techForm.get('servicio')?.value === 'investigacion-desarrollo'">Innovación tecnológica para el futuro</span>
+              <span *ngIf="techForm.get('servicio')?.value === 'servicios-financieros'">Optimización de inversiones y gestión de riesgos</span>
+            </p>
+          </div>
+        </div>
+        <form [formGroup]="techForm" (ngSubmit)="onSubmit()" class="p-8 space-y-6">
+          <!-- Servicio -->
+          <div class="form-group">
+            <label for="servicio" class="block text-sm font-medium text-blue-100 mb-2">
+              Servicio Requerido <span class="text-cyan-400">*</span>
+            </label>
+            <select
+              id="servicio"
+              formControlName="servicio"
+              class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300"
+              [class.border-red-400]="isFieldInvalid('servicio')"
+            >
+              <option value="" disabled>Selecciona un servicio</option>
+              <option *ngFor="let servicio of servicios" [value]="servicio.id" [selected]="servicio.id === techForm.get('servicio')?.value">{{ servicio.nombre }}</option>
+            </select>
+            <div *ngIf="getFieldError('servicio')" class="mt-1 text-red-300 text-sm">
+              {{ getFieldError('servicio') }}
+            </div>
+            <!-- Descripción del servicio seleccionado -->
+            <div *ngIf="techForm.get('servicio')?.value && !isFieldInvalid('servicio')" class="mt-2 text-blue-200 text-sm italic animate-fadeIn">
+              <ng-container [ngSwitch]="techForm.get('servicio')?.value">
+                <span *ngSwitchCase="'analisis-datos'">Minería de datos, reportes ejecutivos y modelos predictivos.</span>
+                <span *ngSwitchCase="'soluciones-ia'">Automatización de procesos, asistentes virtuales y optimización logística.</span>
+                <span *ngSwitchCase="'big-data'">Bases de datos escalables, integración con Power BI y visualización avanzada.</span>
+                <span *ngSwitchCase="'desarrollo-software'">Aplicaciones web/móviles, computación avanzada y sistemas automatizados.</span>
+                <span *ngSwitchCase="'investigacion-desarrollo'">Algoritmos de optimización, proyectos experimentales en IA y colaboraciones.</span>
+                <span *ngSwitchCase="'servicios-financieros'">Gestión de riesgos, optimización de inversiones y análisis actuarial.</span>
+              </ng-container>
+            </div>
+          </div>
+          <!-- Email y Teléfono -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="form-group">
+              <label for="email" class="block text-sm font-medium text-blue-100 mb-2">
+                Email Corporativo <span class="text-cyan-400">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300 hover:border-blue-500"
+                [class.border-red-400]="isFieldInvalid('email')"
+                placeholder="empresa@ejemplo.com"
+              >
+              <div *ngIf="getFieldError('email')" class="mt-1 text-red-300 text-sm">
+                {{ getFieldError('email') }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="telefono" class="block text-sm font-medium text-blue-100 mb-2">
+                Teléfono <span class="text-cyan-400">*</span>
+              </label>
+              <input
+                type="tel"
+                id="telefono"
+                formControlName="telefono"
+                class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300 hover:border-blue-500"
+                [class.border-red-400]="isFieldInvalid('telefono')"
+                placeholder="+57 300 123 4567"
+              >
+              <div *ngIf="getFieldError('telefono')" class="mt-1 text-red-300 text-sm">
+                {{ getFieldError('telefono') }}
+              </div>
+            </div>
+          </div>
+          <!-- Nombre y Apellidos -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="form-group">
+              <label for="nombre" class="block text-sm font-medium text-blue-100 mb-2">
+                Nombre <span class="text-cyan-400">*</span>
+              </label>
+              <input
+                type="text"
+                id="nombre"
+                formControlName="nombre"
+                class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300 hover:border-blue-500"
+                [class.border-red-400]="isFieldInvalid('nombre')"
+                placeholder="Tu nombre"
+              >
+              <div *ngIf="getFieldError('nombre')" class="mt-1 text-red-300 text-sm">
+                {{ getFieldError('nombre') }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="apellidos" class="block text-sm font-medium text-blue-100 mb-2">
+                Apellidos <span class="text-cyan-400">*</span>
+              </label>
+              <input
+                type="text"
+                id="apellidos"
+                formControlName="apellidos"
+                class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300 hover:border-blue-500"
+                [class.border-red-400]="isFieldInvalid('apellidos')"
+                placeholder="Tus apellidos"
+              >
+              <div *ngIf="getFieldError('apellidos')" class="mt-1 text-red-300 text-sm">
+                {{ getFieldError('apellidos') }}
+              </div>
+            </div>
+          </div>
+          <!-- Nombre de la empresa -->
+          <div class="form-group">
+            <label for="nombreEmpresa" class="block text-sm font-medium text-blue-100 mb-2">
+              Nombre de la Empresa <span class="text-cyan-400">*</span>
+            </label>
+            <input
+              type="text"
+              id="nombreEmpresa"
+              formControlName="nombreEmpresa"
+              class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300 hover:border-blue-500"
+              [class.border-red-400]="isFieldInvalid('nombreEmpresa')"
+              placeholder="Nombre de tu empresa"
+            >
+            <div *ngIf="getFieldError('nombreEmpresa')" class="mt-1 text-red-300 text-sm">
+              {{ getFieldError('nombreEmpresa') }}
+            </div>
+          </div>
+          <!-- Fecha de consulta -->
+          <div class="form-group">
+            <label for="fechaConsulta" class="block text-sm font-medium text-blue-100 mb-2">
+              Fecha Preferida para la Consulta <span class="text-cyan-400">*</span>
+            </label>
+            <input
+              type="date"
+              id="fechaConsulta"
+              formControlName="fechaConsulta"
+              class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300 hover:border-blue-500"
+              [class.border-red-400]="isFieldInvalid('fechaConsulta')"
+              [min]="minDate"
+            >
+            <div *ngIf="getFieldError('fechaConsulta')" class="mt-1 text-red-300 text-sm">
+              {{ getFieldError('fechaConsulta') }}
+            </div>
+          </div>
+          <!-- Submit Button -->
+          <div class="pt-6">
+            <button
+              type="submit"
+              [disabled]="!isFormValid || isSubmitting"
+              class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 disabled:from-gray-500 disabled:to-gray-600 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-1 disabled:scale-100 disabled:cursor-not-allowed shadow-lg hover:shadow-xl disabled:shadow-none"
+            >
+              <span class="flex items-center justify-center">
+                <svg *ngIf="isSubmitting" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <svg *ngIf="!isSubmitting && isFormValid" class="w-5 h-5 mr-2 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                </svg>
+                {{ isSubmitting ? 'Enviando...' : (isFormValid ? 'Continuar con el Envío' : 'Complete todos los campos') }}
+              </span>
+            </button>
+          </div>
+          <!-- Progress indicator -->
+          <div class="mt-4">
+            <div class="flex justify-between text-xs text-blue-200 mb-2">
+              <span>Progreso del formulario</span>
+              <span class="animate-pulse">{{ getFormCompletionPercentage() }}%</span>
+            </div>
+            <div class="w-full bg-gray-800 rounded-full h-2">
+              <div
+                class="bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full transition-all duration-500 ease-out"
+                [style.width.%]="getFormCompletionPercentage()"
+              ></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

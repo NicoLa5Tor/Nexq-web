@@ -1,0 +1,326 @@
+// tech-form.component.scss
+
+// Estilos básicos para los campos del formulario
+.form-group {
+    position: relative;
+    animation: fadeInUp 0.6s ease-out;
+    &:nth-child(2) { animation-delay: 0.1s; }
+    &:nth-child(3) { animation-delay: 0.2s; }
+    &:nth-child(4) { animation-delay: 0.3s; }
+    &:nth-child(5) { animation-delay: 0.4s; }
+    &:nth-child(6) { animation-delay: 0.5s; }
+    
+    input, select {
+      backdrop-filter: blur(10px);
+      
+      // Personalización del selector de fecha para modo oscuro
+      &[type="date"] {
+        color-scheme: dark;
+        &::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+          opacity: 0.8;
+          cursor: pointer;
+        }
+      }
+      
+      // Efecto sutil al enfocar
+      &:focus {
+        box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+      }
+      
+      // Estilo para campos con error
+      &.border-red-400 {
+        border-color: #f87171;
+        box-shadow: 0 0 10px rgba(248, 113, 113, 0.3);
+      }
+      
+      // Estilo para placeholders
+      &::placeholder {
+        color: rgba(191, 219, 254, 0.7);
+      }
+    }
+    
+    // Estilos específicos para el selector
+    select {
+      background-color: #1f2937; // gray-800
+      appearance: auto; // Usa la flecha nativa del navegador
+      
+      option {
+        background-color: #1f2937; // gray-800
+        color: white;
+      }
+    }
+    
+    label {
+      font-weight: 500;
+      letter-spacing: 0.025em;
+    }
+  }
+  
+  // Estilos para el botón
+  button {
+    position: relative;
+    overflow: hidden;
+    
+    &:not(:disabled) {
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+      }
+      
+      &:hover::before {
+        left: 100%;
+      }
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+  
+  // Fondo y efectos globales
+  .bg-gradient-to-br {
+    background-attachment: fixed;
+  }
+  
+  .backdrop-blur-lg {
+    backdrop-filter: blur(16px);
+  }
+  
+  // Animaciones básicas
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  // Animaciones para el header
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  @keyframes bounce-gentle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+  
+  @keyframes typing-effect {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: rgba(255, 255, 255, 0.5) }
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  // Animación de partículas flotantes
+  @keyframes particle-float {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--tx, 30px), var(--ty, -20px)) rotate(var(--r, 45deg));
+      opacity: 0;
+    }
+  }
+  
+  // Clases personalizadas para animaciones
+  .animate-gradient-shift {
+    background-size: 200% 200%;
+    animation: gradient-shift 5s ease infinite;
+  }
+  
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+  
+  .animate-bounce-gentle {
+    animation: bounce-gentle 2s ease-in-out infinite;
+  }
+  
+  .animate-typing-effect {
+    display: inline-block;
+    overflow: hidden;
+    border-right: 0.15em solid rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+    animation: typing-effect 3.5s steps(40, end), 
+               blink-caret 0.75s step-end infinite;
+  }
+  
+  .animate-shimmer {
+    background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+  }
+  
+  .animate-gradient-text {
+    background-image: linear-gradient(45deg, #12b5e5, #7353e5, #ef476f, #ffd166);
+    background-size: 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: gradient-shift 5s ease infinite;
+  }
+  
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .animate-spin-slow {
+    animation: spin 3s linear infinite;
+  }
+  
+  // Animación glow para texto
+  .animate-glow {
+    animation: glow 1.5s ease-in-out infinite alternate;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+  }
+  
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #9333ea, 0 0 20px #9333ea, 0 0 25px #9333ea, 0 0 30px #9333ea, 0 0 35px #9333ea;
+    }
+    to {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #9333ea, 0 0 40px #9333ea, 0 0 50px #9333ea, 0 0 60px #9333ea, 0 0 70px #9333ea;
+    }
+  }
+  
+  // Partículas
+  .particle-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+  }
+  
+  .particles {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    opacity: 0;
+    animation: particle-float 8s ease-in-out infinite;
+  }
+  
+  // Clases específicas para cada servicio
+  .particles-analisis-datos {
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.8) 0%, rgba(56, 189, 248, 0) 70%);
+  }
+  
+  .particles-soluciones-ia {
+    background: radial-gradient(circle, rgba(217, 70, 239, 0.8) 0%, rgba(217, 70, 239, 0) 70%);
+  }
+  
+  .particles-big-data {
+    background: radial-gradient(circle, rgba(52, 211, 153, 0.8) 0%, rgba(52, 211, 153, 0) 70%);
+  }
+  
+  .particles-desarrollo-software {
+    background: radial-gradient(circle, rgba(248, 113, 113, 0.8) 0%, rgba(248, 113, 113, 0) 70%);
+  }
+  
+  .particles-investigacion-desarrollo {
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.8) 0%, rgba(251, 191, 36, 0) 70%);
+  }
+  
+  .particles-servicios-financieros {
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.8) 0%, rgba(139, 92, 246, 0) 70%);
+  }
+  
+  // Optimizaciones para dispositivos móviles
+  @media (max-width: 768px) {
+    .form-group input, .form-group select {
+      padding: 12px 16px;
+      font-size: 16px; // Previene el zoom en iOS
+    }
+    
+    .grid-cols-1.md\:grid-cols-2 {
+      gap: 1rem;
+    }
+  }
+  ::ng-deep .mat-mdc-dialog-surface {
+    background: rgba(0, 51, 255, 0) !important;   // negro semi-transparente
+    color: #fff !important;
+    backdrop-filter: blur(16px) !important;          // blur fuerte
+    -webkit-backdrop-filter: blur(16px) !important;  // para Safari
+    box-shadow: 0 24px 64px 0 rgba(0,0,0,0.95) !important;
+    border-radius: 20px !important;
+    border: 1.5px solid rgba(167, 8, 127, 0.1) !important;  // borde glassmorph
+  }
+  

@@ -1,18 +1,17 @@
 <section class="services-section" [ngClass]="{'services-detail-view': mostrarServicio()}">
   <!-- Nodos neurales (solo visibles en vista detallada) -->
-  <app-particles-background 
+  <app-particles-background
     [opacity]="0.3"
     [particleColors]="particleColors"
     [particleDensity]="mostrarServicio() ? 12000 : 8000"
     [maxConnectDistance]="120"
     [particleSpeed]="0.6"
   ></app-particles-background>
- 
-
+  
   <div *ngIf="mostrarServicio()" class="neural-nodes-container">
     <div class="neural-node" *ngFor="let i of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]"></div>
   </div>
-
+  
   <svg *ngIf="mostrarServicio()" class="data-flow-svg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
     <line class="data-flow-line" x1="10%" y1="30%" x2="30%" y2="70%" stroke="rgba(94, 137, 176, 0.15)"></line>
     <line class="data-flow-line" x1="30%" y1="70%" x2="50%" y2="20%" stroke="rgba(94, 137, 176, 0.15)"></line>
@@ -23,12 +22,11 @@
   <div class="section-container">
     <!-- Título con referencia para la animación letra por letra -->
     <h2 class="section-title" #titleContainer></h2>
-    
     <p class="section-subtitle fade-in delay-1">
       <span *ngIf="!mostrarServicio()">Soluciones inteligentes para desafíos empresariales modernos</span>
       <span *ngIf="mostrarServicio()">Tecnología inteligente al servicio de tu negocio</span>
     </p>
-
+    
     <div class="services-grid" [ngClass]="{'expanded-grid': mostrarServicio()}">
       <!-- Servicio 1: Análisis Avanzado de Datos -->
       <div class="service-card fade-in delay-2" [ngClass]="{'detail-card': mostrarServicio()}" data-aos="fade-right">
@@ -47,7 +45,7 @@
         <a class="service-link" routerLink="/servicios" (click)="returnToView()" *ngIf="!mostrarServicio()">
           <span>Ver más</span>
         </a>
-        <button class="service-action-button" *ngIf="mostrarServicio()" (click)="openAppointmentDialog('data-analysis')">Agendar demostración</button>
+        <button class="service-action-button" *ngIf="mostrarServicio()"a (click)="openTechDialog('Análisis Avanzado de Datos')">Solicitar Consulta</button>
       </div>
       
       <!-- Servicio 2: Soluciones basadas en IA -->
@@ -69,7 +67,7 @@
         <a class="service-link" routerLink="/servicios" (click)="returnToView()" *ngIf="!mostrarServicio()">
           <span>Ver más</span>
         </a>
-        <button class="service-action-button" *ngIf="mostrarServicio()" (click)="openAppointmentDialog('ai-solutions')">Agendar demostración</button>
+        <button class="service-action-button" *ngIf="mostrarServicio()" (click)="openTechDialog('Soluciones Basadas en IA')">Solicitar Consulta</button>
       </div>
       
       <!-- Servicio 3: Big Data y Visualización -->
@@ -90,7 +88,7 @@
         <a class="service-link" routerLink="/servicios" (click)="returnToView()" *ngIf="!mostrarServicio()">
           <span>Ver más</span>
         </a>
-        <button class="service-action-button" *ngIf="mostrarServicio()" (click)="openAppointmentDialog('big-data')">Agendar demostración</button>
+        <button class="service-action-button" *ngIf="mostrarServicio()" (click)="openTechDialog('Big Data y Visualización')">Solicitar Consulta</button>
       </div>
       
       <!-- Servicio 4: Desarrollo de Software - Solo visible cuando mostrarServicio es true -->
@@ -107,7 +105,7 @@
           <p>• Soluciones en computación avanzada</p>
           <p>• Sistemas automatizados para gestión</p>
         </div>
-        <button class="service-action-button" (click)="openAppointmentDialog('software-dev')">Agendar demostración</button>
+        <button class="service-action-button" (click)="openTechDialog('Desarrollo de Software')">Solicitar Consulta</button>
       </div>
       
       <!-- Servicio 5: Investigación y Desarrollo - Solo visible cuando mostrarServicio es true -->
@@ -123,7 +121,7 @@
           <p>• Proyectos experimentales en IA</p>
           <p>• Colaboraciones con academia e industria</p>
         </div>
-        <button class="service-action-button" (click)="openAppointmentDialog('research')">Agendar demostración</button>
+        <button class="service-action-button" (click)="openTechDialog('Investigación y Desarrollo')">Solicitar Consulta</button>
       </div>
       
       <!-- Servicio 6: Finanzas y Economía - Solo visible cuando mostrarServicio es true -->
@@ -140,7 +138,7 @@
           <p>• Optimización de inversiones</p>
           <p>• Análisis actuarial y valoración de activos</p>
         </div>
-        <button class="service-action-button" (click)="openAppointmentDialog('financial')">Agendar demostración</button>
+        <button class="service-action-button" (click)="openTechDialog('Servicios Financieros')">Solicitar Consulta</button>
       </div>
     </div>
     
@@ -152,16 +150,12 @@
     </div>
     
     <!-- CTA Container alternativo cuando se muestran todos los servicios -->
-    <!-- Modificaciones para el CTA en la vista de servicios detallada -->
-
-    <!-- Reemplazar el CTA expandido con esta versión corregida -->
     <div class="cta-container expanded-cta" *ngIf="mostrarServicio()" data-aos="fade-up">
       <div class="cta-background-element"></div>
       <h3 class="cta-title">Tecnología de punta al servicio de tu negocio</h3>
       <p class="cta-text">Nuestro equipo de expertos está listo para asesorarte y encontrar la mejor solución a tus necesidades</p>
-      <!-- Importante: Quitar la clase fade-in de los botones -->
       <div class="cta-buttons-group">
-        <button class="cta-button primary" (click)="openAppointmentDialog()">Agendar consultoría</button>
+        <button class="cta-button primary" (click)="openTechDialog()">Solicitar Consulta Tech</button>
         <button class="cta-button secondary" (click)="returnToView()">Volver a vista principal</button>
       </div>
     </div>

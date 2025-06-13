@@ -5,9 +5,11 @@ import { RouterLink } from '@angular/router';
 import { ServiceService } from '../../Services/service.service';
 import { ParticlesBackgroundComponent } from '../animations/particles-background/particles-background.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { AppointmentDialogComponent } from '../appointment-dialog/appointment-dialog.component';
-import { SendMethodDialogComponent } from '../send-method-dialog/send-method-dialog.component';
+import { SendOptionsComponent } from '../send-options/send-options.component';
 import { AppointmentService } from '../../Services/appointment.service';
+
+// NUEVO IMPORT PARA EL FORMULARIO TECH
+import { TechFormComponent, FormData } from '../tech-form/tech-form.component';
 
 @Component({
   selector: 'app-services-overview',
@@ -21,13 +23,13 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
   @ViewChild('titleContainer') titleContainer!: ElementRef;
   mostrarServicio = signal(false);
   particleColors = [
-    'rgba(94, 137, 176, 0.6)',  // azul
-    'rgba(110, 86, 207, 0.6)',  // morado
+    'rgba(94, 137, 176, 0.6)', // azul
+    'rgba(110, 86, 207, 0.6)', // morado
     'rgba(158, 119, 224, 0.6)', // lila
-    'rgba(94, 137, 176, 0.3)',  // azul claro
-    'rgba(255, 255, 255, 0.5)'  // blanco
+    'rgba(94, 137, 176, 0.3)', // azul claro
+    'rgba(255, 255, 255, 0.5)' // blanco
   ];
-  
+
   constructor(
     private el: ElementRef,
     private renderer: Renderer2,
@@ -46,25 +48,21 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
     this.mostrarServicio.set(this.serviceEstatus.getActivate());
     this.serviceEstatus.setActivate();
   }
-  
+
   ngAfterViewInit(): void {
     // Iniciar la animación del título después de que la vista se haya inicializado
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => this.setupTitleAnimation(), 100);
-      
       // Configurar los nodos neurales si estamos en vista detallada
       if (this.mostrarServicio()) {
         this.setupNeuralNodes();
       }
-
       this.aos.refresh();
     }
   }
-  
-  
+
   returnToView() {
     this.mostrarServicio.set(!this.mostrarServicio());
-    
     // Configurar los nodos neurales después de cambiar la vista
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
@@ -74,11 +72,51 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
       }, 100);
     }
   }
+  openTechDialog(serviceId?: string, initialData?: FormData): void {
+    const dialogRef = this.dialog.open(TechFormComponent, {
+      width: '800px',
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+      panelClass: 'tech-dialog-container',
+      autoFocus: false,
+      data: { initialData } // Pasar los datos iniciales al diálogo
+    });
   
+    dialogRef.componentInstance.servicioInicial = serviceId || '';
+    
+    dialogRef.componentInstance.formCompleted.subscribe((formData: FormData) => {
+      dialogRef.close();
+      this.handleFormData(formData);
+    });
+  }
+  private handleFormData(formData: FormData): void {
+    const dialogRef = this.dialog.open(SendOptionsComponent, {
+      width: '420px',
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+      panelClass: 'send-options-dialog',
+      autoFocus: false,
+      data: { formData }
+    });
+  
+    // Añadir suscripción a eventos después de abrir el diálogo
+    dialogRef.componentInstance.editData.subscribe(() => {
+      dialogRef.close();
+      // Reabrir el formulario con los datos existentes
+      this.openTechDialog(formData.servicio, formData);
+    });
+  }
+  
+
+
+
+  // Método para abrir el dialog de opciones de envío  
+
+
   private setupTitleAnimation(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    
     const titleElement = this.titleContainer.nativeElement;
+    
     // Dividir el título en dos palabras
     const words = ["Nuestros", "Servicios"];
     
@@ -99,20 +137,18 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
       [...word].forEach((char, charIndex) => {
         const span = this.renderer.createElement('span');
         const textNode = this.renderer.createText(char);
-        
         this.renderer.appendChild(span, textNode);
         this.renderer.addClass(span, 'title-letter');
         
         // Ocultar inicialmente cada letra
         this.renderer.setStyle(span, 'opacity', '0');
         this.renderer.setStyle(span, 'transform', 'translateY(30px)');
-        
         this.renderer.appendChild(wordContainer, span);
       });
       
       this.renderer.appendChild(titleElement, wordContainer);
     });
-    
+
     // Configurar el observador de intersección para detectar cuando el título es visible
     if (typeof IntersectionObserver !== 'undefined') {
       const observer = new IntersectionObserver((entries) => {
@@ -120,7 +156,6 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
           if (entry.isIntersecting) {
             // Cuando el elemento sea visible, iniciar la animación secuencial
             const letters = titleElement.querySelectorAll('.title-letter');
-            
             letters.forEach((letterElement: HTMLElement, letterIndex: number) => {
               setTimeout(() => {
                 this.renderer.setStyle(letterElement, 'opacity', '1');
@@ -138,15 +173,14 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
           }
         });
       }, { threshold: 0.5 });
-      
+
       // Comenzar a observar el elemento del título
       observer.observe(titleElement);
     }
   }
-  
+
   private activateCardAnimations(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    
     const cards = this.el.nativeElement.querySelectorAll('.service-card');
     
     // Asegurarse de que las tarjetas estén inicialmente ocultas
@@ -155,7 +189,7 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
       this.renderer.setStyle(card, 'visibility', 'hidden');
       this.renderer.setStyle(card, 'transform', 'translateY(40px)');
     });
-    
+
     // Configurar un observador de intersección para activar las animaciones al scroll
     if (typeof IntersectionObserver !== 'undefined') {
       const observer = new IntersectionObserver((entries) => {
@@ -172,11 +206,11 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
             observer.unobserve(entry.target);
           }
         });
-      }, { 
-        threshold: 0.2,  // Detecta cuando al menos el 20% de la tarjeta es visible
-        rootMargin: '0px 0px -10% 0px'  // Activa un poco antes para mejor experiencia
+      }, {
+        threshold: 0.2, // Detecta cuando al menos el 20% de la tarjeta es visible
+        rootMargin: '0px 0px -10% 0px' // Activa un poco antes para mejor experiencia
       });
-      
+
       // Comenzar a observar cada tarjeta
       cards.forEach((card: HTMLElement) => {
         observer.observe(card);
@@ -203,6 +237,7 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
     if (typeof document !== 'undefined') {
       // Animación de entrada para elementos cuando son visibles
       const fadeElements = document.querySelectorAll('.services-section .fade-in');
+      
       if (fadeElements.length > 0 && typeof IntersectionObserver !== 'undefined') {
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
@@ -213,7 +248,7 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
             }
           });
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        
+
         fadeElements.forEach(element => {
           observer.observe(element);
         });
@@ -225,40 +260,13 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
    * Método para manejar la visibilidad del CTA
    * Se llama cuando cambia el estado de mostrarServicio
    */
-  private handleCTAVisibility(): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-    
-    setTimeout(() => {
-      // Buscar el CTA expandido
-      const expandedCTA = this.el.nativeElement.querySelector('.cta-container.expanded-cta');
-      if (expandedCTA && this.mostrarServicio()) {
-        // Asegurar que sea visible
-        this.renderer.setStyle(expandedCTA, 'display', 'block');
-        this.renderer.setStyle(expandedCTA, 'opacity', '1');
-        
-        // Encontrar los botones y animarlos
-        const buttons = expandedCTA.querySelectorAll('.cta-button');
-        buttons.forEach((button: HTMLElement, index: number) => {
-          this.renderer.setStyle(button, 'opacity', '0');
-          this.renderer.setStyle(button, 'transform', 'translateY(20px)');
-          
-          // Animar con un ligero retraso secuencial
-          setTimeout(() => {
-            this.renderer.setStyle(button, 'opacity', '1');
-            this.renderer.setStyle(button, 'transform', 'translateY(0)');
-            this.renderer.setStyle(button, 'transition', 'all 0.5s ease');
-          }, 300 + (index * 150));
-        });
-      }
-    }, 100);
-  }
+
 
   private setupNeuralNodes(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    
     const nodesContainer = this.el.nativeElement.querySelector('.neural-nodes-container');
     if (!nodesContainer) return;
-    
+
     // Asegurarse de que los nodos sean visibles
     this.renderer.setStyle(nodesContainer, 'opacity', '1');
     this.renderer.setStyle(nodesContainer, 'visibility', 'visible');
@@ -273,51 +281,5 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
       this.renderer.setStyle(dataFlowSvg, 'visibility', 'visible');
       this.renderer.setStyle(dataFlowSvg, 'z-index', '1');
     }
-  }
-
-  // Método para abrir el dialog de agendamiento
-  openAppointmentDialog(serviceId?: string): void {
-    // Si se proporciona un serviceId, lo establecemos en el servicio
-    if (serviceId) {
-      this.appointmentService.setSelectedService(serviceId);
-    }
-    
-    // Abrir el primer dialog
-    const dialogRef = this.dialog.open(AppointmentDialogComponent, {
-      width: '700px',
-      maxWidth: '95vw',
-      maxHeight: '90vh',
-      data: { serviceId: serviceId || '' },
-      panelClass: 'custom-dialog-container',
-      autoFocus: false
-    });
-
-    // Manejar el resultado del primer dialog
-    dialogRef.afterClosed().subscribe(result => {
-      if (result?.success && result?.data) {
-        // Si el primer dialog fue exitoso, abrir el segundo
-        setTimeout(() => {
-          this.openSendMethodDialog(result.data);
-        }, 300);
-      }
-    });
-  }
-
-  // Método para abrir el dialog de método de envío
-  private openSendMethodDialog(appointmentData: any): void {
-    const sendDialogRef = this.dialog.open(SendMethodDialogComponent, {
-      width: '800px',
-      maxWidth: '95vw',
-      data: { appointmentData },
-      panelClass: 'custom-dialog-container',
-      autoFocus: false
-    });
-
-    sendDialogRef.afterClosed().subscribe(result => {
-      if (result?.success) {
-        // Limpiar los datos después de enviar
-        this.appointmentService.clearData();
-      }
-    });
   }
 }

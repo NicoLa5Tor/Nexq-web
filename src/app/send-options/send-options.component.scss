@@ -1,0 +1,148 @@
+.send-option {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(34, 211, 238, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+  
+    &.selected {
+      background: rgba(34, 211, 238, 0.1);
+      border-color: rgba(34, 211, 238, 0.5);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+  
+      .radio-indicator {
+        background: linear-gradient(135deg, #22d3ee, #3b82f6);
+        
+        &::after {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+  
+      .icon-container {
+        &.email {
+          background: linear-gradient(135deg, #ec4899, #8b5cf6);
+          box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+        }
+  
+        &.whatsapp {
+          background: linear-gradient(135deg, #10b981, #059669);
+          box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+      }
+    }
+  }
+  
+  .icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+  
+    &.email {
+      background: rgba(236, 72, 153, 0.2);
+      color: #f472b6;
+    }
+  
+    &.whatsapp {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+    }
+  }
+  
+  .radio-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    position: relative;
+    transition: all 0.3s ease;
+  
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0.5rem;
+      height: 0.5rem;
+      background: white;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+  }
+  
+  // Modal Animation
+  @keyframes modalSlideIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  
+  .fixed {
+    animation: modalSlideIn 0.3s ease-out;
+  }
+  
+  // Button animations
+  button {
+    position: relative;
+    overflow: hidden;
+  
+    &:not(:disabled) {
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+      }
+  
+      &:hover::before {
+        left: 100%;
+      }
+    }
+  
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+  
+  // Responsive
+  @media (max-width: 768px) {
+    .send-option {
+      padding: 0.75rem;
+    }
+  
+    .icon-container {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  
+    .fixed .bg-white\/10 {
+      margin: 1rem;
+      max-height: calc(100vh - 2rem);
+    }
+  }
