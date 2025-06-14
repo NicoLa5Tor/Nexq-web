@@ -1,56 +1,71 @@
-<!-- VISTA PARA INDEX -->
-<section class="about-section" [class.index-mode]="isIndexMode" [class.full-page-mode]="!isIndexMode" data-aos="fade-up">
-  <div class="section-container">
+<!-- VISTA PRINCIPAL -->
+<section class="about-section relative overflow-hidden transition-all duration-700 ease-out min-h-screen" [class.index-mode]="isIndexMode" [class.full-page-mode]="!isIndexMode" data-aos="fade-up">
+  <div class="section-container mx-auto relative z-10 px-4 md:px-6 lg:px-8">
     
     <!-- CONTENIDO DEL INDEX -->
-    <div *ngIf="isIndexMode" class="about-index-content">
-      <h2 class="section-title fade-in">Quiénes Somos</h2>
+    <div *ngIf="isIndexMode" class="about-index-content py-16 md:py-20 lg:py-24">
+      <h1 class="text-center font-extrabold  bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+        Quiénes Somos
+      </h1>
       
-      <div class="index-content">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        
         <!-- Tarjeta Resumen de la Empresa -->
-        <div class="summary-card fade-in slide-up" data-aos="zoom-in-right">
-          <div class="summary-header">
-            <div class="summary-icon">🚀</div>
-            <h3>Nuestra Misión</h3>
+        <div class="summary-card bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-8 hover:transform hover:-translate-y-3 hover:scale-105 transition-all duration-500">
+          <div class="flex items-center mb-6">
+            <div class="text-4xl mr-4 animate-bounce">🚀</div>
+            <h3 class="text-xl md:text-2xl font-bold text-white">Nuestra Misión</h3>
           </div>
-          <div class="summary-content">
-            <p>En <span class="highlight">NEXQ-AI</span> transformamos datos en decisiones estratégicas mediante análisis avanzado e inteligencia artificial.</p>
-            <p>Combinamos modelos matemáticos, estadísticos y computacionales para resolver problemas industriales complejos.</p>
+          
+          <div class="space-y-4">
+            <p class="text-gray-200 leading-relaxed">
+              En <span class="text-blue-400 font-bold">NEXQ-AI</span> transformamos datos en decisiones estratégicas mediante análisis avanzado e inteligencia artificial.
+            </p>
+            <p class="text-gray-200 leading-relaxed">
+              Combinamos modelos matemáticos, estadísticos y computacionales para resolver problemas industriales complejos.
+            </p>
             
-            <a routerLink="/nosotros" class="cta-button">
+            <a routerLink="/nosotros" class="inline-flex items-center mt-6 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
               Conocer Más
-              <span class="cta-icon">→</span>
+              <span class="ml-2 transform transition-transform group-hover:translate-x-1">→</span>
             </a>
           </div>
         </div>
         
         <!-- Tarjeta Resumen del Equipo -->
-        <div class="summary-card fade-in slide-up delay-1" data-aos="zoom-in-left">
-          <div class="summary-header">
-            <div class="summary-icon">👥</div>
-            <h3>Nuestro Equipo</h3>
+        <div class="summary-card bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-8 hover:transform hover:-translate-y-3 hover:scale-105 transition-all duration-500">
+          <div class="flex items-center mb-6">
+            <div class="text-4xl mr-4 animate-pulse">👥</div>
+            <h3 class="text-xl md:text-2xl font-bold text-white">Nuestro Equipo</h3>
           </div>
-          <div class="summary-content">
-            <p>Un equipo multidisciplinario de expertos en ingeniería, estadística, economía y tecnología.</p>
+          
+          <div class="space-y-4">
+            <p class="text-gray-200 leading-relaxed">
+              Un equipo multidisciplinario de expertos en ingeniería, estadística, economía y tecnología.
+            </p>
             
-            <div class="team-highlights">
-              <div class="team-highlight-item">
-                <strong>Sebastián</strong> - CEO con MBA y experiencia en modelos sostenibles
+            <div class="space-y-3 mt-6">
+              <div class="flex items-center p-3 bg-white/5 rounded-lg border-l-4 border-blue-400">
+                <strong class="text-blue-400 mr-2">Sebastián</strong>
+                <span class="text-gray-300 text-sm">CEO con MBA y experiencia en modelos sostenibles</span>
               </div>
-              <div class="team-highlight-item">
-                <strong>Diego</strong> - Ph.D. en Probabilidad y Estadística
+              <div class="flex items-center p-3 bg-white/5 rounded-lg border-l-4 border-green-400">
+                <strong class="text-green-400 mr-2">Diego</strong>
+                <span class="text-gray-300 text-sm">Ph.D. en Probabilidad y Estadística</span>
               </div>
-              <div class="team-highlight-item">
-                <strong>Andrés</strong> - Experto en Machine Learning y Análisis
+              <div class="flex items-center p-3 bg-white/5 rounded-lg border-l-4 border-red-400">
+                <strong class="text-red-400 mr-2">Andrés</strong>
+                <span class="text-gray-300 text-sm">Experto en Machine Learning y Análisis</span>
               </div>
-              <div class="team-highlight-item">
-                <strong>Esteban</strong> - Especialista en Finanzas y Riesgos
+              <div class="flex items-center p-3 bg-white/5 rounded-lg border-l-4 border-purple-400">
+                <strong class="text-purple-400 mr-2">Esteban</strong>
+                <span class="text-gray-300 text-sm">Especialista en Finanzas y Riesgos</span>
               </div>
             </div>
             
-            <a routerLink="/nosotros" class="cta-button">
+            <a routerLink="/nosotros" class="inline-flex items-center mt-6 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
               Ver Equipo
-              <span class="cta-icon">→</span>
+              <span class="ml-2 transform transition-transform group-hover:translate-x-1">→</span>
             </a>
           </div>
         </div>
@@ -58,139 +73,173 @@
     </div>
 
     <!-- CONTENIDO DE LA PÁGINA COMPLETA -->
-    <div *ngIf="!isIndexMode" class="full-content">
-      <h2 class="section-title fade-in">Quiénes Somos</h2>
+    <div *ngIf="!isIndexMode" class="full-content py-16 md:py-20 lg:py-24">
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 md:mb-16 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+        Quiénes Somos
+      </h1>
       
       <!-- Grid Principal -->
-      <div class="main-grid">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-5 gap-8 lg:gap-12 mb-16">
+        
         <!-- Descripción y Diferenciadores -->
-        <div class="about-content" data-aos="zoom-in-down">
-          <div class="about-description fade-in delay-1">
-            <p>En <span class="highlight">NEXQ-AI</span> ofrecemos análisis avanzado de datos para transformar la información empresarial en decisiones estratégicas y soluciones prácticas.</p>
-            
-            <p>Nuestro enfoque combina modelos matemáticos, estadísticos y computacionales para resolver problemas industriales, económicos, sociales y ambientales, ayudando a nuestros clientes a optimizar su eficiencia, promover la sostenibilidad y generar un impacto económico positivo y medible.</p>
-            
-            <p>Con un equipo multidisciplinario de expertos y tecnología de vanguardia, nos posicionamos como líderes en la transformación digital empresarial.</p>
+        <div class="xl:col-span-2 space-y-8">
+          
+          <!-- Descripción -->
+          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10">
+            <div class="space-y-6 text-gray-200 leading-relaxed">
+              <p class="text-lg">
+                En <span class="text-blue-400 font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">NEXQ-AI</span> ofrecemos análisis avanzado de datos para transformar la información empresarial en decisiones estratégicas y soluciones prácticas.
+              </p>
+              
+              <p>
+                Nuestro enfoque combina modelos matemáticos, estadísticos y computacionales para resolver problemas industriales, económicos, sociales y ambientales, ayudando a nuestros clientes a optimizar su eficiencia, promover la sostenibilidad y generar un impacto económico positivo y medible.
+              </p>
+              
+              <p>
+                Con un equipo multidisciplinario de expertos y tecnología de vanguardia, nos posicionamos como líderes en la transformación digital empresarial.
+              </p>
+            </div>
           </div>
           
-          <div class="differentiators fade-in delay-2" data-aos="zoom-in-up">
-            <h3 class="differentiators-title">Diferenciadores Clave</h3>
-            <ul class="differentiators-list">
-              <li>
-                <span class="icon">🎯</span>
+          <!-- Diferenciadores -->
+          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10">
+            <h3 class="text-xl md:text-2xl font-bold text-white mb-6">Diferenciadores Clave</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="flex items-start space-x-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <span class="text-2xl">🎯</span>
                 <div>
-                  <strong>Enfoque Multidisciplinario:</strong> Integramos conocimientos de ingeniería, estadística, economía y tecnología para soluciones holísticas.
+                  <strong class="text-white block mb-1">Enfoque Multidisciplinario</strong>
+                  <span class="text-gray-300 text-sm">Integramos conocimientos de ingeniería, estadística, economía y tecnología.</span>
                 </div>
-              </li>
-              <li>
-                <span class="icon">🚀</span>
+              </div>
+              
+              <div class="flex items-start space-x-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <span class="text-2xl">🚀</span>
                 <div>
-                  <strong>Tecnología de Vanguardia:</strong> Utilizamos inteligencia artificial, computación cuántica y big data para análisis avanzados.
+                  <strong class="text-white block mb-1">Tecnología de Vanguardia</strong>
+                  <span class="text-gray-300 text-sm">Utilizamos inteligencia artificial, computación cuántica y big data.</span>
                 </div>
-              </li>
-              <li>
-                <span class="icon">💡</span>
+              </div>
+              
+              <div class="flex items-start space-x-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <span class="text-2xl">💡</span>
                 <div>
-                  <strong>Orientación al Cliente:</strong> Ofrecemos soluciones personalizadas que resuelven problemas complejos específicos.
+                  <strong class="text-white block mb-1">Orientación al Cliente</strong>
+                  <span class="text-gray-300 text-sm">Ofrecemos soluciones personalizadas que resuelven problemas específicos.</span>
                 </div>
-              </li>
-              <li>
-                <span class="icon">🔬</span>
+              </div>
+              
+              <div class="flex items-start space-x-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <span class="text-2xl">🔬</span>
                 <div>
-                  <strong>Innovación Continua:</strong> Mantenemos un compromiso con la investigación y desarrollo en campos emergentes.
+                  <strong class="text-white block mb-1">Innovación Continua</strong>
+                  <span class="text-gray-300 text-sm">Mantenemos un compromiso con la investigación y desarrollo.</span>
                 </div>
-              </li>
-              <li>
-                <span class="icon">🌱</span>
+              </div>
+              
+              <div class="flex items-start space-x-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <span class="text-2xl">🌱</span>
                 <div>
-                  <strong>Sostenibilidad:</strong> Promovemos soluciones que generen impacto positivo económico, social y ambiental.
+                  <strong class="text-white block mb-1">Sostenibilidad</strong>
+                  <span class="text-gray-300 text-sm">Promovemos soluciones que generen impacto positivo.</span>
                 </div>
-              </li>
-              <li>
-                <span class="icon">📊</span>
+              </div>
+              
+              <div class="flex items-start space-x-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <span class="text-2xl">📊</span>
                 <div>
-                  <strong>Resultados Medibles:</strong> Todas nuestras soluciones están respaldadas por métricas concretas y verificables.
+                  <strong class="text-white block mb-1">Resultados Medibles</strong>
+                  <span class="text-gray-300 text-sm">Todas nuestras soluciones están respaldadas por métricas concretas.</span>
                 </div>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
         </div>
         
-        <!-- Selector de Equipo Estilo Gaming 3D -->
-        <div class="team-selector-section fade-in delay-3" data-aos="fade-left">
-          <h3 class="team-title">Conoce Nuestro Equipo</h3>
-          
-          <div class="team-selector-container">
-            <!-- Selector de Avatares Estilo Gaming -->
-            <div class="team-avatars-selector">
+        <!-- Selector de Equipo -->
+        <div class="xl:col-span-3">
+          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 sticky top-8">
+            <h3 class="text-xl md:text-2xl font-bold text-center text-white mb-8">Conoce Nuestro Equipo</h3>
+            
+            <!-- Selector de Avatares -->
+            <div class="grid grid-cols-2 gap-4 mb-8">
               <button 
-                *ngFor="let member of teamMembers" 
-                class="team-avatar-btn"
+                *ngFor="let member of teamMembers; let i = index" 
+                class="team-avatar-btn group relative p-3 rounded-xl border-2 transition-all duration-300 hover:scale-105"
                 [class.active]="selectedMember?.id === member.id"
-                (click)="selectMember(member)"
-                [style.--selected-member-color]="member.color">
+                [class]="'border-' + (selectedMember?.id === member.id ? 'blue-400 bg-blue-400/20' : 'white/20 hover:border-white/40')"
+                (click)="selectMember(member)">
                 
-                <div class="avatar-circle">
-                  <div class="avatar-image-container">
-                    <img [src]="member.photo" [alt]="member.name" onerror="this.style.display='none'">
-                    <div class="avatar-placeholder">
-                      {{ member.name.charAt(0) }}
-                    </div>
+                <div class="text-center">
+                  <div class="w-16 h-16 mx-auto mb-3 rounded-full overflow-hidden shadow-md">
+                    <ng-container *ngIf="member.photo; else showInitial">
+                      <img 
+                        [src]="member.photo" 
+                        [alt]="member.name"
+                        class="w-full h-full object-cover"
+                      />
+                    </ng-container>
+                    <ng-template #showInitial>
+                      <div class="w-full h-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
+                        {{ member.name.charAt(0) }}
+                      </div>
+                    </ng-template>
                   </div>
-                </div>
-                
-                <div class="avatar-info">
-                  <div class="avatar-name">{{ member.name.split(' ')[0] }}</div>
-                  <div class="avatar-role">{{ member.role.split(' ')[0] }}</div>
+                  
+                  <div class="text-white font-semibold text-sm">{{ member.name.split(' ')[0] }}</div>
+                  <div class="text-gray-400 text-xs">{{ member.role.split(' ')[0] }}</div>
                 </div>
               </button>
             </div>
             
             <!-- Panel de Display del Miembro Seleccionado -->
-            <div class="member-display" *ngIf="selectedMember">
-              <!-- Foto Principal del Miembro -->
-              <div class="member-photo-display" [style.--selected-member-color]="selectedMember.color">
-                <img [src]="selectedMember.photo" [alt]="selectedMember.name" onerror="this.style.display='none'">
-                <div class="photo-placeholder">
-                  <span>{{ selectedMember.name.charAt(0) }}</span>
-                </div>
-                <div class="photo-overlay">
-                  <div class="experience-badge">{{ selectedMember.experience }}</div>
-                </div>
-              </div>
+            <div class="member-display space-y-6" *ngIf="selectedMember">
               
-              <!-- Información Detallada -->
-              <div class="member-info-display" [style.--selected-member-color]="selectedMember.color">
-                <h4 class="member-name">{{ selectedMember.name }}</h4>
-                <p class="member-role-display">{{ selectedMember.role }}</p>
-                <p class="member-education">🎓 {{ selectedMember.education }}</p>
+              <!-- Foto Principal -->
+              <!-- Foto Principal -->
+          <div class="text-center" *ngIf="selectedMember as member">
+            <img 
+              [src]="member.photo" 
+              alt="{{ member.name }}"
+              class="w-32 h-32 mx-auto rounded-2xl object-cover shadow-2xl mb-4 border border-white/10"
+            />
+            <div class="inline-block px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-full">
+              {{ member.experience }}
+            </div>
+          </div>
+              <!-- Información -->
+              <div class="text-center space-y-4">
+                <h4 class="text-xl font-bold text-white">{{ selectedMember.name }}</h4>
+                <p class="text-blue-400 font-semibold">{{ selectedMember.role }}</p>
+                <p class="text-gray-300 text-sm">🎓 {{ selectedMember.education }}</p>
                 
-                <div class="member-description-full">
+                <div class="text-gray-200 text-sm leading-relaxed bg-white/5 p-4 rounded-lg border border-white/10">
                   {{ selectedMember.fullDescription }}
                 </div>
                 
                 <!-- Especialidades -->
-                <div class="member-expertise-display">
-                  <h5>Especialidades</h5>
-                  <div class="expertise-tags">
+                <div>
+                  <h5 class="text-white font-semibold mb-3">⚡ Especialidades</h5>
+                  <div class="flex flex-wrap gap-2 justify-center">
                     <span 
                       *ngFor="let skill of selectedMember.expertise" 
-                      class="expertise-tag"
-                      [style.--selected-member-color]="selectedMember.color">
+                      class="px-3 py-1 bg-blue-600/30 border border-blue-400/50 text-blue-200 text-xs rounded-full">
                       {{ skill }}
                     </span>
                   </div>
                 </div>
                 
                 <!-- Logros -->
-                <div class="member-achievements">
-                  <h5>Logros Destacados</h5>
-                  <ul class="achievements-list">
-                    <li *ngFor="let achievement of selectedMember.achievements" 
-                        [style.--selected-member-color]="selectedMember.color">
-                      {{ achievement }}
-                    </li>
-                  </ul>
+                <div>
+                  <h5 class="text-white font-semibold mb-3">🏆 Logros Destacados</h5>
+                  <div class="space-y-2 text-left">
+                    <div *ngFor="let achievement of selectedMember.achievements" 
+                         class="flex items-start space-x-2 text-gray-300 text-sm">
+                      <span class="text-yellow-400 text-xs mt-1">✨</span>
+                      <span>{{ achievement }}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -198,272 +247,131 @@
         </div>
       </div>
       
-      <!-- Línea de Tiempo de la Empresa -->
-      <div class="company-timeline fade-in delay-4">
-        <h3 class="timeline-title">Nuestra Historia</h3>
-        <div class="timeline-container">
+      <!-- Línea de Tiempo -->
+      <div class="max-w-6xl mx-auto mb-16">
+        <h3 class="text-2xl md:text-3xl font-bold text-center text-white mb-12">Nuestra Historia</h3>
+        
+        <div class="relative">
+          <div class="absolute left-4 md:left-1/2 transform md:-translate-x-0.5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-400 to-purple-600"></div>
           
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-year">2019</div>
-              <div class="timeline-title">Fundación</div>
-              <div class="timeline-description">Nació NEXQ-AI como una startup enfocada en análisis de datos y consultoría estadística.</div>
-              <div class="timeline-details">
-                <div class="detail-item">• Primer equipo de 3 personas</div>
-                <div class="detail-item">• Enfoque inicial en análisis financiero</div>
-                <div class="detail-item">• Primeros 5 clientes en el sector bancario</div>
+          <div class="space-y-8">
+            <div class="timeline-item relative pl-12 md:pl-0 md:grid md:grid-cols-2 md:gap-8 cursor-pointer group" 
+                 *ngFor="let item of [
+                   {year: '2019', title: 'Fundación', desc: 'Nació NEXQ-AI como una startup enfocada en análisis de datos y consultoría estadística.', details: ['Primer equipo de 3 personas', 'Enfoque inicial en análisis financiero', 'Primeros 5 clientes en el sector bancario']},
+                   {year: '2020', title: 'Expansión de Servicios', desc: 'Ampliamos nuestros servicios hacia machine learning y inteligencia artificial aplicada.', details: ['Desarrollo de algoritmos propios', 'Incorporación de Diego como Director Científico', 'Primera plataforma de análisis automatizado']},
+                   {year: '2021', title: 'Consolidación del Equipo', desc: 'Completamos nuestro equipo directivo con expertos en tecnología y finanzas.', details: ['Andrés se une como CTO', 'Esteban asume dirección financiera', '20+ proyectos exitosos completados']},
+                   {year: '2022', title: 'Innovación Tecnológica', desc: 'Desarrollo de nuestra plataforma propietaria de análisis avanzado.', details: ['Lanzamiento de NEXQ Platform', 'Integración de computación cuántica', 'Certificaciones ISO y SOC2']},
+                   {year: '2023', title: 'Expansión Internacional', desc: 'Comenzamos operaciones en mercados internacionales y sectores diversificados.', details: ['Clientes en 5 países de Latinoamérica', 'Diversificación hacia retail y manufactura', '40+ proyectos activos']},
+                   {year: '2024', title: 'Liderazgo en IA', desc: 'Nos consolidamos como líderes en soluciones de IA aplicada para empresas.', details: ['Reconocimiento como Top 10 AI Companies', 'Alianzas estratégicas con universidades', '50+ proyectos completados exitosamente']}
+                 ]; let i = index" 
+                 [class]="i % 2 === 0 ? 'md:justify-self-end' : 'md:justify-self-start md:col-start-2'">
+              
+              <div class="absolute left-0 md:left-auto md:right-full md:mr-8 top-2 w-4 h-4 bg-blue-500 rounded-full border-4 border-white shadow-lg z-10"
+                   [class]="i % 2 === 0 ? 'md:right-full md:mr-8' : 'md:left-full md:ml-8'"></div>
+              
+              <div class="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 group-hover:transform group-hover:-translate-y-2">
+                <div class="text-blue-400 font-bold text-lg mb-1">{{ item.year }}</div>
+                <div class="text-white font-semibold text-xl mb-2">{{ item.title }}</div>
+                <div class="text-gray-300 mb-4">{{ item.desc }}</div>
+                
+                <div class="space-y-2">
+                  <div *ngFor="let detail of item.details" class="flex items-start space-x-2 text-gray-400 text-sm">
+                    <span class="text-blue-400 text-xs mt-1">•</span>
+                    <span>{{ detail }}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-year">2020</div>
-              <div class="timeline-title">Expansión de Servicios</div>
-              <div class="timeline-description">Ampliamos nuestros servicios hacia machine learning y inteligencia artificial aplicada.</div>
-              <div class="timeline-details">
-                <div class="detail-item">• Desarrollo de algoritmos propios</div>
-                <div class="detail-item">• Incorporación de Diego como Director Científico</div>
-                <div class="detail-item">• Primera plataforma de análisis automatizado</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-year">2021</div>
-              <div class="timeline-title">Consolidación del Equipo</div>
-              <div class="timeline-description">Completamos nuestro equipo directivo con expertos en tecnología y finanzas.</div>
-              <div class="timeline-details">
-                <div class="detail-item">• Andrés se une como CTO</div>
-                <div class="detail-item">• Esteban asume dirección financiera</div>
-                <div class="detail-item">• 20+ proyectos exitosos completados</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-year">2022</div>
-              <div class="timeline-title">Innovación Tecnológica</div>
-              <div class="timeline-description">Desarrollo de nuestra plataforma propietaria de análisis avanzado.</div>
-              <div class="timeline-details">
-                <div class="detail-item">• Lanzamiento de NEXQ Platform</div>
-                <div class="detail-item">• Integración de computación cuántica</div>
-                <div class="detail-item">• Certificaciones ISO y SOC2</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-year">2023</div>
-              <div class="timeline-title">Expansión Internacional</div>
-              <div class="timeline-description">Comenzamos operaciones en mercados internacionales y sectores diversificados.</div>
-              <div class="timeline-details">
-                <div class="detail-item">• Clientes en 5 países de Latinoamérica</div>
-                <div class="detail-item">• Diversificación hacia retail y manufactura</div>
-                <div class="detail-item">• 40+ proyectos activos</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-year">2024</div>
-              <div class="timeline-title">Liderazgo en IA</div>
-              <div class="timeline-description">Nos consolidamos como líderes en soluciones de IA aplicada para empresas.</div>
-              <div class="timeline-details">
-                <div class="detail-item">• Reconocimiento como Top 10 AI Companies</div>
-                <div class="detail-item">• Alianzas estratégicas con universidades</div>
-                <div class="detail-item">• 50+ proyectos completados exitosamente</div>
-              </div>
-            </div>
-          </div>
-          
         </div>
       </div>
       
-      <!-- Servicios Detallados -->
-      <div class="detailed-services fade-in delay-5">
-        <h3 class="services-title">Nuestros Servicios</h3>
-        <div class="services-grid">
-          
-          <div class="service-card">
-            <div class="service-icon">📊</div>
-            <h4 class="service-title">Análisis de Datos Avanzado</h4>
-            <p class="service-description">Transformamos datos complejos en insights accionables mediante técnicas estadísticas avanzadas y machine learning.</p>
-            <ul class="service-features">
-              <li>Modelado predictivo</li>
-              <li>Análisis multivariado</li>
-              <li>Visualización interactiva</li>
-              <li>Reportes automatizados</li>
-            </ul>
-          </div>
-          
-          <div class="service-card">
-            <div class="service-icon">🤖</div>
-            <h4 class="service-title">Inteligencia Artificial</h4>
-            <p class="service-description">Desarrollo e implementación de soluciones de IA personalizadas para optimizar procesos empresariales.</p>
-            <ul class="service-features">
-              <li>Deep Learning</li>
-              <li>Procesamiento de lenguaje natural</li>
-              <li>Visión computacional</li>
-              <li>Automatización inteligente</li>
-            </ul>
-          </div>
-          
-          <div class="service-card">
-            <div class="service-icon">💼</div>
-            <h4 class="service-title">Consultoría Estratégica</h4>
-            <p class="service-description">Asesoramiento experto para la toma de decisiones basada en datos y análisis cuantitativo.</p>
-            <ul class="service-features">
-              <li>Análisis de mercado</li>
-              <li>Optimización de recursos</li>
-              <li>Gestión de riesgos</li>
-              <li>Planificación estratégica</li>
-            </ul>
-          </div>
-          
-          <div class="service-card">
-            <div class="service-icon">🔧</div>
-            <h4 class="service-title">Desarrollo de Plataformas</h4>
-            <p class="service-description">Creación de plataformas tecnológicas robustas y escalables para análisis empresarial.</p>
-            <ul class="service-features">
-              <li>Arquitectura cloud</li>
-              <li>APIs personalizadas</li>
-              <li>Dashboards interactivos</li>
-              <li>Integración de sistemas</li>
-            </ul>
-          </div>
-          
-        </div>
-      </div>
-      
+
       <!-- Elementos Interactivos -->
-      <div class="interactive-elements fade-in delay-6">
-        
-        <!-- Habilidades del Equipo -->
-        <div class="skills-section">
-          <h3 class="skills-title">Competencias del Equipo</h3>
+      <div class="max-w-6xl mx-auto">
+        <div class="w-full h-96 flex items-center justify-center">
           
-          <div class="skill-item">
-            <div class="skill-name">
-              <span>Machine Learning & IA</span>
-              <span class="skill-percentage">95%</span>
-            </div>
-            <div class="skill-bar" data-percentage="95">
-              <div class="skill-fill"></div>
+          <!-- Habilidades -->
+          <div class="bg-white/5 backdrop-blur-sm rounded-xl p-6  w-[60%] border border-white/10 mx-auto">
+            <h3 class="text-xl font-bold text-white mb-6">Competencias del Equipo</h3>
+            
+            <div class="space-y-4">
+              <div class="skill-item">
+                <div class="flex justify-between mb-2">
+                  <span class="text-white font-semibold">Machine Learning & IA</span>
+                  <span class="text-blue-400 font-bold">95%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 95%"></div>
+                </div>
+              </div>
+              
+              <div class="skill-item">
+                <div class="flex justify-between mb-2">
+                  <span class="text-white font-semibold">Análisis Estadístico</span>
+                  <span class="text-blue-400 font-bold">98%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 98%"></div>
+                </div>
+              </div>
+              
+              <div class="skill-item">
+                <div class="flex justify-between mb-2">
+                  <span class="text-white font-semibold">Desarrollo de Software</span>
+                  <span class="text-blue-400 font-bold">90%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 90%"></div>
+                </div>
+              </div>
+              
+              <div class="skill-item">
+                <div class="flex justify-between mb-2">
+                  <span class="text-white font-semibold">Consultoría Empresarial</span>
+                  <span class="text-blue-400 font-bold">92%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 92%"></div>
+                </div>
+              </div>
+              
+              <div class="skill-item">
+                <div class="flex justify-between mb-2">
+                  <span class="text-white font-semibold">Finanzas Cuantitativas</span>
+                  <span class="text-blue-400 font-bold">88%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 88%"></div>
+                </div>
+              </div>
             </div>
           </div>
           
-          <div class="skill-item">
-            <div class="skill-name">
-              <span>Análisis Estadístico</span>
-              <span class="skill-percentage">98%</span>
+          <!-- Métricas -->
+          <!-- <div class="bg-white/5 backdrop-blur-sm rounded-xl p-6 md:p-8 border border-white/10">
+            <h3 class="text-xl font-bold text-white mb-6">Nuestras Métricas</h3>
+            
+            <div class="grid grid-cols-3 gap-6 text-center">
+              <div class="space-y-2">
+                <div class="text-3xl font-bold text-blue-400">96%</div>
+                <div class="text-gray-300 text-sm">Satisfacción del Cliente</div>
+              </div>
+              
+              <div class="space-y-2">
+                <div class="text-3xl font-bold text-green-400">100%</div>
+                <div class="text-gray-300 text-sm">Proyectos Exitosos</div>
+              </div>
+              
+              <div class="space-y-2">
+                <div class="text-3xl font-bold text-purple-400">85%</div>
+                <div class="text-gray-300 text-sm">Retención de Clientes</div>
+              </div>
             </div>
-            <div class="skill-bar" data-percentage="98">
-              <div class="skill-fill"></div>
-            </div>
-          </div>
-          
-          <div class="skill-item">
-            <div class="skill-name">
-              <span>Desarrollo de Software</span>
-              <span class="skill-percentage">90%</span>
-            </div>
-            <div class="skill-bar" data-percentage="90">
-              <div class="skill-fill"></div>
-            </div>
-          </div>
-          
-          <div class="skill-item">
-            <div class="skill-name">
-              <span>Consultoría Empresarial</span>
-              <span class="skill-percentage">92%</span>
-            </div>
-            <div class="skill-bar" data-percentage="92">
-              <div class="skill-fill"></div>
-            </div>
-          </div>
-          
-          <div class="skill-item">
-            <div class="skill-name">
-              <span>Finanzas Cuantitativas</span>
-              <span class="skill-percentage">88%</span>
-            </div>
-            <div class="skill-bar" data-percentage="88">
-              <div class="skill-fill"></div>
-            </div>
-          </div>
-          
+          </div> -->
         </div>
-        
-        <!-- Anillos de Progreso -->
-        <div class="progress-rings">
-          
-          <div class="progress-ring" data-percentage="96">
-            <svg>
-              <defs>
-                <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" style="stop-color:var(--nexq-blue);stop-opacity:1" />
-                  <stop offset="100%" style="stop-color:var(--accent-secondary);stop-opacity:1" />
-                </linearGradient>
-              </defs>
-              <circle class="progress-ring-circle" cx="60" cy="60" r="50"></circle>
-              <circle class="progress-ring-circle progress" cx="60" cy="60" r="50" stroke="url(#gradient1)"></circle>
-            </svg>
-            <div class="progress-label">
-              <div class="progress-value">96%</div>
-              <div>Satisfacción del Cliente</div>
-            </div>
-          </div>
-          
-          <div class="progress-ring" data-percentage="100">
-            <svg>
-              <defs>
-                <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" style="stop-color:var(--nexq-blue);stop-opacity:1" />
-                  <stop offset="100%" style="stop-color:var(--accent-secondary);stop-opacity:1" />
-                </linearGradient>
-              </defs>
-              <circle class="progress-ring-circle" cx="60" cy="60" r="50"></circle>
-              <circle class="progress-ring-circle progress" cx="60" cy="60" r="50" stroke="url(#gradient2)"></circle>
-            </svg>
-            <div class="progress-label">
-              <div class="progress-value">100%</div>
-              <div>Proyectos Exitosos</div>
-            </div>
-          </div>
-          
-          <div class="progress-ring" data-percentage="85">
-            <svg>
-              <defs>
-                <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" style="stop-color:var(--nexq-blue);stop-opacity:1" />
-                  <stop offset="100%" style="stop-color:var(--accent-secondary);stop-opacity:1" />
-                </linearGradient>
-              </defs>
-              <circle class="progress-ring-circle" cx="60" cy="60" r="50"></circle>
-              <circle class="progress-ring-circle progress" cx="60" cy="60" r="50" stroke="url(#gradient3)"></circle>
-            </svg>
-            <div class="progress-label">
-              <div class="progress-value">85%</div>
-              <div>Retención de Clientes</div>
-            </div>
-          </div>
-          
-        </div>
-        
       </div>
-      
     </div>
-    
   </div>
 </section>
+

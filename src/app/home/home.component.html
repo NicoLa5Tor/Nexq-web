@@ -88,8 +88,8 @@ Decisiones Estratégicas</h1>
     
     <!-- Botones originales con efectos mejorados -->
     <div class="hero-buttons sequential-fade" data-aos="zoom-in">
-      <button class="cta-button">Solicitar Consultoría</button>
-      <button class="secondary-button">Conocer Soluciones</button>
+      <button (click)="scrollTo('servicios')" class="cta-button">Solicitar Consultoría</button>
+      <button (click)="scrollTo('soluciones')" class="secondary-button">Conocer Soluciones</button>
     </div>
     
     <!-- Enhanced neural network with advanced animations -->
@@ -277,7 +277,7 @@ Decisiones Estratégicas</h1>
 </section>
 
 <!-- Enhanced component sections with immersive transitions -->
-<div class="immersive-section">
+<div id="servicios" class="immersive-section">
   <app-services-overview data-aos="fade-right" data-aos-delay="800"></app-services-overview>
 </div>
 
@@ -285,11 +285,11 @@ Decisiones Estratégicas</h1>
   <app-about-us data-aos="fade-up"></app-about-us>
 </div>
 
-<div class="immersive-section">
+<div id="soluciones" class="immersive-section">
   <app-features></app-features>
 </div>
 
-<div class="immersive-section">
+<div id="contacto" class="immersive-section">
   <app-contact data-aos="fade-up"></app-contact>
 </div>
 

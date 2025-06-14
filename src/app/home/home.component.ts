@@ -11,6 +11,7 @@ import { ReverseParallaxComponent } from '../animations/reverse-parallax/reverse
 import { gsap } from 'gsap';
 import { AosService } from '../../Services/aos.service';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ActivatedRoute } from '@angular/router';
 gsap.registerPlugin(ScrollTrigger);
 interface ParallaxElement {
   element: HTMLElement;
@@ -51,7 +52,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     private scroll: ViewportScroller,
     private elementRef: ElementRef,
     private renderer: Renderer2,
-    private aos: AosService
+    private aos: AosService,
+    private route: ActivatedRoute
   ) {}
   
   ngOnInit(): void {
@@ -68,7 +70,16 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   
   ngAfterViewInit(): void {
-  
+    this.route.fragment.subscribe(fragment => {
+      if (fragment) {
+        setTimeout(() => {
+          const el = document.getElementById(fragment);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100); // Pequeño retardo para asegurar que el DOM esté listo
+      }
+    });
   
     if (isPlatformBrowser(this.platformId)) {
       // Initialize all animations with proper timing
@@ -238,7 +249,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       }).onfinish = () => particle.remove();
     }
   }
-
+  scrollTo(id: string): void {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+  
   private startEnhancedTypewriter(): void {
     const titleElement = this.elementRef.nativeElement.querySelector('.hero-title');
     if (!titleElement) return;
