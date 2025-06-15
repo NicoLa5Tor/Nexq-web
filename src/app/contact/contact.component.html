@@ -1,122 +1,171 @@
 <section class="contact-section" data-aos="fade-up">
-    <div class="section-container">
-      <h2 class="section-title fade-in">Contáctanos</h2>
-      <p class="section-subtitle fade-in delay-1">Estamos listos para ayudarte a transformar tu negocio con soluciones inteligentes</p>
-      
-  <div class="contact-grid">
-        <div class="contact-form-container fade-in delay-2" data-aos="zoom-in-down" data-aos-delay="800">
-          <form class="contact-form">
-            <div class="form-group">
-              <label for="name">Nombre</label>
-              <input type="text" id="name" name="name" placeholder="Tu nombre" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="email">Correo electrónico</label>
-              <input type="email" id="email" name="email" placeholder="tu@email.com" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="company">Empresa</label>
-              <input type="text" id="company" name="company" placeholder="Nombre de tu empresa">
-            </div>
-            
-            <div class="form-group">
-              <label for="service">Servicio de interés</label>
-              <select id="service" name="service" required>
-                <option value="" selected disabled>Selecciona un servicio</option>
-                <option value="analisis">Análisis de Datos</option>
-                <option value="ia">Soluciones de IA</option>
-                <option value="bigdata">Big Data y Visualización</option>
-                <option value="software">Desarrollo de Software</option>
-                <option value="investigacion">Investigación y Desarrollo</option>
-                <option value="finanzas">Servicios Financieros</option>
-                <option value="otro">Otro</option>
-              </select>
-            </div>
-            
-            <div class="form-group full-width">
-              <label for="message">Mensaje</label>
-              <textarea id="message" name="message" rows="5" placeholder="Cuéntanos sobre tu proyecto o requerimiento" required></textarea>
-            </div>
-            
-            <button type="submit" class="submit-button">Enviar mensaje</button>
-          </form>
+  <div class="section-container">
+    <h2 class="section-title fade-in">Contáctanos</h2>
+    <p class="section-subtitle fade-in delay-1">Estamos listos para ayudarte a transformar tu negocio con soluciones inteligentes</p>
+    
+    <div class="contact-grid">
+      <div class="contact-form-container fade-in delay-2" data-aos="zoom-in-down" data-aos-delay="800">
+        <!-- Mensajes de estado -->
+        <div *ngIf="success" class="alert alert-success" role="alert">
+          <strong>¡Éxito!</strong> {{ successMessage }}
         </div>
         
-        <div class="contact-info fade-in delay-3" data-aos="fade-left">
-          <div class="info-card" data-aos="zoom-in">
-            <div class="info-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
-            </div>
-            <div class="info-content">
-              <h3>Email</h3>
-              <p><a href="mailto:investigacion&#64;nexqai.com">investigacion&#64;nexqai.com</a></p>
-            </div>
-          </div>
-          
-          <div class="info-card" data-aos="zoom-in" data-aos-delay="100">
-            <div class="info-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
-            </div>
-            <div class="info-content">
-              <h3>Teléfono</h3>
-              <p><a href="tel:+573043441049">+57 304 344 1049</a></p>
+        <div *ngIf="error" class="alert alert-error" role="alert">
+          <strong>Información importante:</strong>
+          <div style="white-space: pre-line; margin-top: 8px;">{{ errorMessage }}</div>
+        </div>
+
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+          <div class="form-group">
+            <label for="name">Nombre</label>
+            <input 
+              type="text" 
+              id="name" 
+              formControlName="name"
+              placeholder="Tu nombre" 
+              [class.error]="submitted && f['name'].errors">
+            <div *ngIf="submitted && f['name'].errors" class="error-message">
+              <small *ngIf="f['name'].errors?.['required']">El nombre es requerido</small>
+              <small *ngIf="f['name'].errors?.['minlength']">El nombre debe tener al menos 2 caracteres</small>
             </div>
           </div>
           
-          <!-- <div class="info-card" data-aos="zoom-in" data-aos-delay="200">
-            <div class="info-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-            </div>
-            <div class="info-content">
-              <h3>Dirección</h3>
-              <p>Carrera 2 Sur #1A-09<br>Facatativá, Cundinamarca<br>Colombia</p>
-            </div>
-          </div> -->
-          
-          <div class="info-card" data-aos="zoom-in" data-aos-delay="300">
-            <div class="info-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="8" x2="12" y2="12"></line>
-                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-              </svg>
-            </div>
-            <div class="info-content">
-              <h3>Horario de atención</h3>
-              <p>Lunes a Viernes<br>8:00 AM - 6:00 PM</p>
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input 
+              type="email" 
+              id="email" 
+              formControlName="email"
+              placeholder="tu@email.com" 
+              [class.error]="submitted && f['email'].errors">
+            <div *ngIf="submitted && f['email'].errors" class="error-message">
+              <small *ngIf="f['email'].errors?.['required']">El correo electrónico es requerido</small>
+              <small *ngIf="f['email'].errors?.['email']">Ingresa un correo electrónico válido</small>
             </div>
           </div>
           
-          <div class="social-links" data-aos="fade-up">
-            <a href="#" class="social-link" aria-label="LinkedIn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect x="2" y="9" width="4" height="12"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-              </svg>
-            </a>
-            <a href="#" class="social-link" aria-label="Twitter">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
-              </svg>
-            </a>
-            <a href="#" class="social-link" aria-label="GitHub">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-              </svg>
-            </a>
+          <div class="form-group">
+            <label for="company">Empresa</label>
+            <input 
+              type="text" 
+              id="company" 
+              formControlName="company"
+              placeholder="Nombre de tu empresa">
           </div>
+          
+          <div class="form-group">
+            <label for="service">Servicio de interés</label>
+            <select 
+              id="service" 
+              formControlName="service"
+              [class.error]="submitted && f['service'].errors">
+              <option value="" disabled>Selecciona un servicio</option>
+              <option value="analisis">Análisis de Datos</option>
+              <option value="ia">Soluciones de IA</option>
+              <option value="bigdata">Big Data y Visualización</option>
+              <option value="software">Desarrollo de Software</option>
+              <option value="investigacion">Investigación y Desarrollo</option>
+              <option value="finanzas">Servicios Financieros</option>
+              <option value="otro">Otro</option>
+            </select>
+            <div *ngIf="submitted && f['service'].errors" class="error-message">
+              <small *ngIf="f['service'].errors?.['required']">Selecciona un servicio</small>
+            </div>
+          </div>
+          
+          <div class="form-group full-width">
+            <label for="message">Mensaje</label>
+            <textarea 
+              id="message" 
+              formControlName="message"
+              rows="5" 
+              placeholder="Cuéntanos sobre tu proyecto o requerimiento"
+              [class.error]="submitted && f['message'].errors"></textarea>
+            <div *ngIf="submitted && f['message'].errors" class="error-message">
+              <small *ngIf="f['message'].errors?.['required']">El mensaje es requerido</small>
+              <small *ngIf="f['message'].errors?.['minlength']">El mensaje debe tener al menos 10 caracteres</small>
+            </div>
+          </div>
+          
+          <button 
+            type="submit" 
+            class="submit-button" 
+            [disabled]="loading"
+            [class.loading]="loading">
+            <span *ngIf="!loading">Enviar mensaje</span>
+            <span *ngIf="loading">
+              <svg class="spinner" width="16" height="16" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="60" stroke-dashoffset="60">
+                  <animate attributeName="stroke-dashoffset" dur="2s" values="60;0" repeatCount="indefinite"/>
+                </circle>
+              </svg>
+              Enviando...
+            </span>
+          </button>
+        </form>
+      </div>
+      
+      <div class="contact-info fade-in delay-3" data-aos="fade-left">
+        <!-- Tu información de contacto existente -->
+        <div class="info-card" data-aos="zoom-in">
+          <div class="info-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3>Email</h3>
+            <p><a href="mailto:investigacion&#64;nexqai.com">investigacion&#64;nexqai.com</a></p>
+          </div>
+        </div>
+        
+        <div class="info-card" data-aos="zoom-in" data-aos-delay="100">
+          <div class="info-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3>Teléfono</h3>
+            <p><a href="tel:+573043441049">+57 304 344 1049</a></p>
+          </div>
+        </div>
+        
+        <div class="info-card" data-aos="zoom-in" data-aos-delay="300">
+          <div class="info-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3>Horario de atención</h3>
+            <p>Lunes a Viernes<br>8:00 AM - 6:00 PM</p>
+          </div>
+        </div>
+        
+        <div class="social-links" data-aos="fade-up">
+          <a class="social-link" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a class="social-link" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+            </svg>
+          </a>
+          <a href="https://github.com/NicoLa5Tor" class="social-link" aria-label="GitHub" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>

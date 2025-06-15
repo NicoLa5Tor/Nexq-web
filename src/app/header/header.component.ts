@@ -62,11 +62,6 @@ export class HeaderComponent implements OnInit {
           }, 400);
         });
       }, 600);
-    } else {
-      // En el servidor, simplemente navegamos sin animaciones
-      this.router.navigate([route]).then(() => {
-        this.isNavigating = false;
-      });
-    }
+    } 
   }
 }

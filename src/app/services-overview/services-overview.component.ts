@@ -1,12 +1,12 @@
 import { Component, OnInit, ElementRef, Renderer2, ViewChild, AfterViewInit, signal, Inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AosService } from '../../Services/aos.service';
+import { AosService } from '../../services/aos.service';
 import { RouterLink } from '@angular/router';
-import { ServiceService } from '../../Services/service.service';
+import { ServiceService } from '../../services/service.service';
 import { ParticlesBackgroundComponent } from '../animations/particles-background/particles-background.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SendOptionsComponent } from '../send-options/send-options.component';
-import { AppointmentService } from '../../Services/appointment.service';
+import { AppointmentService } from '../../services/appointment.service';
 
 // NUEVO IMPORT PARA EL FORMULARIO TECH
 import { TechFormComponent, FormData } from '../tech-form/tech-form.component';

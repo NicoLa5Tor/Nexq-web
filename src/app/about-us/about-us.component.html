@@ -1,243 +1,256 @@
 <!-- VISTA PRINCIPAL -->
-<section class="about-section relative overflow-hidden transition-all duration-700 ease-out min-h-screen" [class.index-mode]="isIndexMode" [class.full-page-mode]="!isIndexMode" data-aos="fade-up">
-  <div class="section-container mx-auto relative z-10 px-4 md:px-6 lg:px-8">
+<section class="about-main-section">
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <div class="about-section relative overflow-hidden transition-all duration-700 ease-out" 
+       [class.index-mode]="isIndexMode" 
+       [class.full-page-mode]="!isIndexMode" 
+       data-aos="fade-up">
     
-    <!-- CONTENIDO DEL INDEX -->
-    <div *ngIf="isIndexMode" class="about-index-content py-16 md:py-20 lg:py-24">
-      <h1 class="text-center font-extrabold  bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-        Quiénes Somos
-      </h1>
+    <div class="section-container mx-auto relative z-10 px-4 md:px-6 lg:px-8">
       
-      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-        
-        <!-- Tarjeta Resumen de la Empresa -->
-        <div class="summary-card bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-8 hover:transform hover:-translate-y-3 hover:scale-105 transition-all duration-500">
-          <div class="flex items-center mb-6">
-            <div class="text-4xl mr-4 animate-bounce">🚀</div>
-            <h3 class="text-xl md:text-2xl font-bold text-white">Nuestra Misión</h3>
-          </div>
+      <!-- TÍTULO DENTRO DEL CONTAINER -->
+      <div class="title-container relative z-20">
+        <h1 class="text-center font-extrabold text-3xl md:text-5xl lg:text-6xl
+          bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500
+          bg-clip-text text-transparent
+          leading-relaxed
+          px-4">
+          ¿Quiénes Somos?
+        </h1>
+      </div>
+      
+      <!-- CONTENIDO DEL INDEX -->
+      <div *ngIf="isIndexMode" class="about-index-content py-8 md:py-12 lg:py-16">   
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
           
-          <div class="space-y-4">
-            <p class="text-gray-200 leading-relaxed">
-              En <span class="text-blue-400 font-bold">NEXQ-AI</span> transformamos datos en decisiones estratégicas mediante análisis avanzado e inteligencia artificial.
-            </p>
-            <p class="text-gray-200 leading-relaxed">
-              Combinamos modelos matemáticos, estadísticos y computacionales para resolver problemas industriales complejos.
-            </p>
-            
-            <a routerLink="/nosotros" class="inline-flex items-center mt-6 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-              Conocer Más
-              <span class="ml-2 transform transition-transform group-hover:translate-x-1">→</span>
-            </a>
-          </div>
-        </div>
-        
-        <!-- Tarjeta Resumen del Equipo -->
-        <div class="summary-card bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-8 hover:transform hover:-translate-y-3 hover:scale-105 transition-all duration-500">
-          <div class="flex items-center mb-6">
-            <div class="text-4xl mr-4 animate-pulse">👥</div>
-            <h3 class="text-xl md:text-2xl font-bold text-white">Nuestro Equipo</h3>
-          </div>
-          
-          <div class="space-y-4">
-            <p class="text-gray-200 leading-relaxed">
-              Un equipo multidisciplinario de expertos en ingeniería, estadística, economía y tecnología.
-            </p>
-            
-            <div class="space-y-3 mt-6">
-              <div class="flex items-center p-3 bg-white/5 rounded-lg border-l-4 border-blue-400">
-                <strong class="text-blue-400 mr-2">Sebastián</strong>
-                <span class="text-gray-300 text-sm">CEO con MBA y experiencia en modelos sostenibles</span>
-              </div>
-              <div class="flex items-center p-3 bg-white/5 rounded-lg border-l-4 border-green-400">
-                <strong class="text-green-400 mr-2">Diego</strong>
-                <span class="text-gray-300 text-sm">Ph.D. en Probabilidad y Estadística</span>
-              </div>
-              <div class="flex items-center p-3 bg-white/5 rounded-lg border-l-4 border-red-400">
-                <strong class="text-red-400 mr-2">Andrés</strong>
-                <span class="text-gray-300 text-sm">Experto en Machine Learning y Análisis</span>
-              </div>
-              <div class="flex items-center p-3 bg-white/5 rounded-lg border-l-4 border-purple-400">
-                <strong class="text-purple-400 mr-2">Esteban</strong>
-                <span class="text-gray-300 text-sm">Especialista en Finanzas y Riesgos</span>
-              </div>
+          <!-- Tarjeta Resumen de la Empresa -->
+          <div class="summary-card glass-card no-top-line rounded-2xl p-4 md:p-6 lg:p-8 hover:transform hover:-translate-y-3 hover:scale-105 transition-all duration-500">
+            <div class="flex items-center mb-4 md:mb-6">
+              <div class="text-3xl md:text-4xl mr-3 md:mr-4 animate-bounce">🚀</div>
+              <h3 class="text-lg md:text-xl lg:text-2xl font-bold text-white">Nuestra Misión</h3>
             </div>
             
-            <a routerLink="/nosotros" class="inline-flex items-center mt-6 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-              Ver Equipo
-              <span class="ml-2 transform transition-transform group-hover:translate-x-1">→</span>
-            </a>
+            <div class="space-y-3 md:space-y-4">
+              <p class="text-gray-200 leading-relaxed text-sm md:text-base">
+                En <span class="text-blue-400 font-bold">NEXQ-AI</span> transformamos datos en decisiones estratégicas mediante análisis avanzado e inteligencia artificial.
+              </p>
+              <p class="text-gray-200 leading-relaxed text-sm md:text-base">
+                Combinamos modelos matemáticos, estadísticos y computacionales para resolver problemas industriales complejos.
+              </p>
+              
+              <a routerLink="/nosotros" class="inline-flex items-center mt-4 md:mt-6 px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-sm md:text-base">
+                Conocer Más
+                <span class="ml-2 transform transition-transform group-hover:translate-x-1">→</span>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Tarjeta Resumen del Equipo -->
+          <div class="summary-card glass-card no-top-line rounded-2xl p-4 md:p-6 lg:p-8 hover:transform hover:-translate-y-3 hover:scale-105 transition-all duration-500">
+            <div class="flex items-center mb-4 md:mb-6">
+              <div class="text-3xl md:text-4xl mr-3 md:mr-4 animate-pulse">👥</div>
+              <h3 class="text-lg md:text-xl lg:text-2xl font-bold text-white">Nuestro Equipo</h3>
+            </div>
+            
+            <div class="space-y-3 md:space-y-4">
+              <p class="text-gray-200 leading-relaxed text-sm md:text-base">
+                Un equipo multidisciplinario de expertos en ingeniería, estadística, economía y tecnología.
+              </p>
+              
+              <div class="space-y-2 md:space-y-3 mt-4 md:mt-6">
+                <div class="flex items-center p-2 md:p-3 bg-white/5 rounded-lg border-l-4 border-blue-400">
+                  <strong class="text-blue-400 mr-2 text-sm md:text-base">Sebastián</strong>
+                  <span class="text-gray-300 text-xs md:text-sm">CEO con MBA y experiencia en modelos sostenibles</span>
+                </div>
+                <div class="flex items-center p-2 md:p-3 bg-white/5 rounded-lg border-l-4 border-green-400">
+                  <strong class="text-green-400 mr-2 text-sm md:text-base">Diego</strong>
+                  <span class="text-gray-300 text-xs md:text-sm">Ph.D. en Probabilidad y Estadística</span>
+                </div>
+                <div class="flex items-center p-2 md:p-3 bg-white/5 rounded-lg border-l-4 border-red-400">
+                  <strong class="text-red-400 mr-2 text-sm md:text-base">Andrés</strong>
+                  <span class="text-gray-300 text-xs md:text-sm">Experto en Machine Learning y Análisis</span>
+                </div>
+                <div class="flex items-center p-2 md:p-3 bg-white/5 rounded-lg border-l-4 border-purple-400">
+                  <strong class="text-purple-400 mr-2 text-sm md:text-base">Nicolás</strong>
+                  <span class="text-gray-300 text-xs md:text-sm">Especialista en desarrollo de software</span>
+                </div>
+              </div>
+              
+              <a routerLink="/nosotros" class="inline-flex items-center mt-4 md:mt-6 px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-sm md:text-base">
+                Ver Equipo
+                <span class="ml-2 transform transition-transform group-hover:translate-x-1">→</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- CONTENIDO DE LA PÁGINA COMPLETA -->
-    <div *ngIf="!isIndexMode" class="full-content py-16 md:py-20 lg:py-24">
-      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 md:mb-16 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-        Quiénes Somos
-      </h1>
-      
-      <!-- Grid Principal -->
-      <div class="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-5 gap-8 lg:gap-12 mb-16">
-        
-        <!-- Descripción y Diferenciadores -->
-        <div class="xl:col-span-2 space-y-8">
+      <!-- CONTENIDO DE LA PÁGINA COMPLETA -->
+      <div *ngIf="!isIndexMode" class="full-content py-8 md:py-12 lg:py-16">
+        <!-- Grid Principal -->
+        <div class="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-5 gap-6 md:gap-8 lg:gap-12 mb-12 md:mb-16">
           
-          <!-- Descripción -->
-          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10">
-            <div class="space-y-6 text-gray-200 leading-relaxed">
-              <p class="text-lg">
-                En <span class="text-blue-400 font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">NEXQ-AI</span> ofrecemos análisis avanzado de datos para transformar la información empresarial en decisiones estratégicas y soluciones prácticas.
-              </p>
-              
-              <p>
-                Nuestro enfoque combina modelos matemáticos, estadísticos y computacionales para resolver problemas industriales, económicos, sociales y ambientales, ayudando a nuestros clientes a optimizar su eficiencia, promover la sostenibilidad y generar un impacto económico positivo y medible.
-              </p>
-              
-              <p>
-                Con un equipo multidisciplinario de expertos y tecnología de vanguardia, nos posicionamos como líderes en la transformación digital empresarial.
-              </p>
-            </div>
-          </div>
-          
-          <!-- Diferenciadores -->
-          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10">
-            <h3 class="text-xl md:text-2xl font-bold text-white mb-6">Diferenciadores Clave</h3>
+          <!-- Descripción y Diferenciadores -->
+          <div class="xl:col-span-2 space-y-6 md:space-y-8">
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="flex items-start space-x-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                <span class="text-2xl">🎯</span>
-                <div>
-                  <strong class="text-white block mb-1">Enfoque Multidisciplinario</strong>
-                  <span class="text-gray-300 text-sm">Integramos conocimientos de ingeniería, estadística, economía y tecnología.</span>
-                </div>
-              </div>
-              
-              <div class="flex items-start space-x-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                <span class="text-2xl">🚀</span>
-                <div>
-                  <strong class="text-white block mb-1">Tecnología de Vanguardia</strong>
-                  <span class="text-gray-300 text-sm">Utilizamos inteligencia artificial, computación cuántica y big data.</span>
-                </div>
-              </div>
-              
-              <div class="flex items-start space-x-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                <span class="text-2xl">💡</span>
-                <div>
-                  <strong class="text-white block mb-1">Orientación al Cliente</strong>
-                  <span class="text-gray-300 text-sm">Ofrecemos soluciones personalizadas que resuelven problemas específicos.</span>
-                </div>
-              </div>
-              
-              <div class="flex items-start space-x-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                <span class="text-2xl">🔬</span>
-                <div>
-                  <strong class="text-white block mb-1">Innovación Continua</strong>
-                  <span class="text-gray-300 text-sm">Mantenemos un compromiso con la investigación y desarrollo.</span>
-                </div>
-              </div>
-              
-              <div class="flex items-start space-x-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                <span class="text-2xl">🌱</span>
-                <div>
-                  <strong class="text-white block mb-1">Sostenibilidad</strong>
-                  <span class="text-gray-300 text-sm">Promovemos soluciones que generen impacto positivo.</span>
-                </div>
-              </div>
-              
-              <div class="flex items-start space-x-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                <span class="text-2xl">📊</span>
-                <div>
-                  <strong class="text-white block mb-1">Resultados Medibles</strong>
-                  <span class="text-gray-300 text-sm">Todas nuestras soluciones están respaldadas por métricas concretas.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Selector de Equipo -->
-        <div class="xl:col-span-3">
-          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 sticky top-8">
-            <h3 class="text-xl md:text-2xl font-bold text-center text-white mb-8">Conoce Nuestro Equipo</h3>
-            
-            <!-- Selector de Avatares -->
-            <div class="grid grid-cols-2 gap-4 mb-8">
-              <button 
-                *ngFor="let member of teamMembers; let i = index" 
-                class="team-avatar-btn group relative p-3 rounded-xl border-2 transition-all duration-300 hover:scale-105"
-                [class.active]="selectedMember?.id === member.id"
-                [class]="'border-' + (selectedMember?.id === member.id ? 'blue-400 bg-blue-400/20' : 'white/20 hover:border-white/40')"
-                (click)="selectMember(member)">
+            <!-- Descripción -->
+            <div class="glass-card no-top-line rounded-2xl p-4 md:p-6 lg:p-8 border border-white/10">
+              <div class="space-y-4 md:space-y-6 text-gray-200 leading-relaxed">
+                <p class="text-base md:text-lg">
+                  En <span class="text-blue-400 font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">NEXQ-AI</span> ofrecemos análisis avanzado de datos para transformar la información empresarial en decisiones estratégicas y soluciones prácticas.
+                </p>
                 
-                <div class="text-center">
-                  <div class="w-16 h-16 mx-auto mb-3 rounded-full overflow-hidden shadow-md">
-                    <ng-container *ngIf="member.photo; else showInitial">
-                      <img 
-                        [src]="member.photo" 
-                        [alt]="member.name"
-                        class="w-full h-full object-cover"
-                      />
-                    </ng-container>
-                    <ng-template #showInitial>
-                      <div class="w-full h-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
-                        {{ member.name.charAt(0) }}
-                      </div>
-                    </ng-template>
+                <p class="text-sm md:text-base">
+                  Nuestro enfoque combina modelos matemáticos, estadísticos y computacionales para resolver problemas industriales, económicos, sociales y ambientales, ayudando a nuestros clientes a optimizar su eficiencia, promover la sostenibilidad y generar un impacto económico positivo y medible.
+                </p>
+                
+                <p class="text-sm md:text-base">
+                  Con un equipo multidisciplinario de expertos y tecnología de vanguardia, nos posicionamos como líderes en la transformación digital empresarial.
+                </p>
+              </div>
+            </div>
+            
+            <!-- Diferenciadores -->
+            <div class="glass-card no-top-line rounded-2xl p-4 md:p-6 lg:p-8 border border-white/20 shadow-2xl">
+              <h3 class="text-lg md:text-xl lg:text-2xl font-bold text-white mb-4 md:mb-6 text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                Diferenciadores Clave
+              </h3>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 lg:gap-6">
+                <div class="differentiator-card">
+                  <span class="differentiator-icon">🎯</span>
+                  <div class="differentiator-content">
+                    <strong class="differentiator-title">Enfoque Multidisciplinario</strong>
+                    <span class="differentiator-text">Integramos conocimientos de ingeniería, estadística, economía y tecnología.</span>
+                  </div>
+                </div>
+                
+                <div class="differentiator-card">
+                  <span class="differentiator-icon">🚀</span>
+                  <div class="differentiator-content">
+                    <strong class="differentiator-title">Tecnología de Vanguardia</strong>
+                    <span class="differentiator-text">Utilizamos inteligencia artificial, ciencia de datos y big data.</span>
+                  </div>
+                </div>
+                
+                <div class="differentiator-card">
+                  <span class="differentiator-icon">💡</span>
+                  <div class="differentiator-content">
+                    <strong class="differentiator-title">Orientación al Cliente</strong>
+                    <span class="differentiator-text">Ofrecemos soluciones personalizadas que resuelven problemas específicos.</span>
+                  </div>
+                </div>
+                
+                <div class="differentiator-card">
+                  <span class="differentiator-icon">🔬</span>
+                  <div class="differentiator-content">
+                    <strong class="differentiator-title">Innovación Continua</strong>
+                    <span class="differentiator-text">Mantenemos un compromiso con la investigación y desarrollo.</span>
+                  </div>
+                </div>
+                
+                <div class="differentiator-card">
+                  <span class="differentiator-icon">🌱</span>
+                  <div class="differenciador-content">
+                    <strong class="differentiator-title">Sostenibilidad</strong>
+                    <span class="differentiator-text">Promovemos soluciones que generen impacto positivo.</span>
+                  </div>
+                </div>
+                
+                <div class="differentiator-card">
+                  <span class="differentiator-icon">📊</span>
+                  <div class="differentiator-content">
+                    <strong class="differentiator-title">Resultados Medibles</strong>
+                    <span class="differentiator-text">Todas nuestras soluciones están respaldadas por métricas concretas.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Selector de Equipo -->
+          <div class="xl:col-span-3 team-blur-container">
+            <div class="rounded-2xl p-3 md:p-4 lg:p-6 border-white/10 sticky top-8">
+              <h2 class="text-base md:text-lg lg:text-xl font-bold text-center text-white mb-4 md:mb-6 lg:mb-8">Conoce Nuestro Equipo</h2>
+              
+              <!-- Selector de Avatares -->
+              <div class="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-2 gap-2 md:gap-3 lg:gap-4 mb-4 md:mb-6 lg:mb-8">
+                <button 
+                  *ngFor="let member of teamMembers; let i = index" 
+                  class="blur-button team-avatar-btn group relative p-2 md:p-3 rounded-xl border-2 transition-all duration-300 hover:scale-105"
+                  [class.active]="selectedMember?.id === member.id"
+                  [class]="'border-' + (selectedMember?.id === member.id ? 'blue-400 bg-blue-400/20' : 'white/20 hover:border-white/40')"
+                  (click)="selectMember(member)">
+                  
+                  <div class="text-center">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 mx-auto mb-1 md:mb-2 lg:mb-3 rounded-full overflow-hidden shadow-md">
+                      <ng-container *ngIf="member.photo; else showInitial">
+                        <img 
+                          [src]="member.photo" 
+                          [alt]="member.name"
+                          class="w-full h-full object-cover"
+                        />
+                      </ng-container>
+                      <ng-template #showInitial>
+                        <div class="w-full h-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center text-white font-bold text-sm md:text-lg lg:text-xl">
+                          {{ member.name.charAt(0) }}
+                        </div>
+                      </ng-template>
+                    </div>
+                    
+                    <div class="text-white font-semibold text-xs sm:text-sm leading-tight">{{ member.name.split(' ')[0] }}</div>
+                    <div class="text-gray-400 text-xs leading-tight">{{ member.role.split(' ')[0] }}</div>
+                  </div>
+                </button>
+              </div>
+              
+              <!-- Panel de Display del Miembro Seleccionado -->
+              <div class="member-display space-y-3 md:space-y-4 lg:space-y-6" *ngIf="selectedMember">
+                
+                <!-- Foto Principal -->
+                <div class="text-center" *ngIf="selectedMember as member">
+                  <img 
+                    [src]="member.photo" 
+                    alt="{{ member.name }}"
+                    class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 mx-auto rounded-2xl object-cover shadow-2xl mb-2 md:mb-3 lg:mb-4 border border-white/10"
+                  />
+                  <div class="inline-block px-2 py-1 md:px-3 md:py-1 lg:px-4 lg:py-2 bg-blue-600 text-white text-xs md:text-sm font-semibold rounded-full">
+                    {{ member.experience }}
+                  </div>
+                </div>
+                
+                <!-- Información -->
+                <div class="text-center space-y-2 md:space-y-3 lg:space-y-4">
+                  <h4 class="text-base md:text-lg lg:text-xl font-bold text-white">{{ selectedMember.name }}</h4>
+                  <p class="text-blue-400 font-semibold text-sm md:text-base">{{ selectedMember.role }}</p>
+                  <p class="text-gray-300 text-xs md:text-sm">🎓 {{ selectedMember.education }}</p>
+                  
+                  <div class="text-gray-200 text-xs md:text-sm leading-relaxed bg-white/5 p-2 md:p-3 lg:p-4 rounded-lg border border-white/10 text-justify">
+                    {{ selectedMember.fullDescription }}
                   </div>
                   
-                  <div class="text-white font-semibold text-sm">{{ member.name.split(' ')[0] }}</div>
-                  <div class="text-gray-400 text-xs">{{ member.role.split(' ')[0] }}</div>
-                </div>
-              </button>
-            </div>
-            
-            <!-- Panel de Display del Miembro Seleccionado -->
-            <div class="member-display space-y-6" *ngIf="selectedMember">
-              
-              <!-- Foto Principal -->
-              <!-- Foto Principal -->
-          <div class="text-center" *ngIf="selectedMember as member">
-            <img 
-              [src]="member.photo" 
-              alt="{{ member.name }}"
-              class="w-32 h-32 mx-auto rounded-2xl object-cover shadow-2xl mb-4 border border-white/10"
-            />
-            <div class="inline-block px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-full">
-              {{ member.experience }}
-            </div>
-          </div>
-              <!-- Información -->
-              <div class="text-center space-y-4">
-                <h4 class="text-xl font-bold text-white">{{ selectedMember.name }}</h4>
-                <p class="text-blue-400 font-semibold">{{ selectedMember.role }}</p>
-                <p class="text-gray-300 text-sm">🎓 {{ selectedMember.education }}</p>
-                
-                <div class="text-gray-200 text-sm leading-relaxed bg-white/5 p-4 rounded-lg border border-white/10">
-                  {{ selectedMember.fullDescription }}
-                </div>
-                
-                <!-- Especialidades -->
-                <div>
-                  <h5 class="text-white font-semibold mb-3">⚡ Especialidades</h5>
-                  <div class="flex flex-wrap gap-2 justify-center">
-                    <span 
-                      *ngFor="let skill of selectedMember.expertise" 
-                      class="px-3 py-1 bg-blue-600/30 border border-blue-400/50 text-blue-200 text-xs rounded-full">
-                      {{ skill }}
-                    </span>
+                  <!-- Especialidades -->
+                  <div>
+                    <h5 class="text-white font-semibold mb-1 md:mb-2 lg:mb-3 text-sm md:text-base">⚡ Especialidades</h5>
+                    <div class="flex flex-wrap gap-1 md:gap-2 justify-center">
+                      <span 
+                        *ngFor="let skill of selectedMember.expertise" 
+                        class="px-2 py-1 md:px-3 md:py-1 bg-blue-600/30 border border-blue-400/50 text-blue-200 text-xs rounded-full">
+                        {{ skill }}
+                      </span>
+                    </div>
                   </div>
-                </div>
-                
-                <!-- Logros -->
-                <div>
-                  <h5 class="text-white font-semibold mb-3">🏆 Logros Destacados</h5>
-                  <div class="space-y-2 text-left">
-                    <div *ngFor="let achievement of selectedMember.achievements" 
-                         class="flex items-start space-x-2 text-gray-300 text-sm">
-                      <span class="text-yellow-400 text-xs mt-1">✨</span>
-                      <span>{{ achievement }}</span>
+                  
+                  <!-- Logros -->
+                  <div *ngIf="selectedMember.achievements && selectedMember.achievements.length > 0">
+                    <h5 class="text-white font-semibold mb-1 md:mb-2 lg:mb-3 text-sm md:text-base">🏆 Logros Destacados</h5>
+                    <div class="space-y-1 md:space-y-2 text-left">
+                      <div *ngFor="let achievement of selectedMember.achievements" 
+                           class="flex items-start space-x-2 text-gray-300 text-xs md:text-sm">
+                        <span class="text-yellow-400 text-xs mt-0.5 md:mt-1 flex-shrink-0">✨</span>
+                        <span class="leading-relaxed">{{ achievement }}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -245,17 +258,11 @@
             </div>
           </div>
         </div>
-      </div>
-      
-      <!-- Línea de Tiempo -->
-      <div class="max-w-6xl mx-auto mb-16">
-        <h3 class="text-2xl md:text-3xl font-bold text-center text-white mb-12">Nuestra Historia</h3>
         
-        <div class="relative">
-          <div class="absolute left-4 md:left-1/2 transform md:-translate-x-0.5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-400 to-purple-600"></div>
-          
-          <div class="space-y-8">
-            <div class="timeline-item relative pl-12 md:pl-0 md:grid md:grid-cols-2 md:gap-8 cursor-pointer group" 
+        <!-- Línea de Tiempo -->
+        <div class="company-timeline">
+          <div class="timeline-container">
+            <div class="timeline-item" 
                  *ngFor="let item of [
                    {year: '2019', title: 'Fundación', desc: 'Nació NEXQ-AI como una startup enfocada en análisis de datos y consultoría estadística.', details: ['Primer equipo de 3 personas', 'Enfoque inicial en análisis financiero', 'Primeros 5 clientes en el sector bancario']},
                    {year: '2020', title: 'Expansión de Servicios', desc: 'Ampliamos nuestros servicios hacia machine learning y inteligencia artificial aplicada.', details: ['Desarrollo de algoritmos propios', 'Incorporación de Diego como Director Científico', 'Primera plataforma de análisis automatizado']},
@@ -263,21 +270,78 @@
                    {year: '2022', title: 'Innovación Tecnológica', desc: 'Desarrollo de nuestra plataforma propietaria de análisis avanzado.', details: ['Lanzamiento de NEXQ Platform', 'Integración de computación cuántica', 'Certificaciones ISO y SOC2']},
                    {year: '2023', title: 'Expansión Internacional', desc: 'Comenzamos operaciones en mercados internacionales y sectores diversificados.', details: ['Clientes en 5 países de Latinoamérica', 'Diversificación hacia retail y manufactura', '40+ proyectos activos']},
                    {year: '2024', title: 'Liderazgo en IA', desc: 'Nos consolidamos como líderes en soluciones de IA aplicada para empresas.', details: ['Reconocimiento como Top 10 AI Companies', 'Alianzas estratégicas con universidades', '50+ proyectos completados exitosamente']}
-                 ]; let i = index" 
-                 [class]="i % 2 === 0 ? 'md:justify-self-end' : 'md:justify-self-start md:col-start-2'">
+                 ]; let i = index">
               
-              <div class="absolute left-0 md:left-auto md:right-full md:mr-8 top-2 w-4 h-4 bg-blue-500 rounded-full border-4 border-white shadow-lg z-10"
-                   [class]="i % 2 === 0 ? 'md:right-full md:mr-8' : 'md:left-full md:ml-8'"></div>
+              <div class="timeline-marker"></div>
               
-              <div class="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 group-hover:transform group-hover:-translate-y-2">
-                <div class="text-blue-400 font-bold text-lg mb-1">{{ item.year }}</div>
-                <div class="text-white font-semibold text-xl mb-2">{{ item.title }}</div>
-                <div class="text-gray-300 mb-4">{{ item.desc }}</div>
+              <div class="timeline-content">
+                <div class="timeline-year">{{ item.year }}</div>
+                <div class="timeline-title">{{ item.title }}</div>
+                <div class="timeline-description">{{ item.desc }}</div>
+                <ul class="timeline-details">
+                  <li *ngFor="let detail of item.details">{{ detail }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Elementos Interactivos -->
+        <div class="max-w-6xl mx-auto">
+          <div class="w-full h-auto flex items-center justify-center">
+            
+            <!-- Habilidades -->
+            <div class="glass-card rounded-xl p-4 md:p-6 w-full max-w-4xl border border-white/10 mx-auto">
+              <h3 class="text-lg md:text-xl font-bold text-white mb-4 md:mb-6">Competencias del Equipo</h3>
+              
+              <div class="space-y-3 md:space-y-4">
+                <div class="skill-item">
+                  <div class="flex justify-between mb-1 md:mb-2">
+                    <span class="text-white font-semibold text-sm md:text-base">Machine Learning & IA</span>
+                    <span class="text-blue-400 font-bold text-sm md:text-base">95%</span>
+                  </div>
+                  <div class="w-full bg-gray-700 rounded-full h-2">
+                    <div class="skill-fill bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 95%"></div>
+                  </div>
+                </div>
                 
-                <div class="space-y-2">
-                  <div *ngFor="let detail of item.details" class="flex items-start space-x-2 text-gray-400 text-sm">
-                    <span class="text-blue-400 text-xs mt-1">•</span>
-                    <span>{{ detail }}</span>
+                <div class="skill-item">
+                  <div class="flex justify-between mb-1 md:mb-2">
+                    <span class="text-white font-semibold text-sm md:text-base">Análisis Estadístico</span>
+                    <span class="text-blue-400 font-bold text-sm md:text-base">98%</span>
+                  </div>
+                  <div class="w-full bg-gray-700 rounded-full h-2">
+                    <div class="skill-fill bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 98%"></div>
+                  </div>
+                </div>
+                
+                <div class="skill-item">
+                  <div class="flex justify-between mb-1 md:mb-2">
+                    <span class="text-white font-semibold text-sm md:text-base">Desarrollo de Software</span>
+                    <span class="text-blue-400 font-bold text-sm md:text-base">90%</span>
+                  </div>
+                  <div class="w-full bg-gray-700 rounded-full h-2">
+                    <div class="skill-fill bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 90%"></div>
+                  </div>
+                </div>
+                
+                <div class="skill-item">
+                  <div class="flex justify-between mb-1 md:mb-2">
+                    <span class="text-white font-semibold text-sm md:text-base">Consultoría Empresarial</span>
+                    <span class="text-blue-400 font-bold text-sm md:text-base">92%</span>
+                  </div>
+                  <div class="w-full bg-gray-700 rounded-full h-2">
+                    <div class="skill-fill bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 92%"></div>
+                  </div>
+                </div>
+                
+                <div class="skill-item">
+                  <div class="flex justify-between mb-1 md:mb-2">
+                    <span class="text-white font-semibold text-sm md:text-base">Finanzas Cuantitativas</span>
+                    <span class="text-blue-400 font-bold text-sm md:text-base">88%</span>
+                  </div>
+                  <div class="w-full bg-gray-700 rounded-full h-2">
+                    <div class="skill-fill bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 88%"></div>
                   </div>
                 </div>
               </div>
@@ -285,93 +349,6 @@
           </div>
         </div>
       </div>
-      
-
-      <!-- Elementos Interactivos -->
-      <div class="max-w-6xl mx-auto">
-        <div class="w-full h-96 flex items-center justify-center">
-          
-          <!-- Habilidades -->
-          <div class="bg-white/5 backdrop-blur-sm rounded-xl p-6  w-[60%] border border-white/10 mx-auto">
-            <h3 class="text-xl font-bold text-white mb-6">Competencias del Equipo</h3>
-            
-            <div class="space-y-4">
-              <div class="skill-item">
-                <div class="flex justify-between mb-2">
-                  <span class="text-white font-semibold">Machine Learning & IA</span>
-                  <span class="text-blue-400 font-bold">95%</span>
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-2">
-                  <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 95%"></div>
-                </div>
-              </div>
-              
-              <div class="skill-item">
-                <div class="flex justify-between mb-2">
-                  <span class="text-white font-semibold">Análisis Estadístico</span>
-                  <span class="text-blue-400 font-bold">98%</span>
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-2">
-                  <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 98%"></div>
-                </div>
-              </div>
-              
-              <div class="skill-item">
-                <div class="flex justify-between mb-2">
-                  <span class="text-white font-semibold">Desarrollo de Software</span>
-                  <span class="text-blue-400 font-bold">90%</span>
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-2">
-                  <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 90%"></div>
-                </div>
-              </div>
-              
-              <div class="skill-item">
-                <div class="flex justify-between mb-2">
-                  <span class="text-white font-semibold">Consultoría Empresarial</span>
-                  <span class="text-blue-400 font-bold">92%</span>
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-2">
-                  <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 92%"></div>
-                </div>
-              </div>
-              
-              <div class="skill-item">
-                <div class="flex justify-between mb-2">
-                  <span class="text-white font-semibold">Finanzas Cuantitativas</span>
-                  <span class="text-blue-400 font-bold">88%</span>
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-2">
-                  <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out" style="width: 88%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Métricas -->
-          <!-- <div class="bg-white/5 backdrop-blur-sm rounded-xl p-6 md:p-8 border border-white/10">
-            <h3 class="text-xl font-bold text-white mb-6">Nuestras Métricas</h3>
-            
-            <div class="grid grid-cols-3 gap-6 text-center">
-              <div class="space-y-2">
-                <div class="text-3xl font-bold text-blue-400">96%</div>
-                <div class="text-gray-300 text-sm">Satisfacción del Cliente</div>
-              </div>
-              
-              <div class="space-y-2">
-                <div class="text-3xl font-bold text-green-400">100%</div>
-                <div class="text-gray-300 text-sm">Proyectos Exitosos</div>
-              </div>
-              
-              <div class="space-y-2">
-                <div class="text-3xl font-bold text-purple-400">85%</div>
-                <div class="text-gray-300 text-sm">Retención de Clientes</div>
-              </div>
-            </div>
-          </div> -->
-        </div>
-      </div>
     </div>
   </div>
 </section>
-

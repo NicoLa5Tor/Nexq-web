@@ -1,6 +1,6 @@
 // features.component.ts
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, ViewEncapsulation, HostListener, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
-import { AosService } from '../../Services/aos.service';
+import { AosService } from '../../services/aos.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -103,24 +103,27 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     // Solo ejecutar código relacionado con el DOM en el navegador
     if (this.isBrowser) {
-      // Inicializar el observer para la sección de características
-      this.setupIntersectionObserver();
-      
-      // Para dispositivos móviles, podríamos omitir la animación y mostrar directamente
-      if (this.isTouchDevice || this.windowWidth < 768) {
-        this.showTitleImmediately();
-      } else {
-        // Preparar el título para animación en escritorio
-        this.prepareTitle();
-      }
-      
-      // Crear contenedor para la estela del cursor solo si no es un dispositivo táctil
-      // y no se prefiere el movimiento reducido
-      if (!this.isTouchDevice && !this.isReducedMotionPreferred) {
-        this.setupCursorTrail();
-      }
+      // 🔧 Usar setTimeout para diferir los cambios y evitar ExpressionChangedAfterItHasBeenCheckedError
+      setTimeout(() => {
+        // Inicializar el observer para la sección de características
+        this.setupIntersectionObserver();
+        
+        // Para dispositivos móviles, podríamos omitir la animación y mostrar directamente
+        if (this.isTouchDevice || this.windowWidth < 768) {
+          this.showTitleImmediately();
+        } else {
+          // Preparar el título para animación en escritorio
+          this.prepareTitle();
+        }
+        
+        // Crear contenedor para la estela del cursor solo si no es un dispositivo táctil
+        // y no se prefiere el movimiento reducido
+        if (!this.isTouchDevice && !this.isReducedMotionPreferred) {
+          this.setupCursorTrail();
+        }
 
-      this.aos.refresh();
+        this.aos.refresh();
+      }, 0);
     }
   }
   
@@ -147,7 +150,7 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
   // Mostrar el título inmediatamente para dispositivos móviles
   private showTitleImmediately(): void {
     // En móviles, si la animación falla, al menos siempre tendremos el título visible
-    this.showDefaultTitle = true;
+    // No cambiamos showDefaultTitle inmediatamente para evitar el error
     
     // Intentamos iniciar la animación de todas formas
     if (this.sectionTitleElement && this.sectionTitleElement.nativeElement) {
@@ -167,7 +170,11 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
     
     const titleElement = this.sectionTitleElement.nativeElement;
     titleElement.innerHTML = ''; // Limpiar el contenido actual
-    this.showDefaultTitle = false; // Ocultar el título por defecto
+    
+    // 🔧 Usar setTimeout para cambiar showDefaultTitle y evitar el error
+    setTimeout(() => {
+      this.showDefaultTitle = false; // Ocultar el título por defecto
+    }, 0);
     
     // Crear el título con spans pero con opacidad inicial visible
     [...this.titleText].forEach((char, index) => {
@@ -382,16 +389,19 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.intersectionObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !this.titleAnimated) {
-          // El título está visible, iniciamos la animación
-          if (this.isTouchDevice || this.windowWidth < 768) {
-            // Para móviles ya tenemos el título visible
-            this.titleAnimated = true;
-          } else {
-            // Para escritorio, animamos
-            this.animateTitle();
-            this.titleAnimated = true;
-            this.showDefaultTitle = false;
-          }
+          // 🔧 Usar setTimeout para los cambios de estado y evitar el error
+          setTimeout(() => {
+            // El título está visible, iniciamos la animación
+            if (this.isTouchDevice || this.windowWidth < 768) {
+              // Para móviles ya tenemos el título visible
+              this.titleAnimated = true;
+            } else {
+              // Para escritorio, animamos
+              this.animateTitle();
+              this.titleAnimated = true;
+              this.showDefaultTitle = false;
+            }
+          }, 0);
           
           // Una vez que se ha animado, podemos desconectar el observer
           if (this.intersectionObserver) {
@@ -435,8 +445,10 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
       titleElement.appendChild(span);
     });
     
-    // Ocultar el título por defecto ya que vamos a animar
-    this.showDefaultTitle = false;
+    // 🔧 Usar setTimeout para cambiar showDefaultTitle y evitar el error
+    setTimeout(() => {
+      this.showDefaultTitle = false; // Ocultar el título por defecto ya que vamos a animar
+    }, 0);
   }
 
   // Anima las letras del título

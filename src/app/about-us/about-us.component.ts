@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject, PLATFORM_ID, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
+import { Component,ViewChild, OnInit, Inject, PLATFORM_ID, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AosService } from '../../Services/aos.service';
+import { AosService } from '../../services/aos.service';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -27,8 +27,6 @@ interface TeamMember {
 })
 export class AboutUsComponent implements OnInit, AfterViewInit, OnDestroy {
   private destroy$ = new Subject<void>();
-  
-  // Estados del componente
   isAboutRoute: boolean = false;
   isIndexMode: boolean = false;
   isMobile: boolean = false;
@@ -61,36 +59,39 @@ export class AboutUsComponent implements OnInit, AfterViewInit, OnDestroy {
     },
     {
       id: 'diego',
-      name: 'Diego Rodríguez',
+      name: 'Dr. Diego Leonardo Hernández Bustos',
       role: 'Director Científico',
-      fullDescription: 'Ph.D. en Probabilidad y Estadística con más de 10 años de experiencia en modelado matemático avanzado. Especialista en aprendizaje automático, optimización financiera y análisis predictivo. Ha publicado más de 15 papers en revistas científicas de alto impacto y dirigido proyectos de investigación multimillonarios en instituciones académicas y corporativas.',
+      fullDescription: 'Matemático de profesión y Doctor en Ciencias con orientación en Probabilidad y Estadística, con amplia experiencia en control estocástico, modelamiento matemático y optimización de portafolios financieros. Ha liderado proyectos de investigación aplicada y consultoría en matemáticas, estadística y machine learning. Su trayectoria combina docencia universitaria, publicaciones internacionales y la creación de soluciones innovadoras para el sector financiero, tecnológico, ambiental y de la educación. En NexQ-AI, impulsa el desarrollo de herramientas analíticas y soluciones fundamentadas en herramientas cuantitativas.',
       photo: 'assets/diego.png',
-      expertise: ['Machine Learning', 'Estadística Avanzada', 'Modelado Matemático', 'Investigación Científica'],
-      experience: '10+ años',
-      education: 'Ph.D. en Probabilidad y Estadística',
-      achievements: [
-        '15+ publicaciones en revistas de alto impacto',
-        'Desarrolló algoritmos predictivos con 98% de precisión',
-        'Ganador del Premio Nacional de Investigación 2022',
-        'Supervisor de 12 tesis doctorales'
+      expertise: [
+        'Control Estocástico',
+        'Modelamiento Matemático',
+        'Optimización de Portafolios Financieros',
+        'Matemáticas',
+        'Estadística',
+        'Machine Learning'
       ],
+      experience: '10+ años',
+      education: 'Doctor en Ciencias con orientación en Probabilidad y Estadística',
+      achievements: [],
       color: '#059669'
-    },
+    }, 
     {
       id: 'andres',
       name: 'Andrés Gómez',
       role: 'Director de Tecnología',
-      fullDescription: 'Estadístico con Maestría en Computación Estadística y más de 7 años de experiencia en machine learning aplicado. Experto en perfilamiento social, análisis financiero y desarrollo de algoritmos avanzados. Especialista en Python, R y tecnologías de Big Data, con certificaciones en AWS y Google Cloud. Ha arquitecturado sistemas de ML para más de 50 empresas.',
+      fullDescription: 'Economista con Magíster en Finanzas. Analista de riesgos financieros SARM, SARL, SARC y Mercado de Capitales. Cuenta con una amplia experiencia profesional como auditor, consultor y supervisor, con énfasis en valoración de inversiones en títulos, bonos, derivados y valoración actuarial de pasivos pensionales.',
       photo: 'assets/andres.png',
-      expertise: ['Python', 'Big Data', 'Algoritmos ML', 'Cloud Computing', 'DevOps'],
-      experience: '7+ años',
-      education: 'Maestría en Computación Estadística',
-      achievements: [
-        'Arquitecto de 20+ sistemas de ML en producción',
-        'Especialista certificado en AWS y Google Cloud',
-        'Creador del framework NEXQ-ML usado por 100+ desarrolladores',
-        'Speaker en 15+ conferencias internacionales'
+      expertise: [
+        'Riesgos Financieros',
+        'Mercado de Capitales',
+        'Valoración de Inversiones',
+        'Derivados Financieros',
+        'Valoración Actuarial'
       ],
+      experience: '10+ años',
+      education: 'Magíster en Finanzas',
+      achievements: [],
       color: '#DC2626'
     },
     {

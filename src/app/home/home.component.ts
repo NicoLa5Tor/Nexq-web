@@ -9,7 +9,7 @@ import { FeaturesComponent } from '../features/features.component';
 import { ViewportScroller } from '@angular/common';
 import { ReverseParallaxComponent } from '../animations/reverse-parallax/reverse-parallax.component';
 import { gsap } from 'gsap';
-import { AosService } from '../../Services/aos.service';
+import { AosService } from '../../services/aos.service';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ActivatedRoute } from '@angular/router';
 gsap.registerPlugin(ScrollTrigger);
