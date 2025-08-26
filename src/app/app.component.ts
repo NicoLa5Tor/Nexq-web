@@ -16,10 +16,16 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
   ngOnInit(): void {
+    const isMobile = window.innerWidth <= 768;
+    
     AOS.init({
-      duration: 800,
-      delay:200,
-      easing: 'ease-in-out'
+      duration: isMobile ? 600 : 800,
+      delay: isMobile ? 100 : 200,
+      easing: 'ease-out-cubic',
+      once: true,
+      mirror: false,
+      offset: isMobile ? 50 : 120,
+      disable: false
     });
   }
 

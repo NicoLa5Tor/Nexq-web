@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:NEXQ": "node dist/nexq/server/server.mjs"
+    "serve:ssr:NEXQ": "node dist/nexq/server/server.mjs",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +24,7 @@
     "@angular/platform-server": "^17.1.0",
     "@angular/router": "^17.1.0",
     "@angular/ssr": "^17.1.3",
+    "animate.css": "^4.1.1",
     "animate.js": "^2.0.2",
     "animejs": "^4.0.1",
     "aos": "^2.3.4",
@@ -44,7 +46,9 @@
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
     "@types/three": "^0.175.0",
+    "angular-eslint": "20.1.1",
     "autoprefixer": "^10.4.21",
+    "eslint": "^9.29.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -53,6 +57,7 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.5.5",
     "tailwindcss": "^3.4.17",
-    "typescript": "~5.3.2"
+    "typescript": "~5.3.2",
+    "typescript-eslint": "8.34.1"
   }
 }

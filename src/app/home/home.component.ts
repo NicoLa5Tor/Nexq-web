@@ -10,9 +10,9 @@ import { ViewportScroller } from '@angular/common';
 import { ReverseParallaxComponent } from '../animations/reverse-parallax/reverse-parallax.component';
 import { gsap } from 'gsap';
 import { AosService } from '../../services/aos.service';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ActivatedRoute } from '@angular/router';
-gsap.registerPlugin(ScrollTrigger);
+
+// gsap.registerPlugin(ScrollTrigger); // COMENTADO: ScrollTrigger no se usa
 interface ParallaxElement {
   element: HTMLElement;
   speed: number;
@@ -37,7 +37,7 @@ interface ParallaxElement {
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('svgContainer', { static: true }) svgContainer!: ElementRef;
-  private animationStarted = false;
+  private animationStarted: boolean = false;
   private parallaxElements: ParallaxElement[] = [];
   private rafId: number = 0;
   private scrollY = 0;
@@ -67,6 +67,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       // Setup performance optimizations
       this.setupPerformanceOptimizations();
     }
+    this.aos.refresh();
+
   }
   
   ngAfterViewInit(): void {
@@ -87,7 +89,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.initializeHeroAnimations();
         this.setupAdvancedCursor();
         this.setupFloatingElements();
-        this.aos.refresh();
       }, 100);
     }
     
@@ -136,8 +137,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
     
-    // Update 3D tilt effects
-    this.update3DTilt();
+    // COMENTADO: Update 3D tilt effects - contenedor con inclinación fija
+    // this.update3DTilt();
     
     // Update cursor trail
     this.updateCursorTrail(event);
@@ -161,11 +162,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private initializeHeroAnimations(): void {
     if (this.animationStarted) return;
     
-    const heroContent = this.elementRef.nativeElement.querySelector('.hero-content');
-    if (heroContent) {
-      heroContent.classList.add('revealed');
-      this.startEnhancedHeroSequence();
-    }
+    // COMENTADO: Solo ejecutar la secuencia sin modificar clases de scroll reveal
+    this.startEnhancedHeroSequence();
     
     this.animationStarted = true;
   }
@@ -175,20 +173,20 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     // Enhanced logo animation with particle burst
     this.animateLogoWithParticles();
     
-    // Enhanced typewriter effect
-    setTimeout(() => {
-      this.startEnhancedTypewriter();
-    }, 800);
+    // Enhanced typewriter effect - COMENTADO
+    // setTimeout(() => {
+    //   this.startEnhancedTypewriter();
+    // }, 800);
     
-    // Staggered content reveal
-    setTimeout(() => {
-      this.revealContentWithStagger();
-    }, 2500);
+    // COMENTADO: Staggered content reveal - usando solo AOS
+    // setTimeout(() => {
+    //   this.revealContentWithStagger();
+    // }, 2500);
     
-    // Neural network with advanced effects
-    setTimeout(() => {
-      this.startAdvancedNeuralNetwork();
-    }, 3500);
+    // COMENTADO: Neural network con efectos avanzados - usando solo AOS
+    // setTimeout(() => {
+    //   this.startAdvancedNeuralNetwork();
+    // }, 3500);
   }
 
   private animateHeroWithGsap(): void {
@@ -256,228 +254,232 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
   
-  private startEnhancedTypewriter(): void {
-    const titleElement = this.elementRef.nativeElement.querySelector('.hero-title');
-    if (!titleElement) return;
+  // COMENTADO: Función de animación de escritura letra por letra
+  // private startEnhancedTypewriter(): void {
+  //   const titleElement = this.elementRef.nativeElement.querySelector('.hero-title');
+  //   if (!titleElement) return;
 
-    const text = 'Transforma Tus Datos En\nDecisiones Estratégicas';
-    const lines = text.split('\n');
+  //   const text = 'Transforma Tus Datos En\nDecisiones Estratégicas';
+  //   const lines = text.split('\n');
     
-    titleElement.innerHTML = '';
-    titleElement.classList.add('typewriter-effect');
+  //   titleElement.innerHTML = '';
+  //   titleElement.classList.add('typewriter-effect');
 
-    let currentLineIndex = 0;
-    let currentCharIndex = 0;
-    let currentContent = '';
+  //   let currentLineIndex = 0;
+  //   let currentCharIndex = 0;
+  //   let currentContent = '';
 
-    const typeChar = () => {
-      if (currentLineIndex >= lines.length) {
-        titleElement.classList.add('typing-complete');
-        return;
-      }
+  //   const typeChar = () => {
+  //     if (currentLineIndex >= lines.length) {
+  //       titleElement.classList.add('typing-complete');
+  //       return;
+  //     }
 
-      const currentLine = lines[currentLineIndex];
+  //     const currentLine = lines[currentLineIndex];
       
-      if (currentCharIndex < currentLine.length) {
-        currentContent += currentLine[currentCharIndex];
+  //     if (currentCharIndex < currentLine.length) {
+  //       currentContent += currentLine[currentCharIndex];
         
-        // Add glitch effect occasionally
-        if (Math.random() < 0.1) {
-          const glitchChar = String.fromCharCode(65 + Math.random() * 26);
-          titleElement.innerHTML = currentContent.slice(0, -1) + glitchChar + 
-                                  '<span class="cursor">|</span>';
+  //       // Add glitch effect occasionally
+  //       if (Math.random() < 0.1) {
+  //         const glitchChar = String.fromCharCode(65 + Math.random() * 26);
+  //         titleElement.innerHTML = currentContent.slice(0, -1) + glitchChar + 
+  //                                 '<span class="cursor">|</span>';
           
-          setTimeout(() => {
-            titleElement.innerHTML = currentContent + '<span class="cursor">|</span>';
-          }, 50);
-        } else {
-          titleElement.innerHTML = currentContent + '<span class="cursor">|</span>';
-        }
+  //         setTimeout(() => {
+  //           titleElement.innerHTML = currentContent + '<span class="cursor">|</span>';
+  //         }, 50);
+  //       } else {
+  //         titleElement.innerHTML = currentContent + '<span class="cursor">|</span>';
+  //       }
         
-        currentCharIndex++;
-        setTimeout(typeChar, 50 + Math.random() * 100);
-      } else {
-        // Move to next line
-        currentLineIndex++;
-        currentCharIndex = 0;
+  //       currentCharIndex++;
+  //       setTimeout(typeChar, 50 + Math.random() * 100);
+  //     } else {
+  //       // Move to next line
+  //       currentLineIndex++;
+  //       currentCharIndex = 0;
         
-        if (currentLineIndex < lines.length) {
-          currentContent += '<br>';
-          setTimeout(typeChar, 300);
-        } else {
-          setTimeout(typeChar, 100);
-        }
-      }
-    };
+  //       if (currentLineIndex < lines.length) {
+  //         currentContent += '<br>';
+  //         setTimeout(typeChar, 300);
+  //       } else {
+  //         setTimeout(typeChar, 100);
+  //       }
+  //     }
+  //   };
 
-    typeChar();
-  }
+  //   typeChar();
+  // }
 
-  private revealContentWithStagger(): void {
-    const elements = [
-      '.hero-description',
-      '.hero-buttons'
-    ];
+  // COMENTADO: Función de reveal con stagger - usar solo AOS
+  // private revealContentWithStagger(): void {
+  //   const elements = [
+  //     '.hero-description',
+  //     '.hero-buttons'
+  //   ];
 
-    elements.forEach((selector, index) => {
-      const element = this.elementRef.nativeElement.querySelector(selector);
-      if (element) {
-        // Hacer visible inmediatamente pero con transformación inicial
-        element.style.opacity = '1';
-        element.style.visibility = 'visible';
-        element.style.display = 'block';
+  //   elements.forEach((selector, index) => {
+  //     const element = this.elementRef.nativeElement.querySelector(selector);
+  //     if (element) {
+  //       // Hacer visible inmediatamente pero con transformación inicial
+  //       element.style.opacity = '1';
+  //       element.style.visibility = 'visible';
+  //       element.style.display = 'block';
         
-        setTimeout(() => {
-          element.style.transform = 'translateY(30px) scale(0.95)';
-          element.style.filter = 'blur(5px)';
-          element.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+  //       setTimeout(() => {
+  //         element.style.transform = 'translateY(30px) scale(0.95)';
+  //         element.style.filter = 'blur(5px)';
+  //         element.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
           
-          setTimeout(() => {
-            element.style.transform = 'translateY(0) scale(1)';
-            element.style.filter = 'blur(0px)';
-            element.classList.add('show');
-          }, 50);
-        }, index * 400);
-      }
-    });
-  }
+  //         setTimeout(() => {
+  //           element.style.transform = 'translateY(0) scale(1)';
+  //           element.style.filter = 'blur(0px)';
+  //           element.classList.add('show');
+  //         }, 50);
+  //       }, index * 400);
+  //     }
+  //   });
+  // }
 
-  private startAdvancedNeuralNetwork(): void {
-    const networkContainer = this.elementRef.nativeElement.querySelector('.neural-network-container');
-    if (!networkContainer) return;
+  // COMENTADO: Función de neural network avanzada - usar solo AOS
+  // private startAdvancedNeuralNetwork(): void {
+  //   const networkContainer = this.elementRef.nativeElement.querySelector('.neural-network-container');
+  //   if (!networkContainer) return;
 
-    // Asegurar que los elementos anteriores estén visibles
-    this.ensureElementsVisible();
+  //   // Asegurar que los elementos anteriores estén visibles
+  //   this.ensureElementsVisible();
 
-    // El contenedor aparece normalmente (sin animaciones especiales)
-    networkContainer.style.opacity = '1';
-    networkContainer.style.transform = 'translateY(0) scale(1)';
-    networkContainer.style.filter = 'blur(0px)';
+  //   // El contenedor aparece normalmente (sin animaciones especiales)
+  //   networkContainer.style.opacity = '1';
+  //   networkContainer.style.transform = 'translateY(0) scale(1)';
+  //   networkContainer.style.filter = 'blur(0px)';
 
-    // Configurar el parallax de los elementos internos DESPUÉS de que el contenedor sea visible
-    setTimeout(() => {
-      this.setupNeuralElementsScrollAssembly(networkContainer);
-    }, 100);
-  }
+  //   // Configurar el parallax de los elementos internos DESPUÉS de que el contenedor sea visible
+  //   setTimeout(() => {
+  //     this.setupNeuralElementsScrollAssembly(networkContainer);
+  //   }, 100);
+  // }
 
-  private setupNeuralElementsScrollAssembly(networkContainer: HTMLElement): void {
-    if (!isPlatformBrowser(this.platformId)) return;
+  // COMENTADO: Toda la función de neural scroll assembly - usar solo AOS
+  // private setupNeuralElementsScrollAssembly(networkContainer: HTMLElement): void {
+  //   if (!isPlatformBrowser(this.platformId)) return;
 
-    // Obtener todos los elementos de la red neuronal
-    const leftNodes = networkContainer.querySelectorAll('.input-layer circle');
-    const centerNodes = networkContainer.querySelectorAll('.hidden-layer-1 circle');
-    const rightNodes = networkContainer.querySelectorAll('.hidden-layer-2 circle, .output-layer circle');
-    const connections = networkContainer.querySelectorAll('.connection');
-    const centerText = networkContainer.querySelector('.network-title');
-    const metrics = networkContainer.querySelector('.metrics-overlay');
+  //   // Obtener todos los elementos de la red neuronal
+  //   const leftNodes = networkContainer.querySelectorAll('.input-layer circle');
+  //   const centerNodes = networkContainer.querySelectorAll('.hidden-layer-1 circle');
+  //   const rightNodes = networkContainer.querySelectorAll('.hidden-layer-2 circle, .output-layer circle');
+  //   const connections = networkContainer.querySelectorAll('.connection');
+  //   const centerText = networkContainer.querySelector('.network-title');
+  //   const metrics = networkContainer.querySelector('.metrics-overlay');
 
-    // Estado para controlar si la animación ya se completó
-    let animationCompleted = false;
-    let lastProgress = -1; // Para evitar actualizaciones innecesarias
-    let animationStarted = false; // Para saber si la animación ya comenzó
+  //   // Estado para controlar si la animación ya se completó
+  //   let animationCompleted = false;
+  //   let lastProgress = -1; // Para evitar actualizaciones innecesarias
+  //   let animationStarted = false; // Para saber si la animación ya comenzó
 
-    const handleNeuralAssembly = () => {
-      // Si la animación ya se completó, no hacer nada más
-      if (animationCompleted) return;
+  //   const handleNeuralAssembly = () => {
+  //     // Si la animación ya se completó, no hacer nada más
+  //     if (animationCompleted) return;
 
-      const containerRect = networkContainer.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+  //     const containerRect = networkContainer.getBoundingClientRect();
+  //     const windowHeight = window.innerHeight;
       
-      // Verificar si el contenedor es visible (al menos un 20% visible)
-      const containerTop = containerRect.top;
-      const containerBottom = containerRect.bottom;
-      const containerHeight = containerRect.height;
+  //     // Verificar si el contenedor es visible (al menos un 20% visible)
+  //     const containerTop = containerRect.top;
+  //     const containerBottom = containerRect.bottom;
+  //     const containerHeight = containerRect.height;
       
-      // El contenedor es visible si su parte inferior está arriba del viewport
-      // y su parte superior está debajo del viewport
-      const isVisible = containerBottom > windowHeight * 0.2 && containerTop < windowHeight * 0.8;
+  //     // El contenedor es visible si su parte inferior está arriba del viewport
+  //     // y su parte superior está debajo del viewport
+  //     const isVisible = containerBottom > windowHeight * 0.2 && containerTop < windowHeight * 0.8;
       
-      if (!isVisible) {
-        // Si no es visible, no hacer nada
-        return;
-      }
+  //     if (!isVisible) {
+  //       // Si no es visible, no hacer nada
+  //       return;
+  //     }
       
-      // Si es la primera vez que es visible, marcar como iniciado
-      if (!animationStarted) {
-        animationStarted = true;
-      }
+  //     // Si es la primera vez que es visible, marcar como iniciado
+  //     if (!animationStarted) {
+  //       animationStarted = true;
+  //     }
       
-      // Calcular el progreso basado en la posición del contenedor
-      let progress = 0;
+  //     // Calcular el progreso basado en la posición del contenedor
+  //     let progress = 0;
       
-      // Punto donde empieza la animación (cuando el contenedor está 80% abajo en la pantalla)
-      const startPoint = windowHeight * 0.8;
-      // Punto donde termina (cuando el contenedor está 30% desde arriba)
-      const endPoint = windowHeight * 0.3;
+  //     // Punto donde empieza la animación (cuando el contenedor está 80% abajo en la pantalla)
+  //     const startPoint = windowHeight * 0.8;
+  //     // Punto donde termina (cuando el contenedor está 30% desde arriba)
+  //     const endPoint = windowHeight * 0.3;
       
-      if (containerTop > startPoint) {
-        // Aún no empezamos
-        progress = 0;
-      } else if (containerTop < endPoint) {
-        // Ya terminamos
-        progress = 1;
-      } else {
-        // Estamos en medio de la animación
-        const totalDistance = startPoint - endPoint;
-        const currentDistance = startPoint - containerTop;
-        progress = currentDistance / totalDistance;
-      }
+  //     if (containerTop > startPoint) {
+  //       // Aún no empezamos
+  //       progress = 0;
+  //     } else if (containerTop < endPoint) {
+  //       // Ya terminamos
+  //       progress = 1;
+  //     } else {
+  //       // Estamos en medio de la animación
+  //       const totalDistance = startPoint - endPoint;
+  //       const currentDistance = startPoint - containerTop;
+  //       progress = currentDistance / totalDistance;
+  //     }
       
-      // Aplicar una curva de aceleración para que se vea más natural
-      progress = this.easeInOutQuad(progress);
+  //     // Aplicar una curva de aceleración para que se vea más natural
+  //     progress = this.easeInOutQuad(progress);
       
-      // Clamp progress between 0 and 1
-      progress = Math.max(0, Math.min(1, progress));
+  //     // Clamp progress between 0 and 1
+  //     progress = Math.max(0, Math.min(1, progress));
 
-      // Solo actualizar si el progreso cambió significativamente
-      if (Math.abs(progress - lastProgress) < 0.005) return;
-      lastProgress = progress;
+  //     // Solo actualizar si el progreso cambió significativamente
+  //     if (Math.abs(progress - lastProgress) < 0.005) return;
+  //     lastProgress = progress;
 
-      // Si llegamos al 100%, marcar como completado
-      if (progress >= 0.99 && !animationCompleted) {
-        animationCompleted = true;
-        progress = 1; // Asegurar que sea exactamente 1
+  //     // Si llegamos al 100%, marcar como completado
+  //     if (progress >= 0.99 && !animationCompleted) {
+  //       animationCompleted = true;
+  //       progress = 1; // Asegurar que sea exactamente 1
         
-        // Aplicar estado final
-        this.applyFinalState(leftNodes, centerNodes, rightNodes, connections, centerText, metrics);
+  //       // Aplicar estado final
+  //       this.applyFinalState(leftNodes, centerNodes, rightNodes, connections, centerText, metrics);
         
-        // Remover el listener de scroll después de un delay
-        setTimeout(() => {
-          window.removeEventListener('scroll', throttledScroll);
-        }, 500);
+  //       // Remover el listener de scroll después de un delay
+  //       setTimeout(() => {
+  //         window.removeEventListener('scroll', throttledScroll);
+  //       }, 500);
         
-        return;
-      }
+  //       return;
+  //     }
 
-      // Aplicar las transformaciones basadas en el progreso
-      this.updateNeuralAssembly(leftNodes, centerNodes, rightNodes, connections, centerText, metrics, progress);
-    };
+  //     // Aplicar las transformaciones basadas en el progreso
+  //     this.updateNeuralAssembly(leftNodes, centerNodes, rightNodes, connections, centerText, metrics, progress);
+  //   };
 
-    // Event listener optimizado para scroll
-    let ticking = false;
-    const throttledScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleNeuralAssembly();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
+  //   // Event listener optimizado para scroll
+  //   let ticking = false;
+  //   const throttledScroll = () => {
+  //     if (!ticking) {
+  //       requestAnimationFrame(() => {
+  //         handleNeuralAssembly();
+  //         ticking = false;
+  //       });
+  //       ticking = true;
+  //     }
+  //   };
 
-    window.addEventListener('scroll', throttledScroll, { passive: true });
+  //   window.addEventListener('scroll', throttledScroll, { passive: true });
     
-    // También verificar al inicio por si ya está visible
-    setTimeout(() => {
-      handleNeuralAssembly();
-    }, 100);
+  //   // También verificar al inicio por si ya está visible
+  //   setTimeout(() => {
+  //     handleNeuralAssembly();
+  //   }, 100);
 
-    // Limpiar el listener cuando el componente se destruya
-    this.scrollListeners = this.scrollListeners || [];
-    this.scrollListeners.push(() => {
-      window.removeEventListener('scroll', throttledScroll);
-    });
-  }
+  //   // Limpiar el listener cuando el componente se destruya
+  //   this.scrollListeners = this.scrollListeners || [];
+  //   this.scrollListeners.push(() => {
+  //     window.removeEventListener('scroll', throttledScroll);
+  //   });
+  // }
 
   // Nueva función de easing más suave
   private easeInOutQuad(t: number): number {
@@ -537,16 +539,18 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private setDisassembledPositions(leftNodes: NodeListOf<Element>, centerNodes: NodeListOf<Element>, rightNodes: NodeListOf<Element>, connections: NodeListOf<Element>, centerText: Element | null, metrics: Element | null): void {
     // Nodos izquierdos - muy lejos a la izquierda
-    leftNodes.forEach((node, index) => {
+    leftNodes.forEach((node) => {
       const htmlNode = node as HTMLElement;
+      const index = Array.from(leftNodes).indexOf(node);
       htmlNode.style.transform = `translateX(-400px) translateY(${-100 + index * 50}px) rotate(${Math.random() * 360}deg) scale(0.3)`;
       htmlNode.style.opacity = '0.2';
       htmlNode.style.transition = 'all 0.1s ease-out';
     });
 
     // Nodos centrales - dispersos arriba y abajo
-    centerNodes.forEach((node, index) => {
+    centerNodes.forEach((node) => {
       const htmlNode = node as HTMLElement;
+      const index = Array.from(centerNodes).indexOf(node);
       const randomY = index % 2 === 0 ? -200 : 200;
       const randomX = (Math.random() - 0.5) * 300;
       htmlNode.style.transform = `translateX(${randomX}px) translateY(${randomY}px) rotate(${Math.random() * 360}deg) scale(0.2)`;
@@ -555,15 +559,16 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     // Nodos derechos - muy lejos a la derecha
-    rightNodes.forEach((node, index) => {
+    rightNodes.forEach((node) => {
       const htmlNode = node as HTMLElement;
+      const index = Array.from(rightNodes).indexOf(node);
       htmlNode.style.transform = `translateX(400px) translateY(${-80 + index * 60}px) rotate(${Math.random() * 360}deg) scale(0.4)`;
       htmlNode.style.opacity = '0.3';
       htmlNode.style.transition = 'all 0.1s ease-out';
     });
 
     // Conexiones - invisibles y deformadas
-    connections.forEach((connection, index) => {
+    connections.forEach((connection) => {
       const htmlConnection = connection as HTMLElement;
       htmlConnection.style.opacity = '0';
       htmlConnection.style.strokeDasharray = '20 10';
@@ -589,41 +594,39 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  private updateNeuralAssembly(leftNodes: NodeListOf<Element>, centerNodes: NodeListOf<Element>, rightNodes: NodeListOf<Element>, connections: NodeListOf<Element>, centerText: Element | null, metrics: Element | null, progress: number): void {
-  
-    // Animar nodos izquierdos hacia sus posiciones finales
-    leftNodes.forEach((node, index) => {
-      const htmlNode = node as HTMLElement;
-        htmlNode.style.transform = 'translateX(0) translateY(0) rotate(0deg) scale(1)';
-        htmlNode.style.opacity = '1';
-      
-    });
-  
-    // Similar para los demás nodos... (el resto del código con los mismos cambios)
-  }
+  // COMENTADO: Función updateNeuralAssembly no se usa con el nuevo sistema AOS
+  // private updateNeuralAssembly(leftNodes: NodeListOf<Element>, centerNodes: NodeListOf<Element>, rightNodes: NodeListOf<Element>, connections: NodeListOf<Element>, centerText: Element | null, metrics: Element | null, progress: number): void {
+  //   // Animar nodos izquierdos hacia sus posiciones finales
+  //   leftNodes.forEach((node) => {
+  //     const htmlNode = node as HTMLElement;
+  //     htmlNode.style.transform = 'translateX(0) translateY(0) rotate(0deg) scale(1)';
+  //     htmlNode.style.opacity = '1';
+  //   });
+  // }
 
 
   private scrollListeners: (() => void)[] = [];
 
-  private ensureElementsVisible(): void {
-    // Asegurar que descripción y botones sean visibles
-    const description = this.elementRef.nativeElement.querySelector('.hero-description');
-    const buttons = this.elementRef.nativeElement.querySelector('.hero-buttons');
+  // COMENTADO: Función para asegurar elementos visibles - usar solo AOS
+  // private ensureElementsVisible(): void {
+  //   // Asegurar que descripción y botones sean visibles
+  //   const description = this.elementRef.nativeElement.querySelector('.hero-description');
+  //   const buttons = this.elementRef.nativeElement.querySelector('.hero-buttons');
     
-    if (description) {
-      description.style.opacity = '1';
-      description.style.visibility = 'visible';
-      description.style.display = 'block';
-      description.classList.add('show');
-    }
+  //   if (description) {
+  //     description.style.opacity = '1';
+  //     description.style.visibility = 'visible';
+  //     description.style.display = 'block';
+  //     description.classList.add('show');
+  //   }
     
-    if (buttons) {
-      buttons.style.opacity = '1';
-      buttons.style.visibility = 'visible';
-      buttons.style.display = 'flex';
-      buttons.classList.add('show');
-    }
-  }
+  //   if (buttons) {
+  //     buttons.style.opacity = '1';
+  //     buttons.style.visibility = 'visible';
+  //     buttons.style.display = 'flex';
+  //     buttons.classList.add('show');
+  //   }
+  // }
 
  
 
@@ -686,22 +689,39 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     };
   }
 
-  private update3DTilt(): void {
-    const heroContent = this.elementRef.nativeElement.querySelector('.hero-content');
-    if (!heroContent) return;
+  // COMENTADO: Función de movimiento 3D desactivada - contenedor con inclinación fija
+  // private update3DTilt(): void {
+  //   const heroContent = this.elementRef.nativeElement.querySelector('.hero-content');
+  //   if (!heroContent) return;
 
-    const rect = heroContent.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
+  //   const rect = heroContent.getBoundingClientRect();
+  //   const centerX = rect.left + rect.width / 2;
+  //   const centerY = rect.top + rect.height / 2;
 
-    const deltaX = (this.mouseX - centerX) / (rect.width / 2);
-    const deltaY = (this.mouseY - centerY) / (rect.height / 2);
+  //   const deltaX = (this.mouseX - centerX) / (rect.width / 2);
+  //   const deltaY = (this.mouseY - centerY) / (rect.height / 2);
 
-    const tiltX = deltaY * 5;
-    const tiltY = deltaX * -5;
+  //   // Ajustar inclinación base según tamaño de pantalla
+  //   const screenWidth = window.innerWidth;
+  //   let baseTiltX = 8; // Escritorio
+  //   let perspective = 1200;
+  //   let tiltMultiplier = 3;
+    
+  //   if (screenWidth <= 480) {
+  //     baseTiltX = 3;
+  //     perspective = 600;
+  //     tiltMultiplier = 1.5;
+  //   } else if (screenWidth <= 768) {
+  //     baseTiltX = 5;
+  //     perspective = 800;
+  //     tiltMultiplier = 2;
+  //   }
 
-    heroContent.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(0)`;
-  }
+  //   const tiltX = baseTiltX + (deltaY * tiltMultiplier);
+  //   const tiltY = deltaX * -tiltMultiplier;
+
+  //   heroContent.style.transform = `perspective(${perspective}px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(0)`;
+  // }
 
   private setupFloatingElements(): void {
     if (!isPlatformBrowser(this.platformId) || this.isReducedMotion) return;

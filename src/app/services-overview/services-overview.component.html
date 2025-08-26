@@ -20,36 +20,49 @@
   </svg>
   
   <div class="section-container">
-    <!-- Título con referencia para la animación letra por letra -->
-    <h2 class="section-title" #titleContainer></h2>
-    <p class="section-subtitle fade-in delay-1">
+    <!-- Título mejorado con Tailwind y AOS -->
+    <h2 class="section-title text-center font-bold text-white mb-4" 
+        #titleContainer 
+        data-aos="fade-up">
+      <span class="block sm:inline">Nuestros</span>
+      <span class="block sm:inline sm:ml-3 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Servicios</span>
+    </h2>
+    <p class="section-subtitle text-center text-gray-300 mb-16 max-w-2xl mx-auto"
+       data-aos="fade-up" data-aos-delay="200">
       <span *ngIf="!mostrarServicio()">Soluciones inteligentes para desafíos empresariales modernos</span>
       <span *ngIf="mostrarServicio()">Tecnología inteligente al servicio de tu negocio</span>
     </p>
     
     <div class="services-grid" [ngClass]="{'expanded-grid': mostrarServicio()}">
       <!-- Servicio 1: Análisis Avanzado de Datos -->
-      <div class="service-card fade-in delay-2" [ngClass]="{'detail-card': mostrarServicio()}" data-aos="fade-right">
+      <div class="service-card" [ngClass]="{'detail-card': mostrarServicio()}" 
+           data-aos="zoom-in-down" data-aos-delay="300">
         <div class="service-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
             <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
           </svg>
         </div>
-        <h3 class="service-title">Análisis Avanzado de Datos</h3>
+        <h3 class="service-title ">Análisis Avanzado de Datos</h3>
         <div class="service-features">
           <p>• Minería de datos y reportes ejecutivos</p>
           <p>• Modelos de machine learning personalizados</p>
           <p>• Evaluación de riesgos con modelos predictivos y de clasificación</p>
         </div>
-        <a class="service-link" routerLink="/servicios" (click)="returnToView()" *ngIf="!mostrarServicio()">
+        <a class="service-link" 
+           routerLink="/servicios" 
+           (click)="returnToView()" 
+           *ngIf="!mostrarServicio()">
           <span>Ver más</span>
         </a>
-        <button class="service-action-button" *ngIf="mostrarServicio()"a (click)="openTechDialog('Análisis Avanzado de Datos')">Solicitar Consulta</button>
+        <button class="service-action-button" 
+                *ngIf="mostrarServicio()" 
+                (click)="openTechDialog('Análisis Avanzado de Datos')">Solicitar Consulta</button>
       </div>
       
       <!-- Servicio 2: Soluciones basadas en IA -->
-      <div class="service-card fade-in delay-2" [ngClass]="{'detail-card': mostrarServicio()}" data-aos="fade-up">
+      <div class="service-card" [ngClass]="{'detail-card': mostrarServicio()}" 
+           data-aos="zoom-in" data-aos-delay="500">
         <div class="service-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
@@ -64,14 +77,20 @@
           <p>• Asistentes virtuales y bots inteligentes</p>
           <p>• Optimización de operaciones logísticas</p>
         </div>
-        <a class="service-link" routerLink="/servicios" (click)="returnToView()" *ngIf="!mostrarServicio()">
+        <a class="service-link" 
+           routerLink="/servicios" 
+           (click)="returnToView()" 
+           *ngIf="!mostrarServicio()">
           <span>Ver más</span>
         </a>
-        <button class="service-action-button" *ngIf="mostrarServicio()" (click)="openTechDialog('Soluciones Basadas en IA')">Solicitar Consulta</button>
+        <button class="service-action-button" 
+                *ngIf="mostrarServicio()" 
+                (click)="openTechDialog('Soluciones Basadas en IA')">Solicitar Consulta</button>
       </div>
       
       <!-- Servicio 3: Big Data y Visualización -->
-      <div class="service-card fade-in delay-3" [ngClass]="{'detail-card': mostrarServicio()}" data-aos="fade-left">
+      <div class="service-card" [ngClass]="{'detail-card': mostrarServicio()}" 
+           data-aos="fade-left" data-aos-delay="700">
         <div class="service-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -85,14 +104,20 @@
           <p>• Integración con Power BI y Tableau</p>
           <p>• Visualización avanzada de hallazgos clave</p>
         </div>
-        <a class="service-link" routerLink="/servicios" (click)="returnToView()" *ngIf="!mostrarServicio()">
+        <a class="service-link" 
+           routerLink="/servicios" 
+           (click)="returnToView()" 
+           *ngIf="!mostrarServicio()">
           <span>Ver más</span>
         </a>
-        <button class="service-action-button" *ngIf="mostrarServicio()" (click)="openTechDialog('Big Data y Visualización')">Solicitar Consulta</button>
+        <button class="service-action-button" 
+                *ngIf="mostrarServicio()" 
+                (click)="openTechDialog('Big Data y Visualización')">Solicitar Consulta</button>
       </div>
       
       <!-- Servicio 4: Desarrollo de Software - Solo visible cuando mostrarServicio es true -->
-      <div class="service-card fade-in delay-3 detail-card" *ngIf="mostrarServicio()" data-aos="flip-left">
+      <div class="service-card detail-card" *ngIf="mostrarServicio()" 
+           data-aos="zoom-in" data-aos-delay="300">
         <div class="service-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="16 18 22 12 16 6"></polyline>
@@ -105,11 +130,13 @@
           <p>• Soluciones en computación avanzada</p>
           <p>• Sistemas automatizados para gestión</p>
         </div>
-        <button class="service-action-button" (click)="openTechDialog('Desarrollo de Software')">Solicitar Consulta</button>
+        <button class="service-action-button" 
+                (click)="openTechDialog('Desarrollo de Software')">Solicitar Consulta</button>
       </div>
       
       <!-- Servicio 5: Investigación y Desarrollo - Solo visible cuando mostrarServicio es true -->
-      <div class="service-card fade-in delay-4 detail-card" *ngIf="mostrarServicio()" data-aos="flip-right">
+      <div class="service-card detail-card" *ngIf="mostrarServicio()" 
+           data-aos="zoom-in" data-aos-delay="500">
         <div class="service-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
@@ -122,11 +149,13 @@
           <p>• Proyectos experimentales y de desarrollo en IA</p>
           <p>• Colaboraciones con la academia y la industria</p>
         </div>
-        <button class="service-action-button" (click)="openTechDialog('Investigación y Desarrollo')">Solicitar Consulta</button>
+        <button class="service-action-button" 
+                (click)="openTechDialog('Investigación y Desarrollo')">Solicitar Consulta</button>
       </div>
       
       <!-- Servicio 6: Finanzas y Economía - Solo visible cuando mostrarServicio es true -->
-      <div class="service-card fade-in delay-4 detail-card" *ngIf="mostrarServicio()" data-aos="zoom-in-up">
+      <div class="service-card detail-card" *ngIf="mostrarServicio()" 
+           data-aos="fade-left" data-aos-delay="700">
         <div class="service-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="1" x2="12" y2="23"></line>
@@ -140,19 +169,22 @@
           <p>• Análisis actuarial</p>
           <p>• Valoración de activos</p>
         </div>
-        <button class="service-action-button" (click)="openTechDialog('Servicios Financieros')">Solicitar Consulta</button>
+        <button class="service-action-button" 
+                (click)="openTechDialog('Servicios Financieros')">Solicitar Consulta</button>
       </div>
     </div>
     
     <!-- CTA Container - Versión diferente según el estado -->
-    <div class="cta-container fade-in delay-4" *ngIf="!mostrarServicio()" data-aos="fade-up">
+    <div class="cta-container" *ngIf="!mostrarServicio()" 
+         data-aos="fade-up" >
       <h3 class="cta-title">¿Necesitas una solución personalizada?</h3>
       <p class="cta-text">Contáctanos para recibir asesoría especializada para tu empresa</p>
       <button class="cta-button" routerLink="/servicios" (click)="returnToView()">Ver todos los servicios</button>
     </div>
     
     <!-- CTA Container alternativo cuando se muestran todos los servicios -->
-    <div class="cta-container expanded-cta" *ngIf="mostrarServicio()" data-aos="fade-up">
+    <div class="cta-container expanded-cta" *ngIf="mostrarServicio()" 
+         data-aos="fade-up" >
       <div class="cta-background-element"></div>
       <h3 class="cta-title">Tecnología de punta al servicio de tu negocio</h3>
       <p class="cta-text">Nuestro equipo de expertos está listo para asesorarte y encontrar la mejor solución a tus necesidades</p>

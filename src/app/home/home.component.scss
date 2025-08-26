@@ -159,6 +159,10 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   border-radius: 24px;
   position: relative;
   transform-style: preserve-3d;
+  // Efecto 3D uniforme - 45 grados en todas las pantallas
+  perspective: 600px;
+  transform-origin: top center;
+  transform: rotateX(45deg);
   transition: all 0.3s $animation-timing;
   
   &::before {
@@ -179,13 +183,19 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     z-index: -1;
   }
   
-  &:hover::before {
-    opacity: 1;
+  &:hover {
+    // Efecto hover sutil que mantiene la inclinación
+    transform: rotateX(40deg) translateZ(20px);
+    
+    &::before {
+      opacity: 1;
+    }
   }
   
-  &.revealed {
-    animation: heroContentReveal 1.5s $bounce-timing forwards;
-  }
+  // COMENTADO: Animación revealed de scroll reveal manual - usar solo AOS
+  // &.revealed {
+  //   animation: heroContentReveal 1.5s $bounce-timing forwards;
+  // }
 }
 
 // Enhanced logo container with particle effects
@@ -236,11 +246,13 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
 // Enhanced title with advanced typewriter effect
 .hero-title {
-  font-size: 3.5rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 2.5rem !important;
   font-weight: 800;
   background: $primary-gradient;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 2px transparent;
   line-height: 1.2;
   margin-bottom: 1.5rem;
   position: relative;
@@ -576,18 +588,18 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 
-// Enhanced scroll reveal animations
-.scroll-reveal {
-  opacity: 0;
-  transform: translateY(60px) rotateX(10deg);
-  transition: all 1.2s $animation-timing;
-  will-change: opacity, transform;
+// COMENTADO: Animaciones de scroll reveal manual - usar solo AOS
+// .scroll-reveal {
+//   opacity: 0;
+//   transform: translateY(60px) rotateX(10deg);
+//   transition: all 1.2s $animation-timing;
+//   will-change: opacity, transform;
   
-  &.revealed {
-    opacity: 1;
-    transform: translateY(0) rotateX(0deg);
-  }
-}
+//   &.revealed {
+//     opacity: 1;
+//     transform: translateY(0) rotateX(0deg);
+//   }
+// }
 
 
 // Enhanced responsive design
@@ -598,7 +610,7 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
   
   .hero-title {
-    font-size: 3rem;
+    font-size: 1.5rem !important;
   }
   
   .glow {
@@ -624,6 +636,7 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   .hero-content {
     padding: 2rem 1.5rem;
     border-radius: 16px;
+    // Misma inclinación en tablets
   }
   
   .hero-title {
@@ -672,6 +685,7 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   
   .hero-content {
     padding: 1.5rem 1rem;
+    // Misma inclinación en móviles
   }
   
   .hero-logo {
@@ -704,10 +718,11 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     animation: none;
   }
   
-  .scroll-reveal {
-    opacity: 1;
-    transform: none;
-  }
+  // COMENTADO: scroll-reveal en reduced motion - usar solo AOS
+  // .scroll-reveal {
+  //   opacity: 1;
+  //   transform: none;
+  // }
 }
 
 // High contrast mode support
@@ -1288,15 +1303,16 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
 // Intersection observer fallback
 .no-intersection-observer {
-  .scroll-reveal {
-    opacity: 1;
-    transform: none;
-  }
+  // COMENTADO: Clases de scroll reveal manual - usar solo AOS
+  // .scroll-reveal {
+  //   opacity: 1;
+  //   transform: none;
+  // }
   
-  .sequential-fade {
-    opacity: 1;
-    transform: none;
-  }
+  // .sequential-fade {
+  //   opacity: 1;
+  //   transform: none;
+  // }
 }
 
 // GPU acceleration optimizations
@@ -1663,9 +1679,10 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     opacity: 1;
   }
   
-  &.revealed {
-    animation: heroContentReveal 1.5s $bounce-timing forwards;
-  }
+  // COMENTADO: Animación revealed de scroll reveal manual - usar solo AOS
+  // &.revealed {
+  //   animation: heroContentReveal 1.5s $bounce-timing forwards;
+  // }
 }// Enhanced neural network with 3D depth
 .neural-network-container {
   width: 100%;
@@ -1716,12 +1733,10 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     opacity: 1;
   }
 }
-h1{
-  font-size: 2.5rem;
-  font-weight: 700;
+
+.animate__animated.animate__flipInX{
+  --animate-duration: 4s;
 }
-.hero-title{
-  font-size: 1.8rem !important;
-  font-weight: 700 !important;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif !important;
+.animate__animated.animate__rotateInUpRight{
+  --animate-duration:3s;
 }

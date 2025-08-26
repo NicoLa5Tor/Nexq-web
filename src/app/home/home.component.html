@@ -1,7 +1,7 @@
 <!-- Enhanced home.component.html with parallax and advanced animations -->
 <div class="glow-cursor"></div>
 
-<section class="hero-section">
+<section class="hero-section" >
   <!-- Enhanced background with multiple parallax layers -->
   <div class="hero-background">
     <div class="hero-radial-bg"></div>
@@ -12,10 +12,10 @@
   </div>
   
   <!-- Enhanced hero content with 3D tilt effects -->
-  <div class="hero-content scroll-reveal" data-aos="fade-up">
+  <div class="hero-content" data-aos="fade-up" >
     <!-- Logo section with particle effects -->
     <div class="hero-header">
-      <div class="hero-logo-container fade-in">
+      <div class="hero-logo-container">
         <!-- Enhanced animated logo with ripple effects -->
         <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="hero-logo">
           <!-- Enhanced gradients with more depth -->
@@ -79,17 +79,17 @@
       </div>
       
       <!-- Enhanced title with typewriter effect -->
-      <h1 class="hero-title" data-aos="fade-down">Transforma Tus Datos En
-Decisiones Estratégicas</h1>
+      <h1 class="hero-title animate__animated animate__flipInX">Transforma Tus Datos En</h1>
+      <h1 class="hero-title  animate__animated animate__lightSpeedInRight"  ><span> Decisiones</span> Estratégicas</h1>
     </div>
     
     <!-- Description original -->
-    <p class="hero-description sequential-fade" data-aos="fade-up">
+    <p class="hero-description animate__animated animate__slideInUp animate__delay-2s" >
       Consultoría en Matemáticas, Estadística e Inteligencia Artificial para optimizar procesos, analizar información y potenciar la innovación en tu empresa.
     </p>
     
     <!-- Botones originales con efectos mejorados -->
-    <div class="hero-buttons sequential-fade" data-aos="zoom-in">
+    <div class="hero-buttons" data-aos="zoom-in">
       <button (click)="scrollTo('servicios')" class="cta-button">Solicitar Consultoría</button>
       <button (click)="scrollTo('soluciones')" class="secondary-button">Conocer Soluciones</button>
     </div>
@@ -280,7 +280,7 @@ Decisiones Estratégicas</h1>
 
 <!-- Enhanced component sections with immersive transitions -->
 <div id="servicios" class="immersive-section">
-  <app-services-overview data-aos="fade-right" data-aos-delay="800"></app-services-overview>
+  <app-services-overview data-aos="fade-up" ></app-services-overview>
 </div>
 
 <div class="immersive-section">

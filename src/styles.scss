@@ -1,3 +1,6 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 @import '~aos/dist/aos.css';
 
 /* Variables globales */
@@ -77,7 +80,7 @@ app-root {
   overflow-y: visible;
 }
 
-/* Animaciones globales */
+/* COMENTADO: Animaciones globales de scroll reveal manual - usar solo AOS
 @keyframes fadeIn {
   0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
@@ -92,6 +95,7 @@ app-root {
 .delay-2 { animation-delay: 0.4s; }
 .delay-3 { animation-delay: 0.6s; }
 .delay-4 { animation-delay: 0.8s; }
+*/
 
 /* Utilidades responsivas */
 .container {
@@ -107,7 +111,7 @@ app-root {
   }
 }
 
-/* Mejorar las clases sequential-fade para que empiezen completamente ocultas */
+/* COMENTADO: Clases sequential-fade de scroll reveal manual - usar solo AOS
 .sequential-fade {
   opacity: 0 !important;
   transform: translateY(20px) !important;
@@ -119,21 +123,23 @@ app-root {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
+*/
 
-/* Mejorar la clase scroll-reveal */
+/* COMENTADO: Clases scroll-reveal de scroll reveal manual - usar solo AOS
 .scroll-reveal {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
   will-change: opacity, transform;
-  visibility: hidden; /* Oculta elementos hasta que estén listos */
+  visibility: hidden;
 }
 
 .scroll-reveal.revealed {
   opacity: 1;
   transform: translateY(0);
-  visibility: visible; /* Hace elementos visibles cuando están listos */
+  visibility: visible;
 }
+*/
 
 /* Ocultar el efecto typewriter hasta que comience */
 .typewriter-effect {
@@ -144,16 +150,17 @@ app-root {
   visibility: visible;
 }
 
-/* Mejorar la transición de fade-in */
+/* COMENTADO: Transiciones fade-in de scroll reveal manual - usar solo AOS
 .fade-in {
   opacity: 0;
-  animation: none; /* Anula la animación hasta que estemos listos */
+  animation: none;
   will-change: opacity, transform;
 }
 
 .revealed .fade-in {
   animation: fadeIn 0.8s forwards;
 }
+*/
 
 /* Redefinir la animación fadeIn para que sea más suave */
 @keyframes fadeIn {
@@ -167,7 +174,7 @@ app-root {
   }
 }
 
-/* Para preferenciar menos animaciones */
+/* COMENTADO: Media query para scroll reveal manual - usar solo AOS
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal,
   .sequential-fade,
@@ -183,6 +190,7 @@ app-root {
     scroll-behavior: auto !important;
   }
 }
+*/
 /* Resetear comportamiento de scroll */
 html, body {
   scroll-behavior: auto !important;
@@ -356,6 +364,7 @@ html, body {
     stroke: #6e56cf !important;
   }
 }
+
 @import 'aos/dist/aos.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
