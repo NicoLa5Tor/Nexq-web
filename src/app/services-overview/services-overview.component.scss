@@ -435,8 +435,7 @@
     opacity: 1;
     transform: translateY(0);
     
-    /* Usar animación dedicada para el CTA expandido */
-    animation: fadeInCTA 0.8s ease-out forwards;
+    /* Mostrar el CTA sin animaciones para asegurar visibilidad */
     
     &::before {
       background-image: 
@@ -912,18 +911,7 @@
   opacity: 0.2;
 }
 
-@keyframes fadeInCTA {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Corregir la animación de los botones del CTA */
+/* Estilos para los botones del CTA */
 .cta-buttons-group {
   display: flex;
   justify-content: center;
@@ -931,24 +919,6 @@
   flex-wrap: wrap;
   
   .cta-button {
-    opacity: 1;
-    transform: translateY(0);
-    /* Añadir animación específica para botones */
-    animation: fadeInButton 0.6s ease-out forwards;
-    animation-delay: 0.3s;
-  }
-  
-  .cta-button.secondary {
-    animation-delay: 0.5s;
-  }
-}
-
-@keyframes fadeInButton {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
     opacity: 1;
     transform: translateY(0);
   }

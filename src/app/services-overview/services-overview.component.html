@@ -174,16 +174,14 @@
     </div>
     
     <!-- CTA Container - Versión diferente según el estado -->
-    <div class="cta-container" *ngIf="!mostrarServicio()" 
-         data-aos="fade-up" >
+    <div class="cta-container" *ngIf="!mostrarServicio()">
       <h3 class="cta-title">¿Necesitas una solución personalizada?</h3>
       <p class="cta-text">Contáctanos para recibir asesoría especializada para tu empresa</p>
       <button class="cta-button" routerLink="/servicios" (click)="returnToView()">Ver todos los servicios</button>
     </div>
     
     <!-- CTA Container alternativo cuando se muestran todos los servicios -->
-    <div class="cta-container expanded-cta" *ngIf="mostrarServicio()" 
-         data-aos="fade-up" >
+    <div class="cta-container expanded-cta" *ngIf="mostrarServicio()">
       <div class="cta-background-element"></div>
       <h3 class="cta-title">Tecnología de punta al servicio de tu negocio</h3>
       <p class="cta-text">Nuestro equipo de expertos está listo para asesorarte y encontrar la mejor solución a tus necesidades</p>
