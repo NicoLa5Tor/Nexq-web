@@ -6,7 +6,6 @@ import { ServiceService } from '../../services/service.service';
 import { ParticlesBackgroundComponent } from '../animations/particles-background/particles-background.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SendOptionsComponent } from '../send-options/send-options.component';
-import { AppointmentService } from '../../services/appointment.service';
 
 // NUEVO IMPORT PARA EL FORMULARIO TECH
 import { TechFormComponent, FormData } from '../tech-form/tech-form.component';
@@ -42,8 +41,7 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
     private serviceEstatus: ServiceService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private aos: AosService,
-    private dialog: MatDialog,
-    private appointmentService: AppointmentService
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
