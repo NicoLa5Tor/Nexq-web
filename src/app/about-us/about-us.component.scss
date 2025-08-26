@@ -1130,3 +1130,20 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .summary-card,
+  .differentiator-card,
+  .glass-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    transition: none;
+  }
+
+  .summary-card:hover,
+  .differentiator-card:hover,
+  .glass-card:hover {
+    transform: none;
+  }
+}

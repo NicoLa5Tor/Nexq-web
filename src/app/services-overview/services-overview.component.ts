@@ -29,6 +29,12 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
     'rgba(94, 137, 176, 0.3)', // azul claro
     'rgba(255, 255, 255, 0.5)' // blanco
   ];
+  isMobile = false;
+  showParticles = true;
+
+  get particleDensity(): number {
+    return this.isMobile ? 20000 : (this.mostrarServicio() ? 12000 : 8000);
+  }
 
   constructor(
     private el: ElementRef,
@@ -43,9 +49,11 @@ export class ServicesOverviewComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.mostrarServicio.set(this.serviceEstatus.getActivate());
     this.serviceEstatus.setActivate();
-    
+
     // Inicializar animaciones solo en el navegador
     if (isPlatformBrowser(this.platformId)) {
+      this.isMobile = window.innerWidth <= 768;
+      this.showParticles = !this.isMobile;
       this.initFadeInAnimations();
       this.aos.refresh();
     }

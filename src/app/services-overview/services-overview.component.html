@@ -1,9 +1,9 @@
 <section class="services-section" [ngClass]="{'services-detail-view': mostrarServicio()}">
   <!-- Nodos neurales (solo visibles en vista detallada) -->
-  <app-particles-background
+  <app-particles-background *ngIf="showParticles"
     [opacity]="0.3"
     [particleColors]="particleColors"
-    [particleDensity]="mostrarServicio() ? 12000 : 8000"
+    [particleDensity]="particleDensity"
     [maxConnectDistance]="120"
     [particleSpeed]="0.6"
   ></app-particles-background>

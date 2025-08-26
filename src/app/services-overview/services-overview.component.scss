@@ -1151,7 +1151,7 @@ cense.
  * animation scale-up-top
  * ----------------------------------------
  */
- @keyframes scale-up-top {
+@keyframes scale-up-top {
   0% {
     transform: scale(0.5);
     transform-origin: 50% 0%;
@@ -1159,5 +1159,19 @@ cense.
   100% {
     transform: scale(1);
     transform-origin: 50% 0%;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    transition: none;
+  }
+
+  .service-card::before,
+  .service-card::after {
+    display: none;
   }
 }

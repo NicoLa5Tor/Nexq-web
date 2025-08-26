@@ -237,7 +237,9 @@ export class AboutUsComponent implements OnInit, AfterViewInit, OnDestroy {
   // =================== MODO INDEX ===================
   private initIndexMode(): void {
     this.addIndexModeClasses();
-    this.initBasicAnimations();
+    if (!this.isMobile) {
+      this.initBasicAnimations();
+    }
   }
 
   private addIndexModeClasses(): void {
@@ -253,9 +255,11 @@ export class AboutUsComponent implements OnInit, AfterViewInit, OnDestroy {
   // =================== MODO PÁGINA COMPLETA ===================
   private initFullPageMode(): void {
     this.addFullPageModeClasses();
-    this.initAdvancedAnimations();
-    this.initTeamSelector();
-    this.initInteractiveElements();
+    if (!this.isMobile) {
+      this.initAdvancedAnimations();
+      this.initTeamSelector();
+      this.initInteractiveElements();
+    }
   }
 
   private addFullPageModeClasses(): void {

@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private mouseY = 0;
   private cursorTrail: HTMLElement[] = [];
   private isReducedMotion = false;
+  private hasFinePointer = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -60,6 +61,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       // Check for reduced motion preference
       this.isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      this.hasFinePointer = window.matchMedia('(pointer: fine)').matches;
       
       // Initialize scroll position
       this.scroll.scrollToPosition([0, 0]);
@@ -87,8 +89,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       // Initialize all animations with proper timing
       setTimeout(() => {
         this.initializeHeroAnimations();
-        this.setupAdvancedCursor();
-        this.setupFloatingElements();
+        if (this.hasFinePointer) {
+          this.setupAdvancedCursor();
+          this.setupFloatingElements();
+        }
       }, 100);
     }
     
@@ -132,7 +136,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @HostListener('window:mousemove', ['$event'])
   onMouseMove(event: MouseEvent): void {
-    if (!isPlatformBrowser(this.platformId) || this.isReducedMotion) return;
+    if (!isPlatformBrowser(this.platformId) || this.isReducedMotion || !this.hasFinePointer) return;
     
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
@@ -724,7 +728,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   // }
 
   private setupFloatingElements(): void {
-    if (!isPlatformBrowser(this.platformId) || this.isReducedMotion) return;
+    if (!isPlatformBrowser(this.platformId) || this.isReducedMotion || !this.hasFinePointer) return;
 
     // Create floating geometric shapes
     for (let i = 0; i < 5; i++) {
