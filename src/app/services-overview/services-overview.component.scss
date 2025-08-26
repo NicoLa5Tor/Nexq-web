@@ -51,17 +51,6 @@
   }
 }
 
-@keyframes gradientFlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
 
 .services-section {
   padding: 6rem 2rem;
@@ -125,8 +114,6 @@
     .section-title {
       background: linear-gradient(90deg, var(--nexq-blue), var(--accent-secondary), #9e77e0);
       -webkit-background-clip: text;
-      background-size: 200% 100%;
-      animation: gradientFlow 8s infinite;
     }
     
     .section-subtitle {
@@ -1174,4 +1161,8 @@ cense.
   .service-card::after {
     display: none;
   }
+}
+
+.animate__animated.animate__flipInX {
+  --animate-duration: 1s;
 }
