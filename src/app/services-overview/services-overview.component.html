@@ -20,10 +20,9 @@
   </svg>
   
   <div class="section-container">
-    <!-- Título mejorado con Tailwind y AOS -->
-    <h2 class="section-title text-center font-bold text-white mb-4" 
-        #titleContainer 
-        data-aos="fade-up">
+    <!-- Título con animación ligera -->
+    <h2 class="section-title text-center font-bold text-white mb-4 animate__animated animate__flipInX"
+        #titleContainer>
       <span class="block sm:inline">Nuestros</span>
       <span class="block sm:inline sm:ml-3 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Servicios</span>
     </h2>
@@ -175,16 +174,14 @@
     </div>
     
     <!-- CTA Container - Versión diferente según el estado -->
-    <div class="cta-container" *ngIf="!mostrarServicio()" 
-         data-aos="fade-up" >
+    <div class="cta-container fade-in" *ngIf="!mostrarServicio()">
       <h3 class="cta-title">¿Necesitas una solución personalizada?</h3>
       <p class="cta-text">Contáctanos para recibir asesoría especializada para tu empresa</p>
       <button class="cta-button" routerLink="/servicios" (click)="returnToView()">Ver todos los servicios</button>
     </div>
     
     <!-- CTA Container alternativo cuando se muestran todos los servicios -->
-    <div class="cta-container expanded-cta" *ngIf="mostrarServicio()" 
-         data-aos="fade-up" >
+    <div class="cta-container expanded-cta fade-in" *ngIf="mostrarServicio()">
       <div class="cta-background-element"></div>
       <h3 class="cta-title">Tecnología de punta al servicio de tu negocio</h3>
       <p class="cta-text">Nuestro equipo de expertos está listo para asesorarte y encontrar la mejor solución a tus necesidades</p>
