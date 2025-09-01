@@ -678,3 +678,10 @@ nav {
     -webkit-backdrop-filter: none;
   }
 }
+
+.animate__animated.animate__flipInX{
+  --animate-duration: 4s;
+}
+.animate__animated.animate__rotateInUpRight{
+  --animate-duration:3s;
+}

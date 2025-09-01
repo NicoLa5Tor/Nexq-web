@@ -1,9 +1,6 @@
-<!-- features.component.html -->
-<section class="features-section" #featuresSection>
-  <h2 class="section-title" #sectionTitle>
-    <!-- Título por defecto (siempre visible para móviles) -->
-    <span *ngIf="showDefaultTitle">{{ titleText }}</span>
-    <!-- Las letras animadas se añadirán mediante JavaScript cuando no se muestre el título por defecto -->
+<section class="features-section">
+  <h2 class="section-title text-center animate__animated animate__flipInX">
+    <span>Nuestras Soluciones de IA</span>
   </h2>
   <div class="features-grid">
     <div class="feature-card" 

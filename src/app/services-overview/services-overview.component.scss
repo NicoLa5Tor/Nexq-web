@@ -1132,6 +1132,10 @@ cense.
   }
 }
 
-.animate__animated.animate__flipInX {
-  --animate-duration: 1s;
+
+.animate__animated.animate__flipInX{
+  --animate-duration: 5s;
+}
+.animate__animated.animate__rotateInUpRight{
+  --animate-duration:3s;
 }
