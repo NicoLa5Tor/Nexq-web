@@ -13,17 +13,41 @@ $accent-glow: var(--accent-secondary);
 $animation-timing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-// Performance optimizations
-* {
+// Performance optimizations - only for high-performance devices
+.high-performance * {
   will-change: auto;
 }
 
-.hero-section {
+.high-performance .hero-section {
   will-change: transform;
   transform: translateZ(0);
 }
 
-// Enhanced Hero Section with 3D depth
+// Low-performance device optimizations - only for home component
+.low-performance {
+  .home-component * {
+    will-change: auto !important;
+  }
+  
+  .floating-elements,
+  .glow-cursor,
+  .data-particle {
+    display: none !important;
+  }
+  
+  .hero-background::before,
+  .hero-background::after {
+    animation: none !important;
+  }
+  
+  .glow {
+    opacity: 0.1 !important;
+    filter: none !important;
+    animation: none !important;
+  }
+}
+
+// Simplified Hero Section
 .hero-section {
   min-height: 100vh;
   display: flex;
@@ -32,8 +56,6 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   padding: calc(var(--nav-height) + 2rem) 2rem 5rem;
   position: relative;
   overflow: hidden;
-  perspective: 2000px;
-  transform-style: preserve-3d;
 }
 
 // Enhanced background with multiple layers and parallax
@@ -42,10 +64,9 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   top: 0;
   left: 0;
   width: 100%;
-  height: 120%; // Extended for parallax effect
+  height: 120%;
   z-index: -1;
   overflow: hidden;
-  transform-style: preserve-3d;
   
   &::before {
     content: "";
@@ -58,8 +79,8 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
       linear-gradient(0deg, rgba(10, 10, 15, 0.6) 0%, rgba(10, 10, 15, 0.6) 100%),
       repeating-linear-gradient(0deg, rgba(94, 137, 176, 0.03) 0px, rgba(94, 137, 176, 0.03) 1px, transparent 1px, transparent 12px),
       repeating-linear-gradient(90deg, rgba(94, 137, 176, 0.03) 0px, rgba(94, 137, 176, 0.03) 1px, transparent 1px, transparent 12px);
-    backdrop-filter: blur(80px);
-    -webkit-backdrop-filter: blur(80px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     opacity: 0.9;
     z-index: -1;
     animation: gridFlow 20s linear infinite;
@@ -104,10 +125,8 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 .glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.2;
+  opacity: 0.1;
   z-index: -3;
-  animation: float 8s ease-in-out infinite;
   
   &:nth-child(1) {
     width: 300px;
@@ -137,7 +156,7 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 
-// Enhanced hero content with 3D effects
+// Enhanced hero content with conditional 3D effects
 .hero-content {
   max-width: 1200px;
   width: 100%;
@@ -148,22 +167,22 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   text-align: center;
   z-index: 1;
   background: rgba(10, 10, 15, 0.85);
-  backdrop-filter: blur(100px);
-  -webkit-backdrop-filter: blur(100px);
-  box-shadow: 
-    0 25px 60px rgba(0, 0, 0, 0.3),
-    0 8px 25px rgba(94, 137, 176, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(94, 137, 176, 0.2);
   padding: 3rem 2rem;
   border-radius: 24px;
   position: relative;
-  transform-style: preserve-3d;
-  // Efecto 3D uniforme - 45 grados en todas las pantallas
-  perspective: 600px;
-  transform-origin: top center;
-  transform: rotateX(45deg);
-  transition: all 0.3s $animation-timing;
+  
+  // Simplified effects for all devices
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  
+  // Even simpler on mobile
+  @media (max-width: 768px) {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  }
   
   &::before {
     content: '';
@@ -229,19 +248,13 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 
-// Enhanced logo with advanced animations
+// Simplified logo - no hover effects
 .hero-logo {
   width: 120px;
   height: 120px;
   position: relative;
   z-index: 2;
   filter: drop-shadow(0 10px 30px rgba(94, 137, 176, 0.4));
-  transition: all 0.3s $animation-timing;
-  
-  &:hover {
-    transform: scale(1.1) rotateY(15deg);
-    filter: drop-shadow(0 15px 40px rgba(94, 137, 176, 0.6));
-  }
 }
 
 // Enhanced title with advanced typewriter effect
@@ -1122,8 +1135,43 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
 // Enhanced responsive design for new elements
 @media (max-width: 768px) {
-  .floating-elements {
-    display: none; // Hide floating elements on mobile for performance
+  // AGGRESSIVE mobile optimizations - kill all expensive effects
+  .floating-elements,
+  .glow-cursor,
+  .data-particle {
+    display: none !important;
+  }
+  
+  .hero-background::before,
+  .hero-background::after {
+    animation: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  
+  .glow {
+    display: none !important;
+  }
+  
+  .hero-content {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    transform: none !important;
+    transform-style: initial !important;
+    perspective: none !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+  }
+  
+  .neural-network-container {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+  
+  * {
+    will-change: auto !important;
+    transform-style: initial !important;
   }
   
   .scroll-indicators {
@@ -1155,16 +1203,44 @@ $bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 @media (max-width: 480px) {
-  .scroll-indicators {
-    display: none; // Hide scroll indicators on very small screens
+  // ULTRA-lightweight mode - eliminate ALL expensive effects
+  .scroll-indicators,
+  .parallax-section::before,
+  .neural-network-svg .metrics-overlay,
+  .hero-logo-container::before,
+  .hero-logo-container::after,
+  .glow,
+  .floating-elements {
+    display: none !important;
   }
   
-  .parallax-section::before {
-    display: none; // Remove overlay for better performance
+  .hero-content {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(10, 10, 15, 0.95) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    padding: 1.5rem 1rem !important;
+    transform: none !important;
+    perspective: none !important;
   }
   
-  .neural-network-svg .metrics-overlay {
-    display: none; // Hide metrics on small screens
+  .neural-network-container {
+    background: rgba(18, 18, 24, 0.9) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+    
+    &::before,
+    &::after {
+      display: none !important;
+    }
+  }
+  
+  .hero-background {
+    background: rgba(10, 10, 15, 0.95) !important;
+    
+    &::before,
+    &::after {
+      display: none !important;
+    }
   }
 }
 

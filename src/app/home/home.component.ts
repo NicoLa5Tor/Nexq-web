@@ -11,6 +11,7 @@ import { ReverseParallaxComponent } from '../animations/reverse-parallax/reverse
 import { gsap } from 'gsap';
 import { AosService } from '../../services/aos.service';
 import { ActivatedRoute } from '@angular/router';
+import { ChatbotComponent } from '../chatbot/chatbot.component';
 
 // gsap.registerPlugin(ScrollTrigger); // COMENTADO: ScrollTrigger no se usa
 interface ParallaxElement {
@@ -29,11 +30,13 @@ interface ParallaxElement {
     AboutUsComponent,
     ContactComponent,
     FeaturesComponent,
-    ReverseParallaxComponent
+    ReverseParallaxComponent,
+    ChatbotComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  host: { 'class': 'home-component' }
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('svgContainer', { static: true }) svgContainer!: ElementRef;
@@ -47,6 +50,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private cursorTrail: HTMLElement[] = [];
   private isReducedMotion = false;
   private hasFinePointer = false;
+  
+  // Performance flags
+  private isMobile = false;
+  private isLowEndDevice = false;
+  private hasGoodPerformance = true;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -59,18 +67,16 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Check for reduced motion preference
-      this.isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      this.hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+      // Enhanced device and performance detection
+      this.detectDeviceCapabilities();
       
       // Initialize scroll position
       this.scroll.scrollToPosition([0, 0]);
       
-      // Setup performance optimizations
+      // Setup performance optimizations based on device capabilities
       this.setupPerformanceOptimizations();
     }
     this.aos.refresh();
-
   }
   
   ngAfterViewInit(): void {
@@ -86,13 +92,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   
     if (isPlatformBrowser(this.platformId)) {
-      // Initialize all animations with proper timing
+      // Initialize animations based on device capabilities
       setTimeout(() => {
         this.initializeHeroAnimations();
-        if (this.hasFinePointer) {
-          this.setupAdvancedCursor();
-          this.setupFloatingElements();
-        }
+        
+        // REMOVED: advanced cursor and floating elements - not visible and performance hogs
       }, 100);
     }
     
@@ -104,8 +108,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.rafId) {
         cancelAnimationFrame(this.rafId);
       }
+      
       // Clean up cursor trail
       this.cursorTrail.forEach(element => element.remove());
+      this.cursorTrail = [];
       
       // Clean up scroll listeners
       if (this.scrollListeners) {
@@ -115,18 +121,21 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       
       // Remove event listeners
       document.removeEventListener('mousemove', this.handleMouseMove);
+      
+      // Remove performance class from this component
+      this.elementRef.nativeElement.classList.remove('high-performance', 'low-performance');
     }
   }
 
   @HostListener('window:scroll', ['$event'])
   onScroll(): void {
-    if (!isPlatformBrowser(this.platformId) || this.isReducedMotion) return;
+    if (!isPlatformBrowser(this.platformId) || !this.hasGoodPerformance) return;
     
     this.scrollY = window.pageYOffset;
     
     if (!this.ticking) {
       requestAnimationFrame(() => {
-        this.updateFloatingElements();
+        // REMOVED: updateFloatingElements() call
         this.ticking = false;
       });
       this.ticking = true;
@@ -136,31 +145,41 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @HostListener('window:mousemove', ['$event'])
   onMouseMove(event: MouseEvent): void {
-    if (!isPlatformBrowser(this.platformId) || this.isReducedMotion || !this.hasFinePointer) return;
+    if (!isPlatformBrowser(this.platformId) || !this.hasGoodPerformance || !this.hasFinePointer) return;
     
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
     
-    // COMENTADO: Update 3D tilt effects - contenedor con inclinación fija
-    // this.update3DTilt();
+    // REMOVED: updateCursorTrail(event) call - not visible
+  }
+
+  private detectDeviceCapabilities(): void {
+    // Screen size detection
+    this.isMobile = window.innerWidth <= 768;
     
-    // Update cursor trail
-    this.updateCursorTrail(event);
+    // Performance detection
+    this.isLowEndDevice = navigator.hardwareConcurrency <= 4;
+    this.isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+    
+    // Overall performance assessment
+    this.hasGoodPerformance = !this.isMobile && !this.isLowEndDevice && !this.isReducedMotion;
+    
+    // Log performance flags for debugging
+    console.log('Performance flags:', {
+      isMobile: this.isMobile,
+      isLowEndDevice: this.isLowEndDevice,
+      hasGoodPerformance: this.hasGoodPerformance,
+      isReducedMotion: this.isReducedMotion
+    });
   }
 
   private setupPerformanceOptimizations(): void {
-    // Enable hardware acceleration for key elements
-    const heroContent = this.elementRef.nativeElement.querySelector('.hero-content');
-    if (heroContent) {
-      this.renderer.setStyle(heroContent, 'transform', 'translateZ(0)');
-      this.renderer.setStyle(heroContent, 'will-change', 'transform');
-    }
-
-    // Optimize images and heavy elements
-    const neuralNetwork = this.elementRef.nativeElement.querySelector('.neural-network-container');
-    if (neuralNetwork) {
-      this.renderer.setStyle(neuralNetwork, 'will-change', 'transform, opacity');
-    }
+    // Apply performance class to this component for CSS optimizations
+    const performanceClass = this.hasGoodPerformance ? 'high-performance' : 'low-performance';
+    this.elementRef.nativeElement.classList.add(performanceClass);
+    
+    // Remove expensive DOM queries and will-change properties - they cause more harm than good
   }
 
   private initializeHeroAnimations(): void {
@@ -173,84 +192,26 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private startEnhancedHeroSequence(): void {
-    this.animateHeroWithGsap();
-    // Enhanced logo animation with particle burst
+    // Simplified hero sequence - just logo animation
     this.animateLogoWithParticles();
-    
-    // Enhanced typewriter effect - COMENTADO
-    // setTimeout(() => {
-    //   this.startEnhancedTypewriter();
-    // }, 800);
-    
-    // COMENTADO: Staggered content reveal - usando solo AOS
-    // setTimeout(() => {
-    //   this.revealContentWithStagger();
-    // }, 2500);
-    
-    // COMENTADO: Neural network con efectos avanzados - usando solo AOS
-    // setTimeout(() => {
-    //   this.startAdvancedNeuralNetwork();
-    // }, 3500);
   }
 
-  private animateHeroWithGsap(): void {
-    const header = this.elementRef.nativeElement.querySelector('.hero-header');
-    if (header) {
-      gsap.from(header, { opacity: 0, y: -50, duration: 1, ease: 'power2.out' });
-    }
-  }
+  // REMOVED: animateHeroWithGsap - using CSS animations instead for better performance
 
   private animateLogoWithParticles(): void {
     const logo = this.elementRef.nativeElement.querySelector('.hero-logo');
     if (!logo) return;
-
-    // Create particle burst effect
-    this.createParticleBurst(logo);
     
-    // Enhanced logo animation
-    logo.style.transform = 'scale(0.5) rotate(-180deg)';
+    // Simple logo animation - no particles
     logo.style.opacity = '0';
     
     setTimeout(() => {
-      logo.style.transition = 'all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)';
-      logo.style.transform = 'scale(1) rotate(0deg)';
+      logo.style.transition = 'opacity 0.8s ease';
       logo.style.opacity = '1';
     }, 100);
   }
 
-  private createParticleBurst(centerElement: HTMLElement): void {
-    const rect = centerElement.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    for (let i = 0; i < 20; i++) {
-      const particle = this.renderer.createElement('div');
-      this.renderer.setStyle(particle, 'position', 'fixed');
-      this.renderer.setStyle(particle, 'width', '4px');
-      this.renderer.setStyle(particle, 'height', '4px');
-      this.renderer.setStyle(particle, 'background', `hsl(${220 + Math.random() * 60}, 100%, 70%)`);
-      this.renderer.setStyle(particle, 'border-radius', '50%');
-      this.renderer.setStyle(particle, 'pointer-events', 'none');
-      this.renderer.setStyle(particle, 'z-index', '1000');
-      this.renderer.setStyle(particle, 'left', `${centerX}px`);
-      this.renderer.setStyle(particle, 'top', `${centerY}px`);
-      
-      document.body.appendChild(particle);
-
-      const angle = (i / 20) * Math.PI * 2;
-      const velocity = 100 + Math.random() * 100;
-      const endX = centerX + Math.cos(angle) * velocity;
-      const endY = centerY + Math.sin(angle) * velocity;
-
-      particle.animate([
-        { transform: 'translate(0, 0) scale(1)', opacity: '1' },
-        { transform: `translate(${endX - centerX}px, ${endY - centerY}px) scale(0)`, opacity: '0' }
-      ], {
-        duration: 1000 + Math.random() * 500,
-        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-      }).onfinish = () => particle.remove();
-    }
-  }
+  // REMOVED: createParticleBurst function - particles were invisible and wasting resources
   scrollTo(id: string): void {
     const element = document.getElementById(id);
     if (element) {
@@ -634,64 +595,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
  
 
-  private setupAdvancedCursor(): void {
-    if (!isPlatformBrowser(this.platformId) || this.isReducedMotion) return;
+  // REMOVED: setupAdvancedCursor - custom cursor not visible and causes performance issues
 
-    const cursor = this.elementRef.nativeElement.querySelector('.glow-cursor');
-    if (!cursor) return;
-
-    // Enhanced cursor with trail
-    cursor.style.width = '30px';
-    cursor.style.height = '30px';
-    cursor.style.background = 'radial-gradient(circle, rgba(94, 137, 176, 0.8) 0%, rgba(94, 137, 176, 0.2) 70%, transparent 100%)';
-    cursor.style.filter = 'blur(2px)';
-    cursor.style.transition = 'transform 0.1s ease-out';
-  }
-
-  private updateCursorTrail(event: MouseEvent): void {
-    // Update main cursor
-    const cursor = this.elementRef.nativeElement.querySelector('.glow-cursor');
-    if (cursor) {
-      cursor.style.left = `${event.clientX}px`;
-      cursor.style.top = `${event.clientY}px`;
-    }
-
-    // Create trail particles
-    if (this.cursorTrail.length > 15) {
-      const oldParticle = this.cursorTrail.shift();
-      if (oldParticle) oldParticle.remove();
-    }
-
-    const particle = this.renderer.createElement('div');
-    this.renderer.setStyle(particle, 'position', 'fixed');
-    this.renderer.setStyle(particle, 'width', '8px');
-    this.renderer.setStyle(particle, 'height', '8px');
-    this.renderer.setStyle(particle, 'background', 'rgba(94, 137, 176, 0.6)');
-    this.renderer.setStyle(particle, 'border-radius', '50%');
-    this.renderer.setStyle(particle, 'pointer-events', 'none');
-    this.renderer.setStyle(particle, 'z-index', '9998');
-    this.renderer.setStyle(particle, 'left', `${event.clientX}px`);
-    this.renderer.setStyle(particle, 'top', `${event.clientY}px`);
-    this.renderer.setStyle(particle, 'transform', 'translate(-50%, -50%)');
-    
-    document.body.appendChild(particle);
-    this.cursorTrail.push(particle);
-
-    // Animate trail particle
-    particle.animate([
-      { opacity: '0.8', transform: 'translate(-50%, -50%) scale(1)' },
-      { opacity: '0', transform: 'translate(-50%, -50%) scale(0.2)' }
-    ], {
-      duration: 800,
-      easing: 'ease-out'
-    }).onfinish = () => {
-      const index = this.cursorTrail.indexOf(particle);
-      if (index > -1) {
-        this.cursorTrail.splice(index, 1);
-      }
-      particle.remove();
-    };
-  }
+  // REMOVED: updateCursorTrail - cursor trail particles not visible but consuming resources
 
   // COMENTADO: Función de movimiento 3D desactivada - contenedor con inclinación fija
   // private update3DTilt(): void {
@@ -727,68 +633,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   //   heroContent.style.transform = `perspective(${perspective}px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(0)`;
   // }
 
-  private setupFloatingElements(): void {
-    if (!isPlatformBrowser(this.platformId) || this.isReducedMotion || !this.hasFinePointer) return;
+  // REMOVED: setupFloatingElements and createFloatingShape - invisible elements wasting resources
 
-    // Create floating geometric shapes
-    for (let i = 0; i < 5; i++) {
-      this.createFloatingShape();
-    }
-  }
-
-  private createFloatingShape(): void {
-    const shape = this.renderer.createElement('div');
-    const shapes = ['circle', 'triangle', 'square'];
-    const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
-    
-    this.renderer.setStyle(shape, 'position', 'fixed');
-    this.renderer.setStyle(shape, 'pointer-events', 'none');
-    this.renderer.setStyle(shape, 'z-index', '1');
-    this.renderer.setStyle(shape, 'opacity', '0.1');
-    
-    const size = 20 + Math.random() * 40;
-    this.renderer.setStyle(shape, 'width', `${size}px`);
-    this.renderer.setStyle(shape, 'height', `${size}px`);
-    
-    if (shapeType === 'circle') {
-      this.renderer.setStyle(shape, 'border-radius', '50%');
-      this.renderer.setStyle(shape, 'background', 'linear-gradient(45deg, rgba(94, 137, 176, 0.3), rgba(110, 86, 207, 0.3))');
-    } else if (shapeType === 'triangle') {
-      this.renderer.setStyle(shape, 'width', '0');
-      this.renderer.setStyle(shape, 'height', '0');
-      this.renderer.setStyle(shape, 'border-left', `${size/2}px solid transparent`);
-      this.renderer.setStyle(shape, 'border-right', `${size/2}px solid transparent`);
-      this.renderer.setStyle(shape, 'border-bottom', `${size}px solid rgba(94, 137, 176, 0.2)`);
-    } else {
-      this.renderer.setStyle(shape, 'background', 'rgba(110, 86, 207, 0.2)');
-      this.renderer.setStyle(shape, 'transform', 'rotate(45deg)');
-    }
-    
-    this.renderer.setStyle(shape, 'left', `${Math.random() * window.innerWidth}px`);
-    this.renderer.setStyle(shape, 'top', `${Math.random() * window.innerHeight}px`);
-    
-    document.body.appendChild(shape);
-
-    // Animate floating
-    const duration = 10000 + Math.random() * 10000;
-    shape.animate([
-      { transform: `translateY(0) rotate(0deg)`, opacity: '0.1' },
-      { transform: `translateY(-100px) rotate(360deg)`, opacity: '0.05' },
-      { transform: `translateY(0) rotate(720deg)`, opacity: '0.1' }
-    ], {
-      duration,
-      iterations: Infinity,
-      easing: 'ease-in-out'
-    });
-
-    // Remove after some time
-    setTimeout(() => shape.remove(), duration * 3);
-  }
-
-  private updateFloatingElements(): void {
-    // This could be used to adjust floating elements based on scroll
-    // Currently handled by CSS animations
-  }
+  // REMOVED: updateFloatingElements - no floating elements to update
 
 
 
