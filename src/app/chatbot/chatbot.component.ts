@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild, signal, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, ElementRef, ViewChild, signal, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { DeviceTokenService } from '../services/device-token.service';
 interface ChatMessage {
   sender: 'user' | 'bot';
   text: string;
@@ -16,17 +17,35 @@ interface ChatMessage {
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ChatbotComponent {
+  constructor() {
+    void this.initializeDeviceToken();
+  }
+
+  private initializeDeviceToken(): Promise<string> | void {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    const existing = window.localStorage.getItem('device_token_nexq');
+    if (!existing) {
+      return;
+    }
+    this.hasConsented.set(true);
+    return this.deviceTokenService.ensureToken();
+  }
+
+  private syncConsentFromStorage(): void {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    const existing = window.localStorage.getItem('device_token_nexq');
+    this.hasConsented.set(!!existing);
+  }
+
   @ViewChild('messagesContainer') private messagesContainer?: ElementRef<HTMLDivElement>;
   @ViewChild('promptInput') private promptInput?: ElementRef<HTMLInputElement>;
   readonly isOpen = signal(false);
   readonly prompt = signal('');
-  readonly messages = signal<ChatMessage[]>([
-    {
-      sender: 'bot',
-      text: '¡Hola! Soy el asistente virtual de NEXQ. ¿Qué te gustaría descubrir hoy sobre nuestros servicios de analítica e IA? 🚀',
-      time: this.formatTime(new Date())
-    }
-  ]);
+  readonly messages = signal<ChatMessage[]>([]);
   readonly hasConsented = signal(false);
   readonly suggestions = [
     'Quiero una demo de sus soluciones',
@@ -35,6 +54,7 @@ export class ChatbotComponent {
   ];
   readonly showSuggestions = signal(false);
   readonly panelState = signal<'entering' | 'leaving' | 'hidden'>('hidden');
+  private readonly deviceTokenService = inject(DeviceTokenService);
 
   get promptModel(): string {
     return this.prompt();
@@ -48,6 +68,8 @@ export class ChatbotComponent {
   readonly trackSuggestion = (index: number, value: string) => `${index}-${value}`;
 
   toggle(): void {
+    this.syncConsentFromStorage();
+
     if (this.panelState() === 'leaving') {
       return;
     }
@@ -58,7 +80,6 @@ export class ChatbotComponent {
       setTimeout(() => {
         this.isOpen.set(false);
         this.panelState.set('hidden');
-        this.hasConsented.set(false);
         this.prompt.set('');
       }, 400);
       return;
@@ -81,6 +102,7 @@ export class ChatbotComponent {
     }
     this.hasConsented.set(true);
     this.panelState.set('entering');
+    void this.deviceTokenService.ensureToken();
     setTimeout(() => this.panelState.set('hidden'), 520);
     queueMicrotask(() => this.focusPrompt());
     queueMicrotask(() => this.scrollMessagesToBottom());
@@ -101,8 +123,8 @@ export class ChatbotComponent {
       this.panelState.set('entering');
       setTimeout(() => this.panelState.set('hidden'), 520);
     }
-    this.prompt.set(text);
     this.showSuggestions.set(false);
+    this.sendUserMessage({ text });
     queueMicrotask(() => this.focusPrompt());
   }
 
@@ -134,10 +156,11 @@ export class ChatbotComponent {
     this.appendMessage('user', trimmed);
   }
 
-  handleIncomingMessage(payload: { text: string; sender?: 'bot' | 'system' }): void {
-    const role = payload.sender === 'system' ? 'bot' : (payload.sender ?? 'bot');
+  handleIncomingMessage(payload: { text: string; sender?: 'user' | 'bot' | 'system' }): void {
+    const role: ChatMessage['sender'] = payload.sender === 'user' ? 'user' : 'bot';
     this.appendMessage(role, payload.text);
   }
+
 
   private appendMessage(sender: ChatMessage['sender'], text: string): void {
     const next: ChatMessage = {

@@ -131,14 +131,14 @@
     [attr.aria-expanded]="isOpen() ? 'true' : 'false'"
     [attr.aria-controls]="isOpen() ? 'chatbot-window' : null"
   >
-    <animated-icons
-      src="https://animatedicons.co/get-icon?name=Chatbot&style=minimalistic&token=6b3aba1e-cf81-46d6-8923-cca76667c70d"
-      trigger="hover"
-      attributes='{"variationThumbColour":"#536DFE","variationName":"Two Tone","variationNumber":2,"numberOfGroups":2,"backgroundIsGroup":false,"strokeWidth":1.5,"defaultColours":{"group-1":"#FFFFFFFF","group-2":"#000000FF","background":"#0F0FD0FF"}}'
-      height="80"
-      width="80"
-      class="h-16 w-16"
-    ></animated-icons>
+  <script src="https://animatedicons.co/scripts/embed-animated-icons.js"></script>
+<animated-icons
+  src="https://animatedicons.co/get-icon?name=Chatbot&style=minimalistic&token=6b3aba1e-cf81-46d6-8923-cca76667c70d"
+  trigger="loop"
+  attributes='{"variationThumbColour":"#536DFE","variationName":"Two Tone","variationNumber":2,"numberOfGroups":2,"backgroundIsGroup":false,"strokeWidth":1,"defaultColours":{"group-1":"#FFFFFFFF","group-2":"#000000FF","background":"#F37AE2FF"}}'
+  height="80"
+  width="80"
+></animated-icons>
     <span class="sr-only">Abrir chat con NEXQ (tiempo de respuesta menor a un minuto)</span>
   </button>
 </div>
