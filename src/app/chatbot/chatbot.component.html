@@ -2,12 +2,21 @@
   <section
     *ngIf="isOpen()"
     id="chatbot-window"
-    class="pointer-events-auto relative flex h-[28rem] min-h-0 w-[min(90vw,22rem)] max-h-[85vh] flex-col overflow-hidden rounded-3xl border border-slate-700/40 bg-slate-950/95 text-slate-100 shadow-[0_20px_80px_-35px_rgba(8,145,178,0.6)] backdrop-blur-xl"
+    class="pointer-events-auto relative flex h-[28rem] min-h-0 w-[min(90vw,22rem)] max-h-[85vh] flex-col overflow-hidden rounded-3xl border border-slate-700/40 bg-slate-950/95 text-slate-100 shadow-[0_20px_80px_-35px_rgba(8,145,178,0.6)] backdrop-blur-xl chatbot-panel" [class.entering]="panelState() === 'entering'" [class.leaving]="panelState() === 'leaving'"
     aria-label="Chat en vivo NEXQ"
   >
     <header class="flex items-center justify-between gap-4 bg-slate-900/80 px-5 py-4">
       <div class="flex items-center gap-3">
-        <span class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-violet-600 text-lg">🤖</span>
+        <span class="flex h-12 w-12 items-center justify-center rounded-full bg-white/5 p-1 shadow-inner">
+          <animated-icons
+            src="https://animatedicons.co/get-icon?name=Remark&style=minimalistic&token=daca1d6b-935c-4740-a6f6-67c1ac459abc"
+            trigger="loop"
+            attributes='{"variationThumbColour":"#536DFE","variationName":"Two Tone","variationNumber":2,"numberOfGroups":2,"backgroundIsGroup":false,"strokeWidth":1,"defaultColours":{"group-1":"#000000","group-2":"#17288C94","background":"#F1F1F18A"}}'
+            height="56"
+            width="56"
+            class="h-12 w-12"
+          ></animated-icons>
+        </span>
         <div class="leading-snug">
           <p class="text-sm font-semibold text-white">NEXQ Bot</p>
           <span class="text-xs text-emerald-300">Responde al instante</span>
@@ -118,7 +127,7 @@
   <button
     type="button"
     (click)="toggle()"
-    class="pointer-events-auto group relative flex h-16 w-16 items-center justify-center transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
+    class="pointer-events-auto group relative flex h-16 w-16 items-center justify-center cursor-pointer transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
     [attr.aria-expanded]="isOpen() ? 'true' : 'false'"
     [attr.aria-controls]="isOpen() ? 'chatbot-window' : null"
   >

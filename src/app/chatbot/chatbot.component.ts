@@ -34,6 +34,7 @@ export class ChatbotComponent {
     '¿Cómo empieza un proyecto con NEXQ?'
   ];
   readonly showSuggestions = signal(false);
+  readonly panelState = signal<'entering' | 'leaving' | 'hidden'>('hidden');
 
   get promptModel(): string {
     return this.prompt();
@@ -47,16 +48,27 @@ export class ChatbotComponent {
   readonly trackSuggestion = (index: number, value: string) => `${index}-${value}`;
 
   toggle(): void {
-    const next = !this.isOpen();
-    this.isOpen.set(next);
-    if (!next) {
-      this.showSuggestions.set(false);
-      this.hasConsented.set(false);
-      this.prompt.set('');
+    if (this.panelState() === 'leaving') {
       return;
     }
 
+    if (this.isOpen()) {
+      this.panelState.set('leaving');
+      this.showSuggestions.set(false);
+      setTimeout(() => {
+        this.isOpen.set(false);
+        this.panelState.set('hidden');
+        this.hasConsented.set(false);
+        this.prompt.set('');
+      }, 400);
+      return;
+    }
+
+    this.isOpen.set(true);
+    this.panelState.set('entering');
     this.showSuggestions.set(false);
+    setTimeout(() => this.panelState.set('hidden'), 520);
+
     if (this.hasConsented()) {
       queueMicrotask(() => this.focusPrompt());
       queueMicrotask(() => this.scrollMessagesToBottom());
@@ -68,6 +80,8 @@ export class ChatbotComponent {
       return;
     }
     this.hasConsented.set(true);
+    this.panelState.set('entering');
+    setTimeout(() => this.panelState.set('hidden'), 520);
     queueMicrotask(() => this.focusPrompt());
     queueMicrotask(() => this.scrollMessagesToBottom());
   }
@@ -82,7 +96,11 @@ export class ChatbotComponent {
     if (!this.hasConsented()) {
       this.hasConsented.set(true);
     }
-    this.isOpen.set(true);
+    if (!this.isOpen()) {
+      this.isOpen.set(true);
+      this.panelState.set('entering');
+      setTimeout(() => this.panelState.set('hidden'), 520);
+    }
     this.prompt.set(text);
     this.showSuggestions.set(false);
     queueMicrotask(() => this.focusPrompt());
@@ -103,25 +121,32 @@ export class ChatbotComponent {
       return;
     }
 
-    this.pushMessage('user', trimmed);
+    this.sendUserMessage({ text: trimmed });
     this.prompt.set('');
     this.showSuggestions.set(false);
-    this.scrollMessagesToBottom();
-
-    const reply = this.buildAutoReply(trimmed);
-    setTimeout(() => {
-      this.pushMessage('bot', reply);
-      this.scrollMessagesToBottom();
-    }, 600);
   }
 
-  private pushMessage(sender: ChatMessage['sender'], text: string): void {
+  sendUserMessage(payload: { text: string }): void {
+    const trimmed = payload.text.trim();
+    if (!trimmed) {
+      return;
+    }
+    this.appendMessage('user', trimmed);
+  }
+
+  handleIncomingMessage(payload: { text: string; sender?: 'bot' | 'system' }): void {
+    const role = payload.sender === 'system' ? 'bot' : (payload.sender ?? 'bot');
+    this.appendMessage(role, payload.text);
+  }
+
+  private appendMessage(sender: ChatMessage['sender'], text: string): void {
     const next: ChatMessage = {
       sender,
       text,
       time: this.formatTime(new Date())
     };
     this.messages.update((items) => [...items, next]);
+    queueMicrotask(() => this.scrollMessagesToBottom());
   }
 
   private scrollMessagesToBottom(): void {
@@ -130,24 +155,6 @@ export class ChatbotComponent {
     requestAnimationFrame(() => {
       container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
     });
-  }
-
-  private buildAutoReply(userMessage: string): string {
-    const lower = userMessage.toLowerCase();
-
-    if (lower.includes('precio') || lower.includes('cost')) {
-      return 'Podemos preparar una propuesta a medida según el alcance de tu proyecto. ¿Te gustaría que te contacte nuestro equipo comercial?';
-    }
-
-    if (lower.includes('demo') || lower.includes('presentación')) {
-      return 'Agendemos una sesión breve para mostrarte cómo aplicamos analítica avanzada y IA en tu empresa. ¿Qué día te acomoda?';
-    }
-
-    if (lower.includes('contacto') || lower.includes('hablar')) {
-      return 'Claro. Puedes dejarnos tus datos y un consultor se comunicará contigo en menos de 24 horas.';
-    }
-
-    return 'Te acompaño en lo que necesites: implementación de IA, analítica de datos, dashboards o ciencia de datos aplicada. ¿En qué frente quieres profundizar?';
   }
 
   private formatTime(date: Date): string {
